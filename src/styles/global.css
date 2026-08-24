@@ -95,6 +95,57 @@ body {
 		0 0 28px rgb(0 242 255 / 0.08);
 }
 
+@property --beam-angle {
+	syntax: "<angle>";
+	inherits: false;
+	initial-value: 0deg;
+}
+
+.border-beam {
+	position: relative;
+	isolation: isolate;
+}
+
+.border-beam::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	border-radius: inherit;
+	padding: 1px;
+	pointer-events: none;
+	opacity: 0;
+	background: conic-gradient(
+		from var(--beam-angle),
+		transparent 0 64%,
+		#00f2ff 72%,
+		#ff00cc 82%,
+		#ff9900 90%,
+		transparent 100%
+	);
+	mask:
+		linear-gradient(#000 0 0) content-box,
+		linear-gradient(#000 0 0);
+	mask-composite: exclude;
+	-webkit-mask:
+		linear-gradient(#000 0 0) content-box,
+		linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor;
+	transition: opacity 0.25s ease;
+}
+
+.border-beam:hover::before,
+.border-beam:focus-within::before {
+	opacity: 1;
+	animation: beam-spin 2.4s linear infinite;
+}
+
+@keyframes beam-spin {
+	to {
+		--beam-angle: 360deg;
+	}
+}
+
 .logo-float {
 	animation: logo-float 5.5s ease-in-out infinite;
 }
@@ -176,8 +227,14 @@ html.js-ready .reveal.is-in {
 	}
 
 	.logo-float,
-	.pixel-speck {
+	.pixel-speck,
+	.border-beam::before {
 		animation: none;
+	}
+
+	.border-beam:hover::before,
+	.border-beam:focus-within::before {
+		opacity: 0;
 	}
 
 	.lift-card,
