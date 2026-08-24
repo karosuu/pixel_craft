@@ -26,14 +26,14 @@ const mobileNav = navPageIds;
 			/>
 		</a>
 
-		<nav class="hidden items-center gap-6 md:flex" aria-label="Primary">
+		<nav class="hidden items-center gap-6 md:flex" aria-label={copy.common.primaryNav}>
 			{
 				desktopNav.map((id) => (
 					<a
 						href={hrefFor(locale, id)}
 						class:list={[
 							'text-sm font-medium tracking-wide transition hover:text-white',
-							page === id ? 'text-white' : 'text-white/70',
+							page === id ? 'text-white' : 'text-white/75',
 						]}
 						aria-current={page === id ? 'page' : undefined}
 					>
@@ -50,14 +50,15 @@ const mobileNav = navPageIds;
 			</a>
 		</nav>
 
-		<details class="relative md:hidden">
+		<details class="group relative md:hidden">
 			<summary
 				class="list-none rounded-md border border-white/15 px-3 py-2 text-sm font-medium marker:content-none [&::-webkit-details-marker]:hidden"
 			>
-				{copy.common.openMenu}
+				<span class="group-open:hidden">{copy.common.openMenu}</span>
+				<span class="hidden group-open:inline">{copy.common.closeMenu}</span>
 			</summary>
 			<div class="absolute right-0 mt-2 w-56 rounded-xl border border-white/10 bg-panel p-3 shadow-xl">
-				<nav class="flex flex-col gap-2" aria-label="Primary">
+				<nav class="flex flex-col gap-2" aria-label={copy.common.primaryNav}>
 					{
 						mobileNav.map((id) => (
 							<a
@@ -72,6 +73,12 @@ const mobileNav = navPageIds;
 							</a>
 						))
 					}
+					<a
+						href={hrefFor(locale, 'contact')}
+						class="glow-btn mt-1 rounded-full bg-gradient-to-r from-cyan via-magenta to-orange px-4 py-2 text-center text-sm font-semibold text-ink"
+					>
+						{copy.common.ctaPrimary}
+					</a>
 					<div class="border-t border-white/10 pt-2">
 						<LanguageSwitch locale={locale} page={page} />
 					</div>
@@ -80,3 +87,12 @@ const mobileNav = navPageIds;
 		</details>
 	</div>
 </header>
+
+<script>
+	document.querySelectorAll('header details').forEach((details) => {
+		document.addEventListener('click', (event) => {
+			if (!(event.target instanceof Node) || details.contains(event.target)) return;
+			details.removeAttribute('open');
+		});
+	});
+</script>

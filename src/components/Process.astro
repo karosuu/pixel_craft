@@ -13,14 +13,14 @@ const ids: ProcessStepId[] = ['discover', 'design', 'build', 'qa', 'launch'];
 
 <section class="reveal mx-auto max-w-6xl px-4 py-16 sm:px-6">
 	<h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{copy.process.title}</h2>
-	<p class="mt-3 max-w-2xl text-white/65">{copy.process.intro}</p>
+	<p class="mt-3 max-w-2xl text-white/75">{copy.process.intro}</p>
 	<ol class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
 		{
 			ids.map((id, index) => (
-				<li class="lift-card rounded-2xl border border-white/10 bg-ink-soft p-4">
+				<li class="rounded-2xl border border-white/10 bg-ink-soft p-4">
 					<p class="text-xs font-semibold uppercase tracking-widest text-cyan">0{index + 1}</p>
 					<h3 class="mt-2 font-semibold">{copy.process.steps[id].title}</h3>
-					<p class="mt-2 text-sm text-white/65">{copy.process.steps[id].body}</p>
+					<p class="mt-2 text-sm text-white/75">{copy.process.steps[id].body}</p>
 				</li>
 			))
 		}

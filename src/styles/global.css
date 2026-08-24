@@ -112,6 +112,7 @@ body {
 	z-index: 0;
 	border-radius: inherit;
 	pointer-events: none;
+	opacity: 0;
 	background: conic-gradient(
 		from var(--beam-angle),
 		transparent 0 58%,
@@ -121,7 +122,6 @@ body {
 		transparent 100%
 	);
 	filter: blur(28px);
-	animation: beam-spin 5.5s linear infinite;
 }
 
 .border-beam {
@@ -142,6 +142,7 @@ body {
 	aspect-ratio: 1;
 	translate: -50% -50%;
 	pointer-events: none;
+	opacity: 0;
 	background: conic-gradient(
 		from var(--beam-angle),
 		transparent 0 60%,
@@ -150,6 +151,15 @@ body {
 		#ff9900 90%,
 		transparent 100%
 	);
+}
+
+.beam-host:is(:hover, :focus-within)::after {
+	opacity: 1;
+	animation: beam-spin 5.5s linear infinite;
+}
+
+.beam-host:is(:hover, :focus-within) .border-beam::before {
+	opacity: 1;
 	animation: beam-spin 2.8s linear infinite;
 }
 
@@ -253,8 +263,11 @@ html.js-ready .reveal.is-in {
 	}
 
 	.beam-host::after,
-	.border-beam::before {
+	.border-beam::before,
+	.beam-host:is(:hover, :focus-within)::after,
+	.beam-host:is(:hover, :focus-within) .border-beam::before {
 		opacity: 0;
+		animation: none;
 	}
 
 	.lift-card,

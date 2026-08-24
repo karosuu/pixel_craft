@@ -16,9 +16,9 @@ const nextUrl = new URL(Astro.url);
 nextUrl.searchParams.set('sent', '1');
 ---
 
-<section class="reveal mx-auto max-w-3xl px-4 py-16 sm:px-6">
+<section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
 	<h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{copy.contact.title}</h1>
-	<p class="mt-4 text-white/70">{copy.contact.intro}</p>
+	<p class="mt-4 text-white/75">{copy.contact.intro}</p>
 
 	<form
 		id="contact-form"
@@ -37,7 +37,7 @@ nextUrl.searchParams.set('sent', '1');
 		<input type="hidden" name="_next" value={nextUrl.href} />
 		<input type="hidden" name="language" value={locale === 'es' ? 'Español' : 'English'} />
 		<label class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
-			Do not fill
+			{copy.contact.honeypot}
 			<input type="text" name="_honey" tabindex="-1" autocomplete="off" />
 		</label>
 		<label class="block text-sm font-medium">
@@ -62,7 +62,7 @@ nextUrl.searchParams.set('sent', '1');
 		</label>
 		<label class="block text-sm font-medium">
 			{copy.contact.website}
-			<span class="font-normal text-white/40"> — {copy.contact.websiteHint}</span>
+			<span class="font-normal text-white/70"> — {copy.contact.websiteHint}</span>
 			<input
 				name="website"
 				type="url"
@@ -78,6 +78,9 @@ nextUrl.searchParams.set('sent', '1');
 				required
 				class="mt-2 w-full rounded-lg border border-white/15 bg-ink-soft px-3 py-2 text-white outline-none focus:border-cyan"
 			>
+				<option value="" disabled selected>
+					{copy.contact.selectPlaceholder}
+				</option>
 				{
 					audiences.map((id) => (
 						<option value={copy.contact.audienceOptions[id]}>{copy.contact.audienceOptions[id]}</option>
@@ -92,6 +95,9 @@ nextUrl.searchParams.set('sent', '1');
 				required
 				class="mt-2 w-full rounded-lg border border-white/15 bg-ink-soft px-3 py-2 text-white outline-none focus:border-cyan"
 			>
+				<option value="" disabled selected>
+					{copy.contact.selectPlaceholder}
+				</option>
 				{
 					needs.map((id) => (
 						<option value={copy.contact.needOptions[id]}>{copy.contact.needOptions[id]}</option>
@@ -108,14 +114,14 @@ nextUrl.searchParams.set('sent', '1');
 				class="mt-2 w-full rounded-lg border border-white/15 bg-ink-soft px-3 py-2 text-white outline-none focus:border-cyan"
 			></textarea>
 		</label>
-		<p id="contact-status" class="text-sm text-white/50" role="status" aria-live="polite" hidden></p>
+		<p id="contact-status" class="text-sm text-white/70" role="status" aria-live="polite" hidden></p>
 		<button
 			type="submit"
 			class="glow-btn rounded-full bg-gradient-to-r from-cyan via-magenta to-orange px-6 py-3 text-sm font-semibold text-ink disabled:cursor-not-allowed disabled:opacity-60"
 		>
 			{copy.contact.submit}
 		</button>
-		<p class="text-sm text-white/50">{copy.contact.mailtoNote}</p>
+		<p class="text-sm text-white/70">{copy.contact.mailtoNote}</p>
 	</form>
 </section>
 
@@ -128,7 +134,7 @@ nextUrl.searchParams.set('sent', '1');
 		status.hidden = message.length === 0;
 		status.textContent = message;
 		status.className =
-			kind === 'success' ? 'text-sm text-cyan' : kind === 'error' ? 'text-sm text-orange' : 'text-sm text-white/50';
+			kind === 'success' ? 'text-sm text-cyan' : kind === 'error' ? 'text-sm text-red-400' : 'text-sm text-white/70';
 	}
 
 	if (form instanceof HTMLFormElement) {

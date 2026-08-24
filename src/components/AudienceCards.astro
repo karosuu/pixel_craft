@@ -10,32 +10,34 @@ const { locale } = Astro.props;
 const copy = t(locale);
 ---
 
-<section class="reveal mx-auto max-w-6xl px-4 py-16 sm:px-6">
+<section class="reveal mx-auto max-w-6xl overflow-x-hidden px-4 py-16 sm:px-6">
 	<h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{copy.audiences.title}</h2>
 	<div class="mt-8 grid gap-6 md:grid-cols-2">
-		<article class="beam-host lift-card rounded-2xl">
+		<a
+			href={hrefFor(locale, 'services')}
+			class="beam-host lift-card block rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan"
+		>
 			<div class="border-beam rounded-2xl">
 				<div class="border-beam-fill rounded-2xl p-6">
 					<p class="text-xs font-semibold uppercase tracking-widest text-cyan">{copy.services.forLocal}</p>
 					<h3 class="mt-2 text-xl font-semibold">{copy.audiences.localTitle}</h3>
-					<p class="mt-3 text-white/70">{copy.audiences.localBody}</p>
-					<a class="mt-4 inline-block text-sm font-medium text-cyan hover:underline" href={hrefFor(locale, 'services')}>
-						{copy.common.learnMore}
-					</a>
+					<p class="mt-3 text-white/75">{copy.audiences.localBody}</p>
+					<span class="mt-4 inline-block text-sm font-medium text-cyan">{copy.common.learnMore}</span>
 				</div>
 			</div>
-		</article>
-		<article class="beam-host lift-card rounded-2xl">
+		</a>
+		<a
+			href={hrefFor(locale, 'contact')}
+			class="beam-host lift-card block rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan"
+		>
 			<div class="border-beam rounded-2xl">
 				<div class="border-beam-fill rounded-2xl p-6">
 					<p class="text-xs font-semibold uppercase tracking-widest text-orange">{copy.services.forStartup}</p>
 					<h3 class="mt-2 text-xl font-semibold">{copy.audiences.startupTitle}</h3>
-					<p class="mt-3 text-white/70">{copy.audiences.startupBody}</p>
-					<a class="mt-4 inline-block text-sm font-medium text-orange hover:underline" href={hrefFor(locale, 'contact')}>
-						{copy.common.ctaPrimary}
-					</a>
+					<p class="mt-3 text-white/75">{copy.audiences.startupBody}</p>
+					<span class="mt-4 inline-block text-sm font-medium text-orange">{copy.common.ctaPrimary}</span>
 				</div>
 			</div>
-		</article>
+		</a>
 	</div>
 </section>

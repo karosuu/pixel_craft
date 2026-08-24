@@ -16,18 +16,18 @@ const links = navPageIds;
 	<div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-3">
 		<div>
 			<p class="text-lg font-semibold italic">{BRAND}</p>
-			<p class="mt-2 max-w-xs text-sm text-white/60">{copy.footer.tagline}</p>
+			<p class="mt-2 max-w-xs text-sm text-white/75">{copy.footer.tagline}</p>
 		</div>
 		<nav class="flex flex-col gap-2 text-sm" aria-label={copy.footer.nav}>
 			{
 				links.map((id) => (
-					<a class="text-white/70 hover:text-white" href={hrefFor(locale, id)}>
+					<a class="text-white/75 hover:text-white" href={hrefFor(locale, id)}>
 						{copy.nav[id]}
 					</a>
 				))
 			}
 		</nav>
-		<p class="text-sm text-white/50">
+		<p class="text-sm text-white/70">
 			© {year} {BRAND}. {copy.footer.rights}
 		</p>
 	</div>

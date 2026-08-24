@@ -41,6 +41,7 @@ export const dictionaries = {
 			brandAlt: 'Pixel-Craft',
 			openMenu: 'Open menu',
 			closeMenu: 'Close menu',
+			primaryNav: 'Primary',
 		},
 		hero: {
 			eyebrow: 'Web studio',
@@ -190,6 +191,8 @@ export const dictionaries = {
 				qa: 'Web QA',
 			},
 			subject: 'Pixel-Craft project inquiry',
+			honeypot: 'Do not fill',
+			selectPlaceholder: 'Choose one',
 		},
 		footer: {
 			tagline: 'Websites, design, optimization, and QA.',
@@ -233,6 +236,7 @@ export const dictionaries = {
 			brandAlt: 'Pixel-Craft',
 			openMenu: 'Abrir menú',
 			closeMenu: 'Cerrar menú',
+			primaryNav: 'Principal',
 		},
 		hero: {
 			eyebrow: 'Estudio web',
@@ -382,6 +386,8 @@ export const dictionaries = {
 				qa: 'QA web',
 			},
 			subject: 'Consulta de proyecto Pixel-Craft',
+			honeypot: 'No completar',
+			selectPlaceholder: 'Elige una opción',
 		},
 		footer: {
 			tagline: 'Sitios web, diseño, optimización y QA.',
