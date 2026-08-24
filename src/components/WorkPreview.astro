@@ -19,7 +19,7 @@ const gridClass =
 			: 'mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3';
 ---
 
-<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+<section class="reveal mx-auto max-w-6xl px-4 py-16 sm:px-6">
 	<div class="flex flex-wrap items-end justify-between gap-4">
 		<div>
 			<h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{copy.work.title}</h2>
@@ -36,7 +36,7 @@ const gridClass =
 	<div class={gridClass}>
 		{
 			cases.length === 0 ? (
-				<div class="max-w-xl rounded-2xl border border-dashed border-white/20 bg-panel/60 p-8">
+				<div class="lift-card max-w-xl rounded-2xl border border-dashed border-white/20 bg-panel/60 p-8">
 					<p class="text-xs font-semibold uppercase tracking-widest text-cyan">
 						{copy.work.comingSoonTitle}
 					</p>
@@ -44,7 +44,7 @@ const gridClass =
 				</div>
 			) : (
 				cases.map((item) => (
-					<article class="rounded-2xl border border-white/10 bg-panel p-6">
+					<article class="lift-card rounded-2xl border border-white/10 bg-panel p-6">
 						<p class="text-xs font-semibold uppercase tracking-widest text-white/40">
 							{item.tag === 'local' ? copy.audiences.localTitle : copy.audiences.startupTitle}
 						</p>

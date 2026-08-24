@@ -12,7 +12,7 @@ const copy = t(locale);
 const ids: ServiceId[] = ['build', 'design', 'optimize', 'qa'];
 ---
 
-<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+<section class="reveal mx-auto max-w-6xl px-4 py-16 sm:px-6">
 	<h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{copy.services.title}</h2>
 	<p class="mt-3 max-w-2xl text-white/65">{copy.services.intro}</p>
 	<div class="mt-10 grid gap-6 md:grid-cols-2">
@@ -20,7 +20,7 @@ const ids: ServiceId[] = ['build', 'design', 'optimize', 'qa'];
 			ids.map((id) => {
 				const item = copy.services.items[id];
 				return (
-					<article class="rounded-2xl border border-white/10 bg-panel p-6">
+					<article class="lift-card rounded-2xl border border-white/10 bg-panel p-6">
 						<h3 class="text-xl font-semibold">{item.title}</h3>
 						<p class="mt-3 text-white/70">{item.summary}</p>
 						{

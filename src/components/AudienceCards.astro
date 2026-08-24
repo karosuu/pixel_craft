@@ -10,10 +10,10 @@ const { locale } = Astro.props;
 const copy = t(locale);
 ---
 
-<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+<section class="reveal mx-auto max-w-6xl px-4 py-16 sm:px-6">
 	<h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{copy.audiences.title}</h2>
 	<div class="mt-8 grid gap-6 md:grid-cols-2">
-		<article class="gradient-border rounded-2xl p-6">
+		<article class="lift-card gradient-border rounded-2xl p-6">
 			<p class="text-xs font-semibold uppercase tracking-widest text-cyan">{copy.services.forLocal}</p>
 			<h3 class="mt-2 text-xl font-semibold">{copy.audiences.localTitle}</h3>
 			<p class="mt-3 text-white/70">{copy.audiences.localBody}</p>
@@ -21,7 +21,7 @@ const copy = t(locale);
 				{copy.common.learnMore}
 			</a>
 		</article>
-		<article class="gradient-border rounded-2xl p-6">
+		<article class="lift-card gradient-border rounded-2xl p-6">
 			<p class="text-xs font-semibold uppercase tracking-widest text-orange">{copy.services.forStartup}</p>
 			<h3 class="mt-2 text-xl font-semibold">{copy.audiences.startupTitle}</h3>
 			<p class="mt-3 text-white/70">{copy.audiences.startupBody}</p>
