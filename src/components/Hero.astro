@@ -43,17 +43,19 @@ const secondaryLabel = SHOW_WORK ? copy.common.ctaSecondary : copy.nav.services;
 				</a>
 			</div>
 		</div>
-		<div class="relative flex justify-center lg:justify-end">
-			<span class="pixel-speck pixel-speck-a" aria-hidden="true"></span>
-			<span class="pixel-speck pixel-speck-b" aria-hidden="true"></span>
-			<span class="pixel-speck pixel-speck-c" aria-hidden="true"></span>
-			<img
-				src={withBase('/logo.png')}
-				alt={copy.common.brandAlt}
-				class="logo-float w-full max-w-md"
-				width="640"
-				height="360"
-			/>
+		<div class="flex justify-center lg:justify-end">
+			<div class="relative w-full max-w-md">
+				<span class="pixel-speck pixel-speck-a" aria-hidden="true"></span>
+				<span class="pixel-speck pixel-speck-b" aria-hidden="true"></span>
+				<span class="pixel-speck pixel-speck-c" aria-hidden="true"></span>
+				<img
+					src={withBase('/logo.png')}
+					alt={copy.common.brandAlt}
+					class="logo-float w-full"
+					width="640"
+					height="360"
+				/>
+			</div>
 		</div>
 	</div>
 </section>

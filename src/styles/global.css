@@ -169,32 +169,59 @@ body {
 
 .pixel-speck {
 	position: absolute;
-	width: 0.5rem;
-	height: 0.5rem;
+	z-index: 1;
+	width: 0.45rem;
+	height: 0.45rem;
 	border-radius: 1px;
 	pointer-events: none;
-	opacity: 0.85;
+	opacity: 0.9;
 }
 
 .pixel-speck-a {
-	top: 12%;
-	left: 6%;
+	top: 16%;
+	left: 8%;
 	background: #00f2ff;
-	animation: pixel-drift 4.5s ease-in-out infinite;
+	animation: pixel-drift-sm 4.5s ease-in-out infinite;
 }
 
 .pixel-speck-b {
-	top: 26%;
-	right: 8%;
+	top: 20%;
+	left: 62%;
 	background: #ff00cc;
-	animation: pixel-drift 5.5s ease-in-out infinite 0.6s;
+	animation: pixel-drift-sm 5.5s ease-in-out infinite 0.6s;
 }
 
 .pixel-speck-c {
-	bottom: 16%;
-	left: 20%;
+	bottom: 22%;
+	left: 16%;
 	background: #ff9900;
-	animation: pixel-drift 6s ease-in-out infinite 1.1s;
+	animation: pixel-drift-sm 6s ease-in-out infinite 1.1s;
+}
+
+@media (min-width: 768px) {
+	.pixel-speck {
+		width: 0.5rem;
+		height: 0.5rem;
+	}
+
+	.pixel-speck-a {
+		top: 12%;
+		left: 6%;
+		animation-name: pixel-drift;
+	}
+
+	.pixel-speck-b {
+		top: 26%;
+		left: auto;
+		right: 8%;
+		animation-name: pixel-drift;
+	}
+
+	.pixel-speck-c {
+		bottom: 16%;
+		left: 20%;
+		animation-name: pixel-drift;
+	}
 }
 
 @keyframes logo-float {
@@ -204,6 +231,16 @@ body {
 	}
 	50% {
 		transform: translateY(-10px);
+	}
+}
+
+@keyframes pixel-drift-sm {
+	0%,
+	100% {
+		transform: translate(0, 0);
+	}
+	50% {
+		transform: translate(5px, -8px);
 	}
 }
 
