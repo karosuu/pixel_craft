@@ -51,7 +51,7 @@ export const dictionaries = {
 			body: 'We build new sites, redesign tired ones, and run performance and QA so local businesses and startups can launch without surprises.',
 		},
 		audiences: {
-			title: 'Two kinds of teams. The same craft.',
+			title: 'Two kinds of teams. The same meticulous craft.',
 			localTitle: 'Local businesses',
 			localBody:
 				'A site that works on every phone, helps people find you, and makes it easy to call, book, or buy.',
@@ -246,7 +246,7 @@ export const dictionaries = {
 			body: 'Creamos sitios nuevos, rediseñamos los que ya se vieron viejos y corremos rendimiento y QA para que negocios locales y startups lancen sin sorpresas.',
 		},
 		audiences: {
-			title: 'Dos tipos de equipo. El mismo oficio.',
+			title: 'Dos tipos de equipo. El mismo oficio meticuloso.',
 			localTitle: 'Negocios locales',
 			localBody:
 				'Un sitio que funciona en cualquier celular, te ayuda a aparecer en búsquedas y facilita llamar, reservar o comprar.',
