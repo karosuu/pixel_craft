@@ -1,5 +1,5 @@
 ---
-import { hrefFor, navPageIds, withBase, type Locale, type PageId } from '../i18n/config';
+import { desktopNavPageIds, hrefFor, navPageIds, withBase, type Locale, type PageId } from '../i18n/config';
 import { t } from '../i18n/copy';
 import LanguageSwitch from './LanguageSwitch.astro';
 
@@ -10,7 +10,8 @@ interface Props {
 
 const { locale, page } = Astro.props;
 const copy = t(locale);
-const nav = navPageIds;
+const desktopNav = desktopNavPageIds;
+const mobileNav = navPageIds;
 ---
 
 <header class="sticky top-0 z-40 border-b border-white/10 bg-ink/80 backdrop-blur-md">
@@ -27,7 +28,7 @@ const nav = navPageIds;
 
 		<nav class="hidden items-center gap-6 md:flex" aria-label="Primary">
 			{
-				nav.map((id) => (
+				desktopNav.map((id) => (
 					<a
 						href={hrefFor(locale, id)}
 						class:list={[
@@ -58,10 +59,13 @@ const nav = navPageIds;
 			<div class="absolute right-0 mt-2 w-56 rounded-xl border border-white/10 bg-panel p-3 shadow-xl">
 				<nav class="flex flex-col gap-2" aria-label="Primary">
 					{
-						nav.map((id) => (
+						mobileNav.map((id) => (
 							<a
 								href={hrefFor(locale, id)}
-								class="rounded-md px-2 py-2 text-sm text-white/80 hover:bg-white/5 hover:text-white"
+								class:list={[
+									'rounded-md px-2 py-2 text-sm hover:bg-white/5 hover:text-white',
+									page === id ? 'text-white' : 'text-white/80',
+								]}
 								aria-current={page === id ? 'page' : undefined}
 							>
 								{copy.nav[id]}

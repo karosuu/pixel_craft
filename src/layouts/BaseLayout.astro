@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { BRAND, hrefFor, withBase, type Locale, type PageId } from '../i18n/config';
+import { BRAND, CONTACT_EMAIL, hrefFor, withBase, type Locale, type PageId } from '../i18n/config';
 import { t } from '../i18n/copy';
 import { hreflangUrls, htmlLang } from '../i18n/utils';
 
@@ -20,7 +20,30 @@ const site = Astro.site;
 const origin = site ? site.origin : '';
 const canonical = `${origin}${canonicalPath === '/' ? '/' : canonicalPath}`;
 const alts = hreflangUrls(site, page);
-const ogImage = new URL(withBase('/logo.png'), site ?? 'https://pixel-craft.dev').href;
+const siteOrigin = site?.origin ?? 'https://pixel-craft.dev';
+const ogImage = new URL(withBase('/logo.png'), siteOrigin).href;
+const icon192 = new URL(withBase('/favicon-192.png'), siteOrigin).href;
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'Organization',
+			'@id': `${siteOrigin}/#organization`,
+			name: BRAND,
+			url: siteOrigin,
+			logo: icon192,
+			email: CONTACT_EMAIL,
+		},
+		{
+			'@type': 'WebSite',
+			'@id': `${siteOrigin}/#website`,
+			url: siteOrigin,
+			name: BRAND,
+			publisher: { '@id': `${siteOrigin}/#organization` },
+			inLanguage: ['en', 'es'],
+		},
+	],
+};
 ---
 
 <!doctype html>
@@ -42,17 +65,23 @@ const ogImage = new URL(withBase('/logo.png'), site ?? 'https://pixel-craft.dev'
 		<meta property="og:url" content={canonical} />
 		<meta property="og:locale" content={locale === 'es' ? 'es_MX' : 'en_US'} />
 		<meta property="og:image" content={ogImage} />
-		<meta name="twitter:card" content="summary" />
+		<meta property="og:image:alt" content={BRAND} />
+		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+		<link rel="icon" href={withBase('/favicon.ico')} sizes="48x48" />
+		<link rel="icon" type="image/png" sizes="48x48" href={withBase('/favicon-48.png')} />
+		<link rel="icon" type="image/png" sizes="192x192" href={withBase('/favicon-192.png')} />
 		<link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
-		<link rel="icon" href={withBase('/logo.png')} />
+		<link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
 			rel="stylesheet"
 		/>
+		<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
 	</head>
 	<body class="min-h-screen bg-ink text-white antialiased">
 		<a

@@ -51,3 +51,7 @@ The first submission sends a confirmation email to that inbox. Open it and confi
 The workflow in `.github/workflows/deploy.yml` builds `dist/` and publishes it to GitHub Pages. Enable Pages in the repo settings (Source: GitHub Actions) and set the custom domain to `pixel-craft.dev`.
 
 If you host on Vercel or Netlify instead, you can ignore that workflow.
+
+## SEO and Google
+
+The build emits `robots.txt` and `sitemap-index.xml`. After HTTPS works on `pixel-craft.dev`, verify the domain in [Google Search Console](https://search.google.com/search-console), submit `https://pixel-craft.dev/sitemap-index.xml`, and request indexing for the homepage. The search result icon uses `favicon-48.png` (48×48) and can take days or weeks to appear.

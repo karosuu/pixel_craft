@@ -9,11 +9,12 @@ export const pageIds = ['home', 'services', 'work', 'about', 'contact'] as const
 export type PageId = (typeof pageIds)[number];
 
 /** Set to true when real case studies are ready to publish. */
-export const SHOW_WORK = false;
+export const SHOW_WORK = true;
 
-export const navPageIds: PageId[] = pageIds.filter(
-	(id) => id !== 'home' && (SHOW_WORK || id !== 'work'),
-);
+export const navPageIds: PageId[] = pageIds.filter((id) => SHOW_WORK || id !== 'work');
+
+/** Desktop header omits Home; the logo already links there. */
+export const desktopNavPageIds: PageId[] = navPageIds.filter((id) => id !== 'home');
 
 export const paths: Record<Locale, Record<PageId, string>> = {
 	en: {

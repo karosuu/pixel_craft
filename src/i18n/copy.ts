@@ -9,22 +9,22 @@ export const dictionaries = {
 		meta: {
 			homeTitle: 'Pixel-Craft — Websites, design, optimization & QA',
 			homeDescription:
-				'Pixel-Craft crafts websites that look sharp, load fast, and hold up in QA for local businesses and startups in the United States, Mexico, and Latin America.',
+				'Pixel-Craft crafts websites that look sharp, load fast, and hold up in QA for local businesses and startups.',
 			servicesTitle: 'Services — Pixel-Craft',
 			servicesDescription:
 				'Website build, design improvement, performance and SEO, and web QA for local businesses and startups.',
-			workTitle: 'Work — Pixel-Craft',
-			workDescription: 'Selected Pixel-Craft projects for local businesses and startups.',
+			workTitle: 'Projects — Pixel-Craft',
+			workDescription: 'Pixel-Craft projects. Case studies coming soon.',
 			aboutTitle: 'About — Pixel-Craft',
 			aboutDescription:
-				'Pixel-Craft is a web studio for local businesses and startups across the United States, Mexico, and Latin America.',
+				'Pixel-Craft is a web studio for local businesses and startups.',
 			contactTitle: 'Contact — Pixel-Craft',
 			contactDescription: 'Start a Pixel-Craft project: build, design, optimization, or web QA.',
 		},
 		nav: {
 			home: 'Home',
 			services: 'Services',
-			work: 'Work',
+			work: 'Projects',
 			about: 'About',
 			contact: 'Contact',
 		},
@@ -36,9 +36,8 @@ export const dictionaries = {
 		common: {
 			skip: 'Skip to content',
 			ctaPrimary: 'Start a project',
-			ctaSecondary: 'See our work',
+			ctaSecondary: 'See our projects',
 			learnMore: 'Learn more',
-			regions: 'United States · Mexico · Latin America',
 			brandAlt: 'Pixel-Craft',
 			openMenu: 'Open menu',
 			closeMenu: 'Close menu',
@@ -48,7 +47,7 @@ export const dictionaries = {
 			titleBefore: 'Sites that look sharp,',
 			titleAccent: 'load fast,',
 			titleAfter: 'and hold up in QA.',
-			body: 'Pixel-Craft builds, redesigns, and hardens websites for local businesses and startups across the United States, Mexico, and Latin America.',
+			body: 'We build new sites, redesign tired ones, and run performance and QA so local businesses and startups can launch without surprises.',
 		},
 		audiences: {
 			title: 'Two kinds of teams. The same craft.',
@@ -142,32 +141,14 @@ export const dictionaries = {
 			},
 		},
 		work: {
-			title: 'Selected work',
-			intro: 'Placeholder case studies for the first release. Real projects replace these next.',
+			title: 'Projects',
+			intro: 'Client work will appear here as we publish new case studies.',
 			placeholderNote: 'Sample',
-			cases: [
-				{
-					tag: 'local',
-					title: 'Neighborhood clinic site refresh',
-					summary:
-						'Clearer services, hours, and contact on every phone size — plus a faster first load for search traffic.',
-					result: 'Design + optimize + QA',
-				},
-				{
-					tag: 'startup',
-					title: 'SaaS launch landing page',
-					summary:
-						'A product story that fits one screen, a working waitlist form, and a QA pass before the first campaign.',
-					result: 'Build + QA',
-				},
-				{
-					tag: 'local',
-					title: 'Restaurant menu and booking',
-					summary:
-						'A bilingual-ready layout, menu that does not fight the phone, and booking that does not drop on Safari.',
-					result: 'Build + design + QA',
-				},
-			],
+			visitSite: 'Visit site',
+			comingSoonTitle: 'Coming soon',
+			comingSoonBody:
+				'We are preparing the first case studies. Check back shortly — or start a project and be next on this page.',
+			cases: [],
 		},
 		about: {
 			title: 'About Pixel-Craft',
@@ -175,11 +156,8 @@ export const dictionaries = {
 			body: [
 				'Pixel-Craft helps local businesses look trustworthy online and helps startups ship a site that can take real traffic. The name stays Pixel-Craft in every language; the craft is the same in every market.',
 				'We build new sites, improve design that has aged, make pages faster and easier to find, and run QA so launch day is boring in the best way.',
-				'We work with clients in the United States, Mexico, and across Latin America — in English or Spanish, whichever you use with your customers.',
+				'We work in English or Spanish, whichever you use with your customers.',
 			],
-			regionsTitle: 'Where we work',
-			regionsBody:
-				'Remote-first across the United States, Mexico, and Latin America. Time zones and language are part of the brief, not an afterthought.',
 		},
 		cta: {
 			title: 'Ready for a site that can take scrutiny?',
@@ -216,21 +194,22 @@ export const dictionaries = {
 		footer: {
 			tagline: 'Websites, design, optimization, and QA.',
 			rights: 'All rights reserved.',
+			nav: 'Footer',
 		},
 	},
 	es: {
 		meta: {
 			homeTitle: 'Pixel-Craft — Sitios web, diseño, optimización y QA',
 			homeDescription:
-				'Pixel-Craft diseña sitios que se ven profesionales, cargan rápido y pasan QA para negocios locales y startups en Estados Unidos, México y Latinoamérica.',
+				'Pixel-Craft diseña sitios que se ven profesionales, cargan rápido y pasan QA para negocios locales y startups.',
 			servicesTitle: 'Servicios — Pixel-Craft',
 			servicesDescription:
 				'Creación de sitios, mejora de diseño, rendimiento y SEO, y QA web para negocios locales y startups.',
 			workTitle: 'Proyectos — Pixel-Craft',
-			workDescription: 'Proyectos seleccionados de Pixel-Craft para negocios locales y startups.',
+			workDescription: 'Proyectos de Pixel-Craft. Casos próximamente.',
 			aboutTitle: 'Nosotros — Pixel-Craft',
 			aboutDescription:
-				'Pixel-Craft es un estudio web para negocios locales y startups en Estados Unidos, México y Latinoamérica.',
+				'Pixel-Craft es un estudio web para negocios locales y startups.',
 			contactTitle: 'Contacto — Pixel-Craft',
 			contactDescription: 'Inicia un proyecto con Pixel-Craft: creación, diseño, optimización o QA web.',
 		},
@@ -251,7 +230,6 @@ export const dictionaries = {
 			ctaPrimary: 'Iniciar un proyecto',
 			ctaSecondary: 'Ver proyectos',
 			learnMore: 'Ver más',
-			regions: 'Estados Unidos · México · Latinoamérica',
 			brandAlt: 'Pixel-Craft',
 			openMenu: 'Abrir menú',
 			closeMenu: 'Cerrar menú',
@@ -261,7 +239,7 @@ export const dictionaries = {
 			titleBefore: 'Sitios que se ven profesionales,',
 			titleAccent: 'cargan rápido',
 			titleAfter: 'y pasan QA.',
-			body: 'Pixel-Craft crea, rediseña y fortalece sitios web para negocios locales y startups en Estados Unidos, México y Latinoamérica.',
+			body: 'Creamos sitios nuevos, rediseñamos los que ya se vieron viejos y corremos rendimiento y QA para que negocios locales y startups lancen sin sorpresas.',
 		},
 		audiences: {
 			title: 'Dos tipos de equipo. El mismo oficio.',
@@ -356,31 +334,13 @@ export const dictionaries = {
 		},
 		work: {
 			title: 'Proyectos',
-			intro: 'Casos de ejemplo para la primera versión. Los proyectos reales los sustituyen después.',
+			intro: 'El trabajo con clientes aparecerá aquí cuando publiquemos los casos.',
 			placeholderNote: 'Ejemplo',
-			cases: [
-				{
-					tag: 'local',
-					title: 'Rediseño de clínica de barrio',
-					summary:
-						'Servicios, horarios y contacto claros en cualquier celular, y una primera carga más rápida para quien llega desde Google.',
-					result: 'Diseño + optimización + QA',
-				},
-				{
-					tag: 'startup',
-					title: 'Landing de lanzamiento SaaS',
-					summary:
-						'La historia del producto en una pantalla, lista de espera funcionando y un pase de QA antes de la primera campaña.',
-					result: 'Creación + QA',
-				},
-				{
-					tag: 'local',
-					title: 'Menú y reservas de restaurante',
-					summary:
-						'Layout listo para dos idiomas, menú que no pelea con el celular y reservas que no fallan en Safari.',
-					result: 'Creación + diseño + QA',
-				},
-			],
+			visitSite: 'Ver sitio',
+			comingSoonTitle: 'Próximamente',
+			comingSoonBody:
+				'Estamos preparando los primeros casos. Vuelve pronto — o inicia un proyecto y sé el siguiente en esta página.',
+			cases: [],
 		},
 		about: {
 			title: 'Sobre Pixel-Craft',
@@ -388,11 +348,8 @@ export const dictionaries = {
 			body: [
 				'Pixel-Craft ayuda a negocios locales a verse confiables en internet y a startups a lanzar un sitio que aguante tráfico real. El nombre es Pixel-Craft en cualquier idioma; el oficio es el mismo en cada mercado.',
 				'Creamos sitios nuevos, mejoramos diseños que ya se vieron viejos, hacemos que las páginas carguen y se encuentren mejor, y corremos QA para que el día del lanzamiento sea aburrido — en el mejor sentido.',
-				'Trabajamos con clientes en Estados Unidos, México y el resto de Latinoamérica, en inglés o en español, el idioma con el que hablas con tus clientes.',
+				'Trabajamos en inglés o en español, el idioma con el que hablas con tus clientes.',
 			],
-			regionsTitle: 'Dónde trabajamos',
-			regionsBody:
-				'Remoto en Estados Unidos, México y Latinoamérica. Los husos horarios y el idioma van en el brief, no como extra.',
 		},
 		cta: {
 			title: '¿Listo para un sitio que resista revisión?',
@@ -429,6 +386,7 @@ export const dictionaries = {
 		footer: {
 			tagline: 'Sitios web, diseño, optimización y QA.',
 			rights: 'Todos los derechos reservados.',
+			nav: 'Pie de página',
 		},
 	},
 };

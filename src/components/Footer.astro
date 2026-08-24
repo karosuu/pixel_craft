@@ -17,9 +17,8 @@ const links = navPageIds;
 		<div>
 			<p class="text-lg font-semibold italic">{BRAND}</p>
 			<p class="mt-2 max-w-xs text-sm text-white/60">{copy.footer.tagline}</p>
-			<p class="mt-4 text-xs uppercase tracking-widest text-white/40">{copy.common.regions}</p>
 		</div>
-		<nav class="flex flex-col gap-2 text-sm" aria-label={copy.nav.home}>
+		<nav class="flex flex-col gap-2 text-sm" aria-label={copy.footer.nav}>
 			{
 				links.map((id) => (
 					<a class="text-white/70 hover:text-white" href={hrefFor(locale, id)}>

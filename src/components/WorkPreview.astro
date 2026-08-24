@@ -11,6 +11,12 @@ interface Props {
 const { locale, limit, showLink = false } = Astro.props;
 const copy = t(locale);
 const cases = typeof limit === 'number' ? copy.work.cases.slice(0, limit) : copy.work.cases;
+const gridClass =
+	cases.length === 0
+		? 'mt-10'
+		: cases.length === 1
+			? 'mt-10 max-w-xl'
+			: 'mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3';
 ---
 
 <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
@@ -27,19 +33,37 @@ const cases = typeof limit === 'number' ? copy.work.cases.slice(0, limit) : copy
 			)
 		}
 	</div>
-	<div class="mt-10 grid gap-6 md:grid-cols-3">
+	<div class={gridClass}>
 		{
-			cases.map((item) => (
-				<article class="rounded-2xl border border-white/10 bg-panel p-6">
-					<p class="text-xs font-semibold uppercase tracking-widest text-white/40">
-						{copy.work.placeholderNote} ·{' '}
-						{item.tag === 'local' ? copy.audiences.localTitle : copy.audiences.startupTitle}
+			cases.length === 0 ? (
+				<div class="max-w-xl rounded-2xl border border-dashed border-white/20 bg-panel/60 p-8">
+					<p class="text-xs font-semibold uppercase tracking-widest text-cyan">
+						{copy.work.comingSoonTitle}
 					</p>
-					<h3 class="mt-3 text-lg font-semibold">{item.title}</h3>
-					<p class="mt-3 text-sm text-white/70">{item.summary}</p>
-					<p class="mt-4 text-sm font-medium text-magenta">{item.result}</p>
-				</article>
-			))
+					<p class="mt-3 text-white/70">{copy.work.comingSoonBody}</p>
+				</div>
+			) : (
+				cases.map((item) => (
+					<article class="rounded-2xl border border-white/10 bg-panel p-6">
+						<p class="text-xs font-semibold uppercase tracking-widest text-white/40">
+							{item.tag === 'local' ? copy.audiences.localTitle : copy.audiences.startupTitle}
+						</p>
+						<h3 class="mt-3 text-lg font-semibold">{item.title}</h3>
+						<p class="mt-3 text-sm text-white/70">{item.summary}</p>
+						<p class="mt-4 text-sm font-medium text-magenta">{item.result}</p>
+						{item.url && (
+							<a
+								class="mt-4 inline-flex text-sm font-medium text-cyan hover:underline"
+								href={item.url}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								{copy.work.visitSite}
+							</a>
+						)}
+					</article>
+				))
+			)
 		}
 	</div>
 </section>
