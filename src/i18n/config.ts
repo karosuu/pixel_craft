@@ -13,8 +13,7 @@ export const SHOW_WORK = true;
 
 export const navPageIds: PageId[] = pageIds.filter((id) => SHOW_WORK || id !== 'work');
 
-/** Desktop header omits Home; the logo already links there. */
-export const desktopNavPageIds: PageId[] = navPageIds.filter((id) => id !== 'home');
+export const desktopNavPageIds: PageId[] = navPageIds;
 
 export const paths: Record<Locale, Record<PageId, string>> = {
 	en: {

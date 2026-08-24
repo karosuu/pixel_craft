@@ -25,7 +25,7 @@ body {
 	width: 210mm;
 	height: 297mm;
 	overflow: hidden;
-	padding: 11mm 13mm 10mm;
+	padding: 8.5mm 11mm 8mm;
 	background-color: #05050a;
 	background-image:
 		linear-gradient(rgb(255 255 255 / 0.03) 1px, transparent 1px),
@@ -41,18 +41,18 @@ body {
 }
 
 .glow-a {
-	top: 8mm;
+	top: 6mm;
 	left: -12mm;
-	width: 52mm;
-	height: 52mm;
+	width: 48mm;
+	height: 48mm;
 	background: rgb(0 242 255 / 0.14);
 }
 
 .glow-b {
-	top: 28mm;
-	right: -16mm;
-	width: 58mm;
-	height: 58mm;
+	top: 22mm;
+	right: -14mm;
+	width: 52mm;
+	height: 52mm;
 	background: rgb(255 0 204 / 0.12);
 }
 
@@ -61,7 +61,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding-bottom: 6mm;
+	padding-bottom: 4mm;
 	border-bottom: 1px solid rgb(255 255 255 / 0.1);
 }
 
@@ -72,15 +72,15 @@ body {
 
 .logo {
 	display: block;
-	height: 14mm;
+	height: 11mm;
 	width: auto;
-	max-width: 72mm;
+	max-width: 62mm;
 	object-fit: contain;
 	object-position: left center;
 }
 
 .eyebrow {
-	font-size: 7.5pt;
+	font-size: 7pt;
 	font-weight: 600;
 	letter-spacing: 0.22em;
 	text-transform: uppercase;
@@ -89,15 +89,15 @@ body {
 
 .hero {
 	position: relative;
-	margin-top: 7mm;
+	margin-top: 4.5mm;
 }
 
 .hero h1 {
-	font-size: 20pt;
+	font-size: 16.5pt;
 	font-weight: 700;
 	letter-spacing: -0.03em;
-	line-height: 1.18;
-	max-width: 170mm;
+	line-height: 1.16;
+	max-width: 178mm;
 }
 
 .accent {
@@ -108,20 +108,27 @@ body {
 }
 
 .lede {
-	margin-top: 4mm;
-	max-width: 168mm;
-	font-size: 10pt;
-	line-height: 1.45;
+	margin-top: 2.5mm;
+	max-width: 178mm;
+	font-size: 8.6pt;
+	line-height: 1.4;
 	color: rgb(255 255 255 / 0.75);
+}
+
+.meta {
+	margin-top: 2mm;
+	font-size: 7.5pt;
+	line-height: 1.35;
+	color: rgb(255 255 255 / 0.6);
 }
 
 .section {
 	position: relative;
-	margin-top: 7.5mm;
+	margin-top: 4.8mm;
 }
 
 .section h2 {
-	font-size: 11.5pt;
+	font-size: 10pt;
 	font-weight: 600;
 	letter-spacing: -0.02em;
 }
@@ -129,84 +136,122 @@ body {
 .audiences {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 4mm;
-	margin-top: 3.5mm;
+	gap: 3mm;
+	margin-top: 2.5mm;
 }
 
 .card {
 	border: 1px solid rgb(255 255 255 / 0.1);
 	background: #12131c;
-	border-radius: 3.2mm;
-	padding: 4.2mm 4.5mm;
+	border-radius: 2.8mm;
+	padding: 3mm 3.4mm;
 }
 
 .card h3 {
-	font-size: 10.5pt;
+	font-size: 9pt;
 	font-weight: 600;
 }
 
 .card p {
-	margin-top: 1.8mm;
-	font-size: 8.5pt;
-	line-height: 1.4;
+	margin-top: 1.2mm;
+	font-size: 7.4pt;
+	line-height: 1.35;
 	color: rgb(255 255 255 / 0.75);
 }
 
 .services {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 3.6mm;
-	margin-top: 3.5mm;
+	gap: 2.8mm;
+	margin-top: 2.5mm;
 }
 
 .service h3 {
-	font-size: 10pt;
+	font-size: 9pt;
 }
 
-.service p {
-	font-size: 8.2pt;
+.service .summary {
+	font-size: 7.3pt;
+}
+
+.deliverables {
+	margin-top: 1.8mm;
+	padding-left: 3.2mm;
+	list-style: disc;
+}
+
+.deliverables li {
+	font-size: 6.8pt;
+	line-height: 1.3;
+	color: rgb(255 255 255 / 0.68);
+	margin-top: 0.6mm;
 }
 
 .process-intro {
-	margin-top: 2mm;
-	font-size: 8.5pt;
+	margin-top: 1.4mm;
+	font-size: 7.5pt;
 	color: rgb(255 255 255 / 0.75);
 }
 
 .steps {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
-	gap: 2.6mm;
-	margin-top: 3.5mm;
+	gap: 2mm;
+	margin-top: 2.5mm;
 	list-style: none;
 }
 
 .steps li {
 	border: 1px solid rgb(255 255 255 / 0.1);
 	background: #0a0b12;
-	border-radius: 3mm;
-	padding: 3.2mm 2.8mm;
+	border-radius: 2.5mm;
+	padding: 2.4mm 2.2mm;
 }
 
 .step-num {
-	font-size: 7pt;
+	font-size: 6.5pt;
 	font-weight: 600;
-	letter-spacing: 0.16em;
+	letter-spacing: 0.14em;
 	text-transform: uppercase;
 	color: #00f2ff;
 }
 
 .steps h3 {
-	margin-top: 1.4mm;
-	font-size: 8.8pt;
+	margin-top: 1mm;
+	font-size: 8pt;
 	font-weight: 600;
 }
 
 .steps p {
-	margin-top: 1.4mm;
-	font-size: 7.2pt;
-	line-height: 1.35;
+	margin-top: 1mm;
+	font-size: 6.5pt;
+	line-height: 1.3;
 	color: rgb(255 255 255 / 0.72);
+}
+
+.extras {
+	display: grid;
+	grid-template-columns: 1.15fr 0.85fr;
+	gap: 3mm;
+	margin-top: 4.5mm;
+}
+
+.extras .card h3 {
+	font-size: 8.5pt;
+	color: #00f2ff;
+}
+
+.extras ul {
+	margin-top: 1.5mm;
+	padding-left: 3.2mm;
+	list-style: disc;
+}
+
+.extras li {
+	font-size: 7pt;
+	line-height: 1.35;
+	color: rgb(255 255 255 / 0.75);
+	margin-top: 0.8mm;
 }
 
 .cta {
@@ -214,10 +259,10 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	gap: 6mm;
-	margin-top: 7mm;
-	padding: 5mm 5.5mm;
-	border-radius: 3.5mm;
+	gap: 5mm;
+	margin-top: 4.5mm;
+	padding: 3.8mm 4.5mm;
+	border-radius: 3mm;
 	border: 1px solid transparent;
 	background:
 		linear-gradient(#12131c, #12131c) padding-box,
@@ -225,14 +270,14 @@ body {
 }
 
 .cta h2 {
-	font-size: 12pt;
+	font-size: 10.5pt;
 	font-weight: 600;
 }
 
 .cta p {
-	margin-top: 1.6mm;
-	font-size: 8.4pt;
-	line-height: 1.4;
+	margin-top: 1.2mm;
+	font-size: 7.5pt;
+	line-height: 1.35;
 	color: rgb(255 255 255 / 0.75);
 }
 
@@ -243,18 +288,18 @@ body {
 
 .pill {
 	display: inline-block;
-	padding: 2.2mm 4.4mm;
+	padding: 2mm 4mm;
 	border-radius: 999px;
 	background-image: linear-gradient(90deg, #00f2ff, #ff00cc, #ff9900);
 	color: #05050a;
-	font-size: 8.5pt;
+	font-size: 8pt;
 	font-weight: 700;
 	text-decoration: none;
 }
 
 .contact {
-	margin-top: 2mm;
-	font-size: 8pt;
+	margin-top: 1.6mm;
+	font-size: 7.5pt;
 	color: rgb(255 255 255 / 0.8);
 }
 

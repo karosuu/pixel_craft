@@ -1,6 +1,6 @@
 # Pixel-Craft one-pager
 
-Adjunto para el primer correo (una hoja A4). Incluye el logo de Pixel-Craft.
+Adjunto para el primer correo (una hoja A4). Incluye logo, entregables por servicio, brief de arranque y por qué Pixel-Craft.
 
 | Idioma | Archivo a enviar |
 | --- | --- |
