@@ -1,0 +1,120 @@
+---
+import { CONTACT_EMAIL, type Locale } from '../i18n/config';
+import { t, type AudienceId, type ServiceId } from '../i18n/copy';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = t(locale);
+const audiences: AudienceId[] = ['local', 'startup'];
+const needs: ServiceId[] = ['build', 'design', 'optimize', 'qa'];
+---
+
+<section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+	<h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{copy.contact.title}</h1>
+	<p class="mt-4 text-white/70">{copy.contact.intro}</p>
+
+	<form id="contact-form" class="mt-10 space-y-5" data-email={CONTACT_EMAIL} data-subject={copy.contact.subject}>
+		<label class="block text-sm font-medium">
+			{copy.contact.name}
+			<input
+				name="name"
+				type="text"
+				required
+				autocomplete="name"
+				class="mt-2 w-full rounded-lg border border-white/15 bg-ink-soft px-3 py-2 text-white outline-none focus:border-cyan"
+			/>
+		</label>
+		<label class="block text-sm font-medium">
+			{copy.contact.email}
+			<input
+				name="email"
+				type="email"
+				required
+				autocomplete="email"
+				class="mt-2 w-full rounded-lg border border-white/15 bg-ink-soft px-3 py-2 text-white outline-none focus:border-cyan"
+			/>
+		</label>
+		<label class="block text-sm font-medium">
+			{copy.contact.website}
+			<span class="font-normal text-white/40"> — {copy.contact.websiteHint}</span>
+			<input
+				name="website"
+				type="url"
+				inputmode="url"
+				placeholder="https://"
+				class="mt-2 w-full rounded-lg border border-white/15 bg-ink-soft px-3 py-2 text-white outline-none focus:border-cyan"
+			/>
+		</label>
+		<label class="block text-sm font-medium">
+			{copy.contact.audience}
+			<select
+				name="audience"
+				required
+				class="mt-2 w-full rounded-lg border border-white/15 bg-ink-soft px-3 py-2 text-white outline-none focus:border-cyan"
+			>
+				{
+					audiences.map((id) => (
+						<option value={copy.contact.audienceOptions[id]}>{copy.contact.audienceOptions[id]}</option>
+					))
+				}
+			</select>
+		</label>
+		<label class="block text-sm font-medium">
+			{copy.contact.need}
+			<select
+				name="need"
+				required
+				class="mt-2 w-full rounded-lg border border-white/15 bg-ink-soft px-3 py-2 text-white outline-none focus:border-cyan"
+			>
+				{
+					needs.map((id) => (
+						<option value={copy.contact.needOptions[id]}>{copy.contact.needOptions[id]}</option>
+					))
+				}
+			</select>
+		</label>
+		<label class="block text-sm font-medium">
+			{copy.contact.message}
+			<textarea
+				name="message"
+				required
+				rows="5"
+				class="mt-2 w-full rounded-lg border border-white/15 bg-ink-soft px-3 py-2 text-white outline-none focus:border-cyan"
+			></textarea>
+		</label>
+		<button
+			type="submit"
+			class="glow-btn rounded-full bg-gradient-to-r from-cyan via-magenta to-orange px-6 py-3 text-sm font-semibold text-ink"
+		>
+			{copy.contact.submit}
+		</button>
+		<p class="text-sm text-white/50">{copy.contact.mailtoNote}</p>
+	</form>
+</section>
+
+<script>
+	const form = document.getElementById('contact-form');
+	if (form instanceof HTMLFormElement) {
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			const data = new FormData(form);
+			const email = form.dataset.email ?? '';
+			const subject = form.dataset.subject ?? 'Pixel-Craft';
+			const lines = [
+				`${data.get('name')}`,
+				`${data.get('email')}`,
+				data.get('website') ? String(data.get('website')) : '',
+				`${data.get('audience')}`,
+				`${data.get('need')}`,
+				'',
+				`${data.get('message')}`,
+			].filter((line, index, arr) => line !== '' || arr[index - 1] !== '');
+			const body = lines.join('\n');
+			const href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+			window.location.href = href;
+		});
+	}
+</script>

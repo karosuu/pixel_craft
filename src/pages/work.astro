@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WorkPreview from '../components/WorkPreview.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { hrefFor, SHOW_WORK } from '../i18n/config';
+import { t } from '../i18n/copy';
+
+const locale = 'en' as const;
+if (!SHOW_WORK) {
+	return Astro.redirect(hrefFor(locale, 'home'), 302);
+}
+const copy = t(locale);
+---
+
+<BaseLayout locale={locale} page="work" title={copy.meta.workTitle} description={copy.meta.workDescription}>
+	<WorkPreview locale={locale} />
+	<CtaBanner locale={locale} />
+</BaseLayout>

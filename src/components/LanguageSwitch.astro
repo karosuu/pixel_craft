@@ -1,0 +1,40 @@
+---
+import { type Locale, type PageId } from '../i18n/config';
+import { t } from '../i18n/copy';
+import { switchLocalePath } from '../i18n/utils';
+
+interface Props {
+	locale: Locale;
+	page: PageId;
+}
+
+const { locale, page } = Astro.props;
+const copy = t(locale);
+const href = switchLocalePath(locale, page);
+---
+
+<div class="inline-flex items-center rounded-full border border-white/15 p-0.5 text-xs font-semibold">
+	{
+		locale === 'en' ? (
+			<span class="rounded-full bg-white/10 px-2.5 py-1 text-white" aria-current="true">
+				{copy.language.en}
+			</span>
+		) : (
+			<a class="px-2.5 py-1 text-white/60 hover:text-white" href={href} lang="en" hreflang="en">
+				{copy.language.en}
+			</a>
+		)
+	}
+	{
+		locale === 'es' ? (
+			<span class="rounded-full bg-white/10 px-2.5 py-1 text-white" aria-current="true">
+				{copy.language.es}
+			</span>
+		) : (
+			<a class="px-2.5 py-1 text-white/60 hover:text-white" href={href} lang="es" hreflang="es">
+				{copy.language.es}
+			</a>
+		)
+	}
+	<span class="sr-only">{copy.language.switchTo}</span>
+</div>

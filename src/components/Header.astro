@@ -1,0 +1,78 @@
+---
+import { hrefFor, navPageIds, withBase, type Locale, type PageId } from '../i18n/config';
+import { t } from '../i18n/copy';
+import LanguageSwitch from './LanguageSwitch.astro';
+
+interface Props {
+	locale: Locale;
+	page: PageId;
+}
+
+const { locale, page } = Astro.props;
+const copy = t(locale);
+const nav = navPageIds;
+---
+
+<header class="sticky top-0 z-40 border-b border-white/10 bg-ink/80 backdrop-blur-md">
+	<div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+		<a href={hrefFor(locale, 'home')} class="flex shrink-0 items-center">
+			<img
+				src={withBase('/logo.png')}
+				alt={copy.common.brandAlt}
+				class="h-10 w-auto sm:h-12"
+				width="280"
+				height="48"
+			/>
+		</a>
+
+		<nav class="hidden items-center gap-6 md:flex" aria-label="Primary">
+			{
+				nav.map((id) => (
+					<a
+						href={hrefFor(locale, id)}
+						class:list={[
+							'text-sm font-medium tracking-wide transition hover:text-white',
+							page === id ? 'text-white' : 'text-white/70',
+						]}
+						aria-current={page === id ? 'page' : undefined}
+					>
+						{copy.nav[id]}
+					</a>
+				))
+			}
+			<LanguageSwitch locale={locale} page={page} />
+			<a
+				href={hrefFor(locale, 'contact')}
+				class="glow-btn rounded-full bg-gradient-to-r from-cyan via-magenta to-orange px-4 py-2 text-sm font-semibold text-ink"
+			>
+				{copy.common.ctaPrimary}
+			</a>
+		</nav>
+
+		<details class="relative md:hidden">
+			<summary
+				class="list-none rounded-md border border-white/15 px-3 py-2 text-sm font-medium marker:content-none [&::-webkit-details-marker]:hidden"
+			>
+				{copy.common.openMenu}
+			</summary>
+			<div class="absolute right-0 mt-2 w-56 rounded-xl border border-white/10 bg-panel p-3 shadow-xl">
+				<nav class="flex flex-col gap-2" aria-label="Primary">
+					{
+						nav.map((id) => (
+							<a
+								href={hrefFor(locale, id)}
+								class="rounded-md px-2 py-2 text-sm text-white/80 hover:bg-white/5 hover:text-white"
+								aria-current={page === id ? 'page' : undefined}
+							>
+								{copy.nav[id]}
+							</a>
+						))
+					}
+					<div class="border-t border-white/10 pt-2">
+						<LanguageSwitch locale={locale} page={page} />
+					</div>
+				</nav>
+			</div>
+		</details>
+	</div>
+</header>

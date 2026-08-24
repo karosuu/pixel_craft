@@ -1,0 +1,35 @@
+---
+import { BRAND, hrefFor, navPageIds, type Locale } from '../i18n/config';
+import { t } from '../i18n/copy';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = t(locale);
+const year = new Date().getFullYear();
+const links = navPageIds;
+---
+
+<footer class="border-t border-white/10">
+	<div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-3">
+		<div>
+			<p class="text-lg font-semibold italic">{BRAND}</p>
+			<p class="mt-2 max-w-xs text-sm text-white/60">{copy.footer.tagline}</p>
+			<p class="mt-4 text-xs uppercase tracking-widest text-white/40">{copy.common.regions}</p>
+		</div>
+		<nav class="flex flex-col gap-2 text-sm" aria-label={copy.nav.home}>
+			{
+				links.map((id) => (
+					<a class="text-white/70 hover:text-white" href={hrefFor(locale, id)}>
+						{copy.nav[id]}
+					</a>
+				))
+			}
+		</nav>
+		<p class="text-sm text-white/50">
+			© {year} {BRAND}. {copy.footer.rights}
+		</p>
+	</div>
+</footer>

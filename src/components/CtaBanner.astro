@@ -1,0 +1,24 @@
+---
+import { hrefFor, type Locale } from '../i18n/config';
+import { t } from '../i18n/copy';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = t(locale);
+---
+
+<section class="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
+	<div class="gradient-border rounded-3xl px-6 py-10 text-center sm:px-12">
+		<h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{copy.cta.title}</h2>
+		<p class="mx-auto mt-3 max-w-2xl text-white/70">{copy.cta.body}</p>
+		<a
+			href={hrefFor(locale, 'contact')}
+			class="glow-btn mt-8 inline-flex rounded-full bg-gradient-to-r from-cyan via-magenta to-orange px-6 py-3 text-sm font-semibold text-ink"
+		>
+			{copy.cta.button}
+		</a>
+	</div>
+</section>

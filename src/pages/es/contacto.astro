@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import { t } from '../../i18n/copy';
+
+const locale = 'es' as const;
+const copy = t(locale);
+---
+
+<BaseLayout locale={locale} page="contact" title={copy.meta.contactTitle} description={copy.meta.contactDescription}>
+	<ContactForm locale={locale} />
+</BaseLayout>

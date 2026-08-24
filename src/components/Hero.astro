@@ -1,0 +1,57 @@
+---
+import { hrefFor, SHOW_WORK, withBase, type Locale } from '../i18n/config';
+import { t } from '../i18n/copy';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = t(locale);
+const secondaryHref = hrefFor(locale, SHOW_WORK ? 'work' : 'services');
+const secondaryLabel = SHOW_WORK ? copy.common.ctaSecondary : copy.nav.services;
+---
+
+<section class="relative overflow-hidden pixel-grid">
+	<div class="pointer-events-none absolute -left-24 top-10 h-64 w-64 rounded-full bg-cyan/10 blur-3xl"></div>
+	<div class="pointer-events-none absolute right-0 top-24 h-72 w-72 rounded-full bg-magenta/10 blur-3xl"></div>
+	<div
+		class="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:py-28"
+	>
+		<div>
+			<p class="text-xs font-semibold uppercase tracking-[0.2em] text-cyan">{copy.hero.eyebrow}</p>
+			<h1 class="mt-4 text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+				{copy.hero.titleBefore}
+				{' '}
+				<span class="gradient-text">{copy.hero.titleAccent}</span>
+				{' '}
+				{copy.hero.titleAfter}
+			</h1>
+			<p class="mt-6 max-w-xl text-lg text-white/70">{copy.hero.body}</p>
+			<div class="mt-8 flex flex-wrap gap-3">
+				<a
+					href={hrefFor(locale, 'contact')}
+					class="glow-btn rounded-full bg-gradient-to-r from-cyan via-magenta to-orange px-5 py-3 text-sm font-semibold text-ink"
+				>
+					{copy.common.ctaPrimary}
+				</a>
+				<a
+					href={secondaryHref}
+					class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white hover:border-white/40"
+				>
+					{secondaryLabel}
+				</a>
+			</div>
+			<p class="mt-6 text-xs uppercase tracking-widest text-white/40">{copy.common.regions}</p>
+		</div>
+		<div class="flex justify-center lg:justify-end">
+			<img
+				src={withBase('/logo.png')}
+				alt={copy.common.brandAlt}
+				class="w-full max-w-md"
+				width="640"
+				height="360"
+			/>
+		</div>
+	</div>
+</section>

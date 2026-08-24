@@ -1,0 +1,45 @@
+---
+import { hrefFor, type Locale } from '../i18n/config';
+import { t } from '../i18n/copy';
+
+interface Props {
+	locale: Locale;
+	limit?: number;
+	showLink?: boolean;
+}
+
+const { locale, limit, showLink = false } = Astro.props;
+const copy = t(locale);
+const cases = typeof limit === 'number' ? copy.work.cases.slice(0, limit) : copy.work.cases;
+---
+
+<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+	<div class="flex flex-wrap items-end justify-between gap-4">
+		<div>
+			<h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{copy.work.title}</h2>
+			<p class="mt-3 max-w-2xl text-white/65">{copy.work.intro}</p>
+		</div>
+		{
+			showLink && (
+				<a class="text-sm font-medium text-cyan hover:underline" href={hrefFor(locale, 'work')}>
+					{copy.common.ctaSecondary}
+				</a>
+			)
+		}
+	</div>
+	<div class="mt-10 grid gap-6 md:grid-cols-3">
+		{
+			cases.map((item) => (
+				<article class="rounded-2xl border border-white/10 bg-panel p-6">
+					<p class="text-xs font-semibold uppercase tracking-widest text-white/40">
+						{copy.work.placeholderNote} ·{' '}
+						{item.tag === 'local' ? copy.audiences.localTitle : copy.audiences.startupTitle}
+					</p>
+					<h3 class="mt-3 text-lg font-semibold">{item.title}</h3>
+					<p class="mt-3 text-sm text-white/70">{item.summary}</p>
+					<p class="mt-4 text-sm font-medium text-magenta">{item.result}</p>
+				</article>
+			))
+		}
+	</div>
+</section>

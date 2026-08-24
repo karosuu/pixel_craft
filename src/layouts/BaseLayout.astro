@@ -1,0 +1,70 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { BRAND, hrefFor, withBase, type Locale, type PageId } from '../i18n/config';
+import { t } from '../i18n/copy';
+import { hreflangUrls, htmlLang } from '../i18n/utils';
+
+interface Props {
+	locale: Locale;
+	page: PageId;
+	title: string;
+	description: string;
+}
+
+const { locale, page, title, description } = Astro.props;
+const copy = t(locale);
+const canonicalPath = hrefFor(locale, page);
+const site = Astro.site;
+const origin = site ? site.origin : '';
+const canonical = `${origin}${canonicalPath === '/' ? '/' : canonicalPath}`;
+const alts = hreflangUrls(site, page);
+const ogImage = new URL(withBase('/logo.png'), site ?? 'https://pixel-craft.dev').href;
+---
+
+<!doctype html>
+<html lang={htmlLang(locale)} class="scroll-smooth">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<link rel="alternate" hreflang="en" href={alts.en} />
+		<link rel="alternate" hreflang="es" href={alts.es} />
+		<link rel="alternate" hreflang="x-default" href={alts.xDefault} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={BRAND} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:locale" content={locale === 'es' ? 'es_MX' : 'en_US'} />
+		<meta property="og:image" content={ogImage} />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+		<link rel="icon" href={withBase('/logo.png')} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body class="min-h-screen bg-ink text-white antialiased">
+		<a
+			href="#content"
+			class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-ink"
+		>
+			{copy.common.skip}
+		</a>
+		<Header locale={locale} page={page} />
+		<main id="content">
+			<slot />
+		</main>
+		<Footer locale={locale} />
+	</body>
+</html>

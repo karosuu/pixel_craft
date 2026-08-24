@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import AudienceCards from '../../components/AudienceCards.astro';
+import ServicesGrid from '../../components/ServicesGrid.astro';
+import Process from '../../components/Process.astro';
+import WorkPreview from '../../components/WorkPreview.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import { SHOW_WORK } from '../../i18n/config';
+import { t } from '../../i18n/copy';
+
+const locale = 'es' as const;
+const copy = t(locale);
+---
+
+<BaseLayout locale={locale} page="home" title={copy.meta.homeTitle} description={copy.meta.homeDescription}>
+	<Hero locale={locale} />
+	<AudienceCards locale={locale} />
+	<ServicesGrid locale={locale} />
+	<Process locale={locale} />
+	{SHOW_WORK && <WorkPreview locale={locale} limit={3} showLink={true} />}
+	<CtaBanner locale={locale} />
+</BaseLayout>

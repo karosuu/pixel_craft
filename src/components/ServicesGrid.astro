@@ -1,0 +1,52 @@
+---
+import { type Locale } from '../i18n/config';
+import { t, type ServiceId } from '../i18n/copy';
+
+interface Props {
+	locale: Locale;
+	detailed?: boolean;
+}
+
+const { locale, detailed = false } = Astro.props;
+const copy = t(locale);
+const ids: ServiceId[] = ['build', 'design', 'optimize', 'qa'];
+---
+
+<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+	<h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{copy.services.title}</h2>
+	<p class="mt-3 max-w-2xl text-white/65">{copy.services.intro}</p>
+	<div class="mt-10 grid gap-6 md:grid-cols-2">
+		{
+			ids.map((id) => {
+				const item = copy.services.items[id];
+				return (
+					<article class="rounded-2xl border border-white/10 bg-panel p-6">
+						<h3 class="text-xl font-semibold">{item.title}</h3>
+						<p class="mt-3 text-white/70">{item.summary}</p>
+						{
+							detailed && (
+								<>
+									<div class="mt-5 space-y-3 text-sm">
+										<p>
+											<span class="font-semibold text-cyan">{copy.services.forLocal}: </span>
+											<span class="text-white/70">{item.local}</span>
+										</p>
+										<p>
+											<span class="font-semibold text-orange">{copy.services.forStartup}: </span>
+											<span class="text-white/70">{item.startup}</span>
+										</p>
+									</div>
+									<ul class="mt-4 list-disc space-y-1 pl-5 text-sm text-white/60">
+										{item.deliverables.map((d) => (
+											<li>{d}</li>
+										))}
+									</ul>
+								</>
+							)
+						}
+					</article>
+				);
+			})
+		}
+	</div>
+</section>
