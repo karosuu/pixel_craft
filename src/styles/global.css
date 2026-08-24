@@ -101,43 +101,62 @@ body {
 	initial-value: 0deg;
 }
 
+.beam-host {
+	position: relative;
+}
+
+.beam-host::after {
+	content: "";
+	position: absolute;
+	inset: -18px;
+	z-index: 0;
+	border-radius: inherit;
+	pointer-events: none;
+	background: conic-gradient(
+		from var(--beam-angle),
+		transparent 0 58%,
+		rgb(0 242 255 / 0.4) 70%,
+		rgb(255 0 204 / 0.28) 80%,
+		rgb(255 153 0 / 0.22) 88%,
+		transparent 100%
+	);
+	filter: blur(28px);
+	animation: beam-spin 5.5s linear infinite;
+}
+
 .border-beam {
 	position: relative;
-	isolation: isolate;
+	z-index: 1;
+	overflow: hidden;
+	padding: 1px;
+	background: rgb(255 255 255 / 0.14);
 }
 
 .border-beam::before {
 	content: "";
 	position: absolute;
-	inset: 0;
-	z-index: 1;
-	border-radius: inherit;
-	padding: 1px;
+	z-index: 0;
+	top: 50%;
+	left: 50%;
+	width: 170%;
+	aspect-ratio: 1;
+	translate: -50% -50%;
 	pointer-events: none;
-	opacity: 0;
 	background: conic-gradient(
 		from var(--beam-angle),
-		transparent 0 64%,
+		transparent 0 60%,
 		#00f2ff 72%,
 		#ff00cc 82%,
 		#ff9900 90%,
 		transparent 100%
 	);
-	mask:
-		linear-gradient(#000 0 0) content-box,
-		linear-gradient(#000 0 0);
-	mask-composite: exclude;
-	-webkit-mask:
-		linear-gradient(#000 0 0) content-box,
-		linear-gradient(#000 0 0);
-	-webkit-mask-composite: xor;
-	transition: opacity 0.25s ease;
+	animation: beam-spin 2.8s linear infinite;
 }
 
-.border-beam:hover::before,
-.border-beam:focus-within::before {
-	opacity: 1;
-	animation: beam-spin 2.4s linear infinite;
+.border-beam-fill {
+	position: relative;
+	z-index: 1;
+	background: var(--color-panel);
 }
 
 @keyframes beam-spin {
@@ -228,12 +247,13 @@ html.js-ready .reveal.is-in {
 
 	.logo-float,
 	.pixel-speck,
-	.border-beam::before {
+	.border-beam::before,
+	.beam-host::after {
 		animation: none;
 	}
 
-	.border-beam:hover::before,
-	.border-beam:focus-within::before {
+	.beam-host::after,
+	.border-beam::before {
 		opacity: 0;
 	}
 
