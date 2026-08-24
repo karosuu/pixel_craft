@@ -33,11 +33,13 @@ English is unprefixed. Spanish uses `/es/` and translated slugs.
 
 `/en/*` redirects to the unprefixed English URL.
 
-Copy lives in `src/i18n/copy.ts`. Paths and the mailto address live in `src/i18n/config.ts`.
+Copy lives in `src/i18n/copy.ts`. Paths and the inbox address live in `src/i18n/config.ts`.
 
 ## Contact form
 
-The contact form opens a `mailto:` message. Change `CONTACT_EMAIL` in `src/i18n/config.ts` (currently `hello@pixel-craft.com`).
+The contact form POSTs to [FormSubmit](https://formsubmit.co) and delivers messages to `CONTACT_EMAIL` in `src/i18n/config.ts` (currently `info@pixel-craft.dev`).
+
+The first submission sends a confirmation email to that inbox. Open it and confirm the address before live inquiries will arrive.
 
 ## Deploy
 

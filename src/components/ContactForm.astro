@@ -10,13 +10,36 @@ const { locale } = Astro.props;
 const copy = t(locale);
 const audiences: AudienceId[] = ['local', 'startup'];
 const needs: ServiceId[] = ['build', 'design', 'optimize', 'qa'];
+const formAction = `https://formsubmit.co/${encodeURIComponent(CONTACT_EMAIL)}`;
+const errorMessage = copy.contact.error.replace('{email}', CONTACT_EMAIL);
+const nextUrl = new URL(Astro.url);
+nextUrl.searchParams.set('sent', '1');
 ---
 
 <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
 	<h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{copy.contact.title}</h1>
 	<p class="mt-4 text-white/70">{copy.contact.intro}</p>
 
-	<form id="contact-form" class="mt-10 space-y-5" data-email={CONTACT_EMAIL} data-subject={copy.contact.subject}>
+	<form
+		id="contact-form"
+		class="relative mt-10 space-y-5"
+		action={formAction}
+		method="POST"
+		accept-charset="UTF-8"
+		data-email={CONTACT_EMAIL}
+		data-sending={copy.contact.sending}
+		data-success={copy.contact.success}
+		data-error={errorMessage}
+	>
+		<input type="hidden" name="_subject" value={copy.contact.subject} />
+		<input type="hidden" name="_template" value="table" />
+		<input type="hidden" name="_captcha" value="false" />
+		<input type="hidden" name="_next" value={nextUrl.href} />
+		<input type="hidden" name="language" value={locale === 'es' ? 'Español' : 'English'} />
+		<label class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+			Do not fill
+			<input type="text" name="_honey" tabindex="-1" autocomplete="off" />
+		</label>
 		<label class="block text-sm font-medium">
 			{copy.contact.name}
 			<input
@@ -85,9 +108,10 @@ const needs: ServiceId[] = ['build', 'design', 'optimize', 'qa'];
 				class="mt-2 w-full rounded-lg border border-white/15 bg-ink-soft px-3 py-2 text-white outline-none focus:border-cyan"
 			></textarea>
 		</label>
+		<p id="contact-status" class="text-sm text-white/50" role="status" aria-live="polite" hidden></p>
 		<button
 			type="submit"
-			class="glow-btn rounded-full bg-gradient-to-r from-cyan via-magenta to-orange px-6 py-3 text-sm font-semibold text-ink"
+			class="glow-btn rounded-full bg-gradient-to-r from-cyan via-magenta to-orange px-6 py-3 text-sm font-semibold text-ink disabled:cursor-not-allowed disabled:opacity-60"
 		>
 			{copy.contact.submit}
 		</button>
@@ -97,24 +121,76 @@ const needs: ServiceId[] = ['build', 'design', 'optimize', 'qa'];
 
 <script>
 	const form = document.getElementById('contact-form');
+	const status = document.getElementById('contact-status');
+
+	function setStatus(kind: 'success' | 'error' | 'info', message: string) {
+		if (!(status instanceof HTMLParagraphElement)) return;
+		status.hidden = message.length === 0;
+		status.textContent = message;
+		status.className =
+			kind === 'success' ? 'text-sm text-cyan' : kind === 'error' ? 'text-sm text-orange' : 'text-sm text-white/50';
+	}
+
 	if (form instanceof HTMLFormElement) {
-		form.addEventListener('submit', (event) => {
+		const submitButton = form.querySelector('button[type="submit"]');
+		const defaultLabel = submitButton instanceof HTMLButtonElement ? submitButton.textContent : '';
+		const successMessage = form.dataset.success ?? '';
+		const errorMessage = form.dataset.error ?? '';
+		const sendingLabel = form.dataset.sending ?? '';
+		const inbox = form.dataset.email ?? '';
+
+		const params = new URLSearchParams(window.location.search);
+		if (params.get('sent') === '1') {
+			setStatus('success', successMessage);
+			params.delete('sent');
+			const query = params.toString();
+			history.replaceState({}, '', `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`);
+		}
+
+		form.addEventListener('submit', async (event) => {
 			event.preventDefault();
-			const data = new FormData(form);
-			const email = form.dataset.email ?? '';
-			const subject = form.dataset.subject ?? 'Pixel-Craft';
-			const lines = [
-				`${data.get('name')}`,
-				`${data.get('email')}`,
-				data.get('website') ? String(data.get('website')) : '',
-				`${data.get('audience')}`,
-				`${data.get('need')}`,
-				'',
-				`${data.get('message')}`,
-			].filter((line, index, arr) => line !== '' || arr[index - 1] !== '');
-			const body = lines.join('\n');
-			const href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-			window.location.href = href;
+
+			const honey = form.querySelector('input[name="_honey"]');
+			if (honey instanceof HTMLInputElement && honey.value.trim() !== '') {
+				setStatus('success', successMessage);
+				form.reset();
+				return;
+			}
+
+			if (!(submitButton instanceof HTMLButtonElement)) return;
+
+			submitButton.disabled = true;
+			submitButton.textContent = sendingLabel;
+			form.setAttribute('aria-busy', 'true');
+			setStatus('info', sendingLabel);
+
+			const payload = Object.fromEntries(new FormData(form).entries());
+
+			try {
+				const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(inbox)}`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Accept: 'application/json',
+					},
+					body: JSON.stringify(payload),
+				});
+				const result = (await response.json()) as { success?: boolean | string };
+				const ok = result.success === true || result.success === 'true';
+
+				if (!response.ok || !ok) {
+					throw new Error('FormSubmit rejected the request');
+				}
+
+				form.reset();
+				setStatus('success', successMessage);
+			} catch {
+				setStatus('error', errorMessage);
+			} finally {
+				submitButton.disabled = false;
+				submitButton.textContent = defaultLabel;
+				form.removeAttribute('aria-busy');
+			}
 		});
 	}
 </script>

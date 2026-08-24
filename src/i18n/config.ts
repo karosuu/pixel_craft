@@ -1,5 +1,5 @@
 export const BRAND = 'Pixel-Craft';
-export const CONTACT_EMAIL = 'hello@pixel-craft.com';
+export const CONTACT_EMAIL = 'info@pixel-craft.dev';
 
 export const locales = ['en', 'es'] as const;
 export type Locale = (typeof locales)[number];
