@@ -110,7 +110,7 @@ body {
 	position: absolute;
 	inset: -18px;
 	z-index: 0;
-	border-radius: inherit;
+	border-radius: 2rem;
 	pointer-events: none;
 	background: conic-gradient(
 		from var(--beam-angle),
@@ -128,6 +128,8 @@ body {
 	position: relative;
 	z-index: 1;
 	overflow: hidden;
+	isolation: isolate;
+	border-radius: inherit;
 	padding: 1px;
 	background: rgb(255 255 255 / 0.14);
 }
@@ -136,11 +138,7 @@ body {
 	content: "";
 	position: absolute;
 	z-index: 0;
-	top: 50%;
-	left: 50%;
-	width: 170%;
-	aspect-ratio: 1;
-	translate: -50% -50%;
+	inset: -55%;
 	pointer-events: none;
 	background: conic-gradient(
 		from var(--beam-angle),
