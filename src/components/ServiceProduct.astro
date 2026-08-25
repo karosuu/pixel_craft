@@ -28,8 +28,8 @@ const servicesHref = hrefFor(locale, 'services');
 		</ol>
 	</nav>
 
-	<h1 class="mt-6 text-3xl font-bold tracking-tight sm:text-4xl">{item.title}</h1>
-	<p class="mt-4 max-w-2xl text-lg text-white/75">{item.hero}</p>
+	<p class="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-cyan">{item.title}</p>
+	<h1 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">{item.hero}</h1>
 	<a
 		href={contactHref}
 		class="glow-btn mt-8 inline-flex rounded-full bg-gradient-to-r from-cyan via-magenta to-orange px-6 py-3 text-sm font-semibold text-ink"
@@ -45,11 +45,13 @@ const servicesHref = hrefFor(locale, 'services');
 
 <section class="reveal mx-auto max-w-6xl px-4 py-10 sm:px-6">
 	<h2 class="text-2xl font-semibold tracking-tight">{copy.services.whatWeDoHeading}</h2>
-	<div class="mt-8 grid gap-6 md:grid-cols-3">
+	<p class="mt-3 max-w-2xl text-white/75">{copy.services.whatWeDoIntro}</p>
+	<div class="mt-8 grid gap-6 sm:grid-cols-2">
 		{
-			item.work.map((group) => (
+			item.work.map((group, index) => (
 				<div class="rounded-2xl border border-white/10 bg-panel p-6">
-					<h3 class="text-lg font-semibold">{group.title}</h3>
+					<p class="text-xs font-semibold tracking-[0.2em] text-cyan">{String(index + 1).padStart(2, '0')}</p>
+					<h3 class="mt-2 text-lg font-semibold">{group.title}</h3>
 					<ul class="mt-4 list-disc space-y-1 pl-5 text-sm text-white/75">
 						{group.items.map((entry) => (
 							<li>{entry}</li>
@@ -59,6 +61,13 @@ const servicesHref = hrefFor(locale, 'services');
 			))
 		}
 	</div>
+</section>
+
+<section class="reveal mx-auto max-w-6xl px-4 py-10 sm:px-6">
+	<h2 class="text-2xl font-semibold tracking-tight">{copy.services.includedHeading}</h2>
+	<ul class="mt-6 max-w-2xl list-disc space-y-2 pl-5 text-white/75">
+		{item.included.map((entry) => <li>{entry}</li>)}
+	</ul>
 </section>
 
 <section class="reveal mx-auto max-w-6xl px-4 py-10 sm:px-6">
@@ -76,4 +85,4 @@ const servicesHref = hrefFor(locale, 'services');
 	</ul>
 </section>
 
-<CtaBanner locale={locale} title={item.hero} button={item.cta} href={contactHref} />
+<CtaBanner locale={locale} title={item.ctaTitle} body={item.ctaBody} button={item.cta} href={contactHref} />

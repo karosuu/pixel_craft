@@ -1,5 +1,5 @@
 ---
-import { CONTACT_EMAIL, serviceIds, type Locale, type ServiceId } from '../i18n/config';
+import { CONTACT_EMAIL, serviceIds, serviceSlugs, type Locale, type ServiceId } from '../i18n/config';
 import { t, type AudienceId } from '../i18n/copy';
 
 interface Props {
@@ -19,6 +19,7 @@ const fieldClass =
 const formCopy = {
 	contextual: copy.contact.contextual,
 	needOptions: copy.contact.needOptions,
+	slugs: serviceSlugs[locale],
 };
 ---
 
@@ -133,7 +134,17 @@ const formCopy = {
 			submit: Record<string, string>;
 		};
 		needOptions: Record<string, string>;
+		slugs: Record<string, string>;
 	};
+
+	function resolveNeed(params: URLSearchParams, parsed: FormCopy) {
+		const need = params.get('need');
+		if (need && need in parsed.needOptions) return need;
+		const slug = params.get('service');
+		if (!slug) return null;
+		const match = Object.entries(parsed.slugs).find(([, value]) => value === slug);
+		return match && match[0] in parsed.needOptions ? match[0] : null;
+	}
 
 	function applyNeedFromQuery(root: HTMLFormElement) {
 		const raw = root.dataset.copy;
@@ -144,8 +155,8 @@ const formCopy = {
 		} catch {
 			return;
 		}
-		const need = new URLSearchParams(window.location.search).get('need');
-		if (!need || !(need in parsed.needOptions)) return;
+		const need = resolveNeed(new URLSearchParams(window.location.search), parsed);
+		if (!need) return;
 
 		const heading = document.getElementById('contact-heading');
 		const intro = document.getElementById('contact-intro');

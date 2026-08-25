@@ -22,7 +22,7 @@ const links = navPageIds;
 			{
 				links.map((id) => (
 					<a class="text-white/75 hover:text-white" href={hrefFor(locale, id)}>
-						{copy.nav[id]}
+						{id === 'contact' ? copy.common.ctaPrimary : copy.nav[id]}
 					</a>
 				))
 			}
