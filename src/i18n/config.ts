@@ -1,6 +1,9 @@
 export const BRAND = 'Pixel-Craft';
 export const CONTACT_EMAIL = 'info@pixel-craft.dev';
 
+/** HTML-tag token from Google Search Console. Visible in page source. */
+export const GOOGLE_SITE_VERIFICATION = '';
+
 export const locales = ['en', 'es'] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = 'en';

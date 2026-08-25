@@ -8,11 +8,12 @@ const SITE = 'https://pixel-craft.dev';
 
 function pageUrl(locale, page) {
 	const path = paths[locale][page];
-	return path === '/' ? SITE : `${SITE}${path}`;
+	return path === '/' ? `${SITE}/` : `${SITE}${path}`;
 }
 
 function withoutSlash(url) {
-	return url.endsWith('/') && url !== `${SITE}/` ? url.slice(0, -1) : url.replace(/\/$/, '') || SITE;
+	if (url === SITE || url === `${SITE}/`) return SITE;
+	return url.endsWith('/') ? url.slice(0, -1) : url;
 }
 
 // Custom domain: keep `base: '/'`.
@@ -40,15 +41,18 @@ export default defineConfig({
 			},
 			serialize(item) {
 				const current = withoutSlash(item.url);
+				if (current === SITE) {
+					item.url = `${SITE}/`;
+				}
 				const page = pageIds.find(
 					(id) => withoutSlash(pageUrl('en', id)) === current || withoutSlash(pageUrl('es', id)) === current,
 				);
+				item.lastmod = new Date().toISOString();
 				if (page) {
-					const en = pageUrl('en', page);
 					item.links = [
-						{ lang: 'en-US', url: en === SITE ? `${SITE}/` : en },
+						{ lang: 'en-US', url: pageUrl('en', page) },
 						{ lang: 'es-MX', url: pageUrl('es', page) },
-						{ lang: 'x-default', url: en === SITE ? `${SITE}/` : en },
+						{ lang: 'x-default', url: pageUrl('en', page) },
 					];
 				}
 				return item;

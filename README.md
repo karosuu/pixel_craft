@@ -54,4 +54,14 @@ If you host on Vercel or Netlify instead, you can ignore that workflow.
 
 ## SEO and Google
 
-The build emits `robots.txt` and `sitemap-index.xml`. After HTTPS works on `pixel-craft.dev`, verify the domain in [Google Search Console](https://search.google.com/search-console), submit `https://pixel-craft.dev/sitemap-index.xml`, and request indexing for the homepage. The search result icon uses `favicon-48.png` (48×48) and can take days or weeks to appear.
+The build emits `robots.txt` and `sitemap-index.xml`. HTTPS is live at `https://pixel-craft.dev`.
+
+1. Open [Google Search Console](https://search.google.com/search-console).
+2. Add a **URL prefix** property: `https://pixel-craft.dev`.
+3. Choose **HTML tag**, copy the `content` value, and paste it into `GOOGLE_SITE_VERIFICATION` in `src/i18n/config.ts`.
+4. Commit, push, and wait for the deploy.
+5. Click **Verify**.
+6. Sitemaps → Add sitemap: `sitemap-index.xml` (full URL: `https://pixel-craft.dev/sitemap-index.xml`).
+7. URL inspection → `https://pixel-craft.dev/` → **Request indexing**.
+
+The search result icon uses `favicon-48.png` (48×48) and can take days or weeks to appear.

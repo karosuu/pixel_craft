@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { BRAND, CONTACT_EMAIL, hrefFor, withBase, type Locale, type PageId } from '../i18n/config';
+import { BRAND, CONTACT_EMAIL, GOOGLE_SITE_VERIFICATION, hrefFor, withBase, type Locale, type PageId } from '../i18n/config';
 import { t } from '../i18n/copy';
 import { hreflangUrls, htmlLang } from '../i18n/utils';
 
@@ -54,7 +54,11 @@ const jsonLd = {
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		{GOOGLE_SITE_VERIFICATION && (
+			<meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />
+		)}
 		<link rel="canonical" href={canonical} />
+		<link rel="sitemap" type="application/xml" href={`${siteOrigin}/sitemap-index.xml`} />
 		<link rel="alternate" hreflang="en" href={alts.en} />
 		<link rel="alternate" hreflang="es" href={alts.es} />
 		<link rel="alternate" hreflang="x-default" href={alts.xDefault} />
