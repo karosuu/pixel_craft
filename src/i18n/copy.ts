@@ -310,7 +310,7 @@ export const dictionaries = {
 		},
 		process: {
 			title: 'How we work',
-			intro: 'A short path from first call to a site you can stand behind.',
+			intro: 'A clear path from first conversation to a site you can stand behind.',
 			steps: {
 				discover: {
 					title: 'Discover',
@@ -719,7 +719,7 @@ export const dictionaries = {
 		},
 		process: {
 			title: 'Cómo trabajamos',
-			intro: 'Un camino corto desde la primera llamada hasta un sitio que puedes defender.',
+			intro: 'Un camino claro desde la primera conversación hasta un sitio del que puedes estar orgulloso.',
 			steps: {
 				discover: {
 					title: 'Descubrir',
