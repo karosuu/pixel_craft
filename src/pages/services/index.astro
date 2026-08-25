@@ -1,8 +1,7 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import ServicesGrid from '../components/ServicesGrid.astro';
-import CtaBanner from '../components/CtaBanner.astro';
-import { t } from '../i18n/copy';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServicesGrid from '../../components/ServicesGrid.astro';
+import { t } from '../../i18n/copy';
 
 const locale = 'en' as const;
 const copy = t(locale);
@@ -10,5 +9,4 @@ const copy = t(locale);
 
 <BaseLayout locale={locale} page="services" title={copy.meta.servicesTitle} description={copy.meta.servicesDescription}>
 	<ServicesGrid locale={locale} detailed={true} heading="h1" />
-	<CtaBanner locale={locale} />
 </BaseLayout>

@@ -1,6 +1,6 @@
 ---
-import { hrefFor, type Locale } from '../i18n/config';
-import { t, type ServiceId } from '../i18n/copy';
+import { hrefForService, serviceIds, type Locale } from '../i18n/config';
+import { t } from '../i18n/copy';
 
 interface Props {
 	locale: Locale;
@@ -10,51 +10,55 @@ interface Props {
 
 const { locale, detailed = false, heading = 'h2' } = Astro.props;
 const copy = t(locale);
-const ids: ServiceId[] = ['build', 'design', 'optimize', 'qa'];
 const Heading = heading;
-const servicesHref = hrefFor(locale, 'services');
+const title = detailed ? copy.services.catalogTitle : copy.services.title;
+const intro = detailed ? copy.services.catalogIntro : copy.services.intro;
 ---
 
 <section class="reveal mx-auto max-w-6xl px-4 py-16 sm:px-6">
-	<Heading class="text-2xl font-semibold tracking-tight sm:text-3xl">{copy.services.title}</Heading>
-	<p class="mt-3 max-w-2xl text-white/75">{copy.services.intro}</p>
+	<Heading class="text-2xl font-semibold tracking-tight sm:text-3xl">{title}</Heading>
+	<p class="mt-3 max-w-2xl text-white/75">{intro}</p>
 	<div class="mt-10 grid gap-6 md:grid-cols-2">
 		{
-			ids.map((id) => {
+			serviceIds.map((id) => {
 				const item = copy.services.items[id];
-				const inner = (
-					<>
-						<h3 class="text-xl font-semibold">{item.title}</h3>
-						<p class="mt-3 text-white/75">{item.summary}</p>
-						{detailed && (
-							<>
-								<div class="mt-5 space-y-3 text-sm">
-									<p>
-										<span class="font-semibold text-cyan">{copy.services.forLocal}: </span>
-										<span class="text-white/75">{item.local}</span>
-									</p>
-									<p>
-										<span class="font-semibold text-orange">{copy.services.forStartup}: </span>
-										<span class="text-white/75">{item.startup}</span>
-									</p>
-								</div>
-								<ul class="mt-4 list-disc space-y-1 pl-5 text-sm text-white/70">
-									{item.deliverables.map((d) => (
-										<li>{d}</li>
-									))}
-								</ul>
-							</>
-						)}
-					</>
-				);
-				return detailed ? (
-					<article class="lift-card rounded-2xl border border-white/10 bg-panel p-6">{inner}</article>
-				) : (
+				const href = hrefForService(locale, id);
+				if (detailed) {
+					return (
+						<article class="lift-card flex flex-col rounded-2xl border border-white/10 bg-panel p-6">
+							<h2 class="text-xl font-semibold">{item.title}</h2>
+							<p class="mt-4 text-sm">
+								<span class="font-semibold text-cyan">{copy.services.problemLabel}: </span>
+								<span class="text-white/75">{item.problem}</span>
+							</p>
+							<p class="mt-3 text-sm">
+								<span class="font-semibold text-orange">{copy.services.solutionLabel}: </span>
+								<span class="text-white/75">{item.solution}</span>
+							</p>
+							<p class="mt-5 text-xs font-semibold uppercase tracking-widest text-white/70">
+								{copy.services.idealForLabel}
+							</p>
+							<ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-white/75">
+								{item.idealFor.map((entry) => (
+									<li>{entry}</li>
+								))}
+							</ul>
+							<a
+								href={href}
+								class="glow-btn mt-6 inline-flex self-start rounded-full bg-gradient-to-r from-cyan via-magenta to-orange px-5 py-2.5 text-sm font-semibold text-ink"
+							>
+								{item.cta}
+							</a>
+						</article>
+					);
+				}
+				return (
 					<a
-						href={servicesHref}
+						href={href}
 						class="lift-card block rounded-2xl border border-white/10 bg-panel p-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan"
 					>
-						{inner}
+						<h3 class="text-xl font-semibold">{item.title}</h3>
+						<p class="mt-3 text-white/75">{item.summary}</p>
 					</a>
 				);
 			})

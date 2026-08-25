@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceProduct from '../../components/ServiceProduct.astro';
+import { hrefFor, serviceIdFromSlug, serviceIds, serviceSlugs } from '../../i18n/config';
+import { t } from '../../i18n/copy';
+
+export function getStaticPaths() {
+	return serviceIds.map((id) => ({ params: { slug: serviceSlugs.en[id] } }));
+}
+
+const locale = 'en' as const;
+const service = serviceIdFromSlug(locale, Astro.params.slug);
+if (!service) {
+	return Astro.redirect(hrefFor(locale, 'services'));
+}
+const item = t(locale).services.items[service];
+---
+
+<BaseLayout
+	locale={locale}
+	page="services"
+	service={service}
+	title={item.metaTitle}
+	description={item.metaDescription}
+>
+	<ServiceProduct locale={locale} service={service} />
+</BaseLayout>

@@ -1,8 +1,18 @@
 ---
-import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { BRAND, CONTACT_EMAIL, GOOGLE_SITE_VERIFICATION, hrefFor, withBase, type Locale, type PageId } from '../i18n/config';
+import '../styles/global.css';
+import {
+	BRAND,
+	CONTACT_EMAIL,
+	GOOGLE_SITE_VERIFICATION,
+	hrefFor,
+	hrefForService,
+	withBase,
+	type Locale,
+	type PageId,
+	type ServiceId,
+} from '../i18n/config';
 import { t } from '../i18n/copy';
 import { hreflangUrls, htmlLang } from '../i18n/utils';
 
@@ -11,18 +21,20 @@ interface Props {
 	page: PageId;
 	title: string;
 	description: string;
+	service?: ServiceId;
 }
 
-const { locale, page, title, description } = Astro.props;
+const { locale, page, title, description, service } = Astro.props;
 const copy = t(locale);
-const canonicalPath = hrefFor(locale, page);
+const canonicalPath = service ? hrefForService(locale, service) : hrefFor(locale, page);
 const site = Astro.site;
 const origin = site ? site.origin : '';
 const canonical = `${origin}${canonicalPath === '/' ? '/' : canonicalPath}`;
-const alts = hreflangUrls(site, page);
+const alts = hreflangUrls(site, page, service);
 const siteOrigin = site?.origin ?? 'https://pixel-craft.dev';
 const ogImage = new URL(withBase('/logo.png'), siteOrigin).href;
 const icon192 = new URL(withBase('/favicon-192.png'), siteOrigin).href;
+const serviceCopy = service ? copy.services.items[service] : undefined;
 const jsonLd = {
 	'@context': 'https://schema.org',
 	'@graph': [
@@ -42,6 +54,34 @@ const jsonLd = {
 			publisher: { '@id': `${siteOrigin}/#organization` },
 			inLanguage: ['en', 'es'],
 		},
+		...(service && serviceCopy
+			? [
+					{
+						'@type': 'BreadcrumbList',
+						itemListElement: [
+							{
+								'@type': 'ListItem',
+								position: 1,
+								name: copy.nav.services,
+								item: `${origin}${hrefFor(locale, 'services')}`,
+							},
+							{
+								'@type': 'ListItem',
+								position: 2,
+								name: serviceCopy.title,
+								item: canonical,
+							},
+						],
+					},
+					{
+						'@type': 'Service',
+						name: serviceCopy.title,
+						description: description,
+						url: canonical,
+						provider: { '@id': `${siteOrigin}/#organization` },
+					},
+				]
+			: []),
 	],
 };
 ---
@@ -97,7 +137,7 @@ const jsonLd = {
 		>
 			{copy.common.skip}
 		</a>
-		<Header locale={locale} page={page} />
+		<Header locale={locale} page={page} service={service} />
 		<main id="content">
 			<slot />
 		</main>

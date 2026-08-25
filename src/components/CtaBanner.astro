@@ -4,23 +4,31 @@ import { t } from '../i18n/copy';
 
 interface Props {
 	locale: Locale;
+	title?: string;
+	body?: string;
+	button?: string;
+	href?: string;
 }
 
-const { locale } = Astro.props;
+const { locale, title, body, button, href } = Astro.props;
 const copy = t(locale);
+const heading = title ?? copy.cta.title;
+const text = body ?? (title ? undefined : copy.cta.body);
+const label = button ?? copy.cta.button;
+const target = href ?? hrefFor(locale, 'contact');
 ---
 
 <section class="reveal mx-auto max-w-6xl px-4 pb-20 sm:px-6">
 	<div class="beam-host lift-card rounded-3xl">
 		<div class="border-beam rounded-3xl">
 			<div class="border-beam-fill rounded-3xl px-6 py-10 text-center sm:px-12">
-				<h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{copy.cta.title}</h2>
-				<p class="mx-auto mt-3 max-w-2xl text-white/75">{copy.cta.body}</p>
+				<h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{heading}</h2>
+				{text && <p class="mx-auto mt-3 max-w-2xl text-white/75">{text}</p>}
 				<a
-					href={hrefFor(locale, 'contact')}
+					href={target}
 					class="glow-btn mt-8 inline-flex rounded-full bg-gradient-to-r from-cyan via-magenta to-orange px-6 py-3 text-sm font-semibold text-ink"
 				>
-					{copy.cta.button}
+					{label}
 				</a>
 			</div>
 		</div>
