@@ -457,16 +457,16 @@ export const dictionaries = {
 			titleBefore: 'Sitios que se ven profesionales,',
 			titleAccent: 'cargan rápido',
 			titleAfter: 'y pasan QA.',
-			body: 'Creamos sitios nuevos, rediseñamos los que ya se vieron viejos y corremos rendimiento y QA antes de que salgan — no solo hasta que se vean listos.',
+			body: 'Creamos sitios nuevos, renovamos los que necesitan una mejora y evaluamos rendimiento y QA antes del lanzamiento — no solo hasta que se vean listos.',
 		},
 		audiences: {
-			title: 'Dos tipos de equipo. El mismo oficio meticuloso.',
+			title: 'Dos tipos de clientes. El mismo nivel de cuidado.',
 			localTitle: 'Negocios locales',
 			localBody:
-				'La gente te busca en el celular. Si el sitio es lento, confuso o difícil de contactar, llaman a otro.',
+				'La gente te busca desde el celular. Si tu sitio es lento, confuso o dificulta contactarte, buscarán otra opción.',
 			startupTitle: 'Startups',
 			startupBody:
-				'El launch no es un mockup. Necesitas una historia clara del producto, rendimiento defendible y QA antes de salir.',
+				'El lanzamiento no es un mockup. Necesitas una propuesta clara del producto, buen rendimiento y QA antes de salir.',
 		},
 		services: {
 			title: 'Qué hacemos',
@@ -488,7 +488,7 @@ export const dictionaries = {
 			forYouHeading: 'Este servicio es para ti si',
 			items: {
 				build: {
-					title: 'Creación de sitios',
+					title: 'Desarrollo de sitios',
 					summary: 'Sitios nuevos desde un brief claro: estructura, diseño y un lanzamiento que sí funciona.',
 					problem: 'Necesitas un sitio web profesional desde cero.',
 					solution: 'Diseñamos y desarrollamos sitios web modernos, responsive y orientados a objetivos.',
@@ -496,10 +496,10 @@ export const dictionaries = {
 					cta: 'Crear mi sitio',
 					ctaTitle: '¿Listo para construir tu sitio?',
 					ctaBody: 'Hagamos un sitio claro, responsive y listo para lanzar.',
-					metaTitle: 'Creación de sitios — Pixel-Craft',
+					metaTitle: 'Desarrollo de sitios — Pixel-Craft',
 					metaDescription:
 						'Sitios nuevos con estructura clara, diseño responsive y un lanzamiento ordenado. Crea tu sitio con Pixel-Craft.',
-					hero: 'Un sitio nuevo que se entiende, funciona en el celular y está listo para lanzar.',
+					hero: 'Un sitio nuevo, claro, adaptable a cualquier pantalla y listo para lanzar.',
 					problemBody:
 						'Sin un sitio — o con uno que ya no representa al negocio — la gente no entiende qué ofreces, cómo contactarte ni por qué confiar.',
 					work: [
@@ -727,11 +727,11 @@ export const dictionaries = {
 				},
 				design: {
 					title: 'Diseñar',
-					body: 'Estructura y visuales alineados a tu marca. El nombre Pixel-Craft no se traduce; tu voz tampoco se diluye.',
+					body: 'Estructura y visuales alineados con tu marca y tu voz.',
 				},
 				build: {
 					title: 'Construir',
-					body: 'Implementación limpia y responsive, con rendimiento desde el primer pase.',
+					body: 'Implementación limpia y responsive, con el rendimiento en mente desde el inicio.',
 				},
 				qa: {
 					title: 'QA',
@@ -739,7 +739,7 @@ export const dictionaries = {
 				},
 				launch: {
 					title: 'Lanzar',
-					body: 'Salida a producción, lista de ajustes y una entrega que puedes mantener o seguir iterando con nosotros.',
+					body: 'Lanzamiento, lista de ajustes y una entrega que puedes mantener por tu cuenta o seguir mejorando con nosotros.',
 				},
 			},
 		},
