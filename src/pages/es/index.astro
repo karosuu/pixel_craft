@@ -5,7 +5,7 @@ import AudienceCards from '../../components/AudienceCards.astro';
 import ServicesGrid from '../../components/ServicesGrid.astro';
 import Differentiator from '../../components/Differentiator.astro';
 import Process from '../../components/Process.astro';
-import LaunchChecks from '../../components/LaunchChecks.astro';
+import WorkPreview from '../../components/WorkPreview.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import { t } from '../../i18n/copy';
 
@@ -19,6 +19,6 @@ const copy = t(locale);
 	<ServicesGrid locale={locale} />
 	<Differentiator locale={locale} />
 	<Process locale={locale} />
-	<LaunchChecks locale={locale} />
+	<WorkPreview locale={locale} compact />
 	<CtaBanner locale={locale} />
 </BaseLayout>

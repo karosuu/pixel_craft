@@ -7,25 +7,33 @@ interface Props {
 	limit?: number;
 	showLink?: boolean;
 	heading?: 'h1' | 'h2';
+	compact?: boolean;
 }
 
-const { locale, limit, showLink = false, heading = 'h2' } = Astro.props;
+const { locale, limit, showLink = false, heading = 'h2', compact = false } = Astro.props;
 const copy = t(locale);
 const cases = typeof limit === 'number' ? copy.work.cases.slice(0, limit) : copy.work.cases;
 const Heading = heading;
+const title = compact ? copy.work.previewTitle : copy.work.title;
+const comingSoonBody = compact ? copy.work.comingSoonPreview : copy.work.comingSoonBody;
+const sectionClass = compact
+	? 'reveal mx-auto max-w-6xl px-4 py-10 sm:px-6'
+	: 'reveal mx-auto max-w-6xl px-4 py-16 sm:px-6';
 const gridClass =
 	cases.length === 0
-		? 'mt-10'
+		? compact
+			? 'mt-5'
+			: 'mt-10'
 		: cases.length === 1
 			? 'mt-10 max-w-xl'
 			: 'mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3';
 ---
 
-<section class="reveal mx-auto max-w-6xl px-4 py-16 sm:px-6">
+<section class={sectionClass}>
 	<div class="flex flex-wrap items-end justify-between gap-4">
 		<div>
-			<Heading class="text-2xl font-semibold tracking-tight sm:text-3xl">{copy.work.title}</Heading>
-			<p class="mt-3 max-w-2xl text-white/75">{copy.work.intro}</p>
+			<Heading class="text-2xl font-semibold tracking-tight sm:text-3xl">{title}</Heading>
+			{!compact && <p class="mt-3 max-w-2xl text-white/75">{copy.work.intro}</p>}
 		</div>
 		{
 			showLink && (
@@ -38,12 +46,19 @@ const gridClass =
 	<div class={gridClass}>
 		{
 			cases.length === 0 ? (
-				<div class="lift-card max-w-xl rounded-2xl border border-dashed border-white/20 bg-panel/60 p-8">
-					<p class="text-xs font-semibold uppercase tracking-widest text-cyan">
-						{copy.work.comingSoonTitle}
+				compact ? (
+					<p class="max-w-lg text-sm text-white/60">
+						<span class="font-medium text-white/75">{copy.work.comingSoonTitle}.</span>{' '}
+						{comingSoonBody}
 					</p>
-					<p class="mt-3 text-white/75">{copy.work.comingSoonBody}</p>
-				</div>
+				) : (
+					<div class="max-w-xl rounded-2xl border border-dashed border-white/20 bg-panel/60 p-5">
+						<p class="text-xs font-semibold uppercase tracking-widest text-cyan">
+							{copy.work.comingSoonTitle}
+						</p>
+						<p class="mt-2 text-sm text-white/75">{comingSoonBody}</p>
+					</div>
+				)
 			) : (
 				cases.map((item) => {
 					const inner = (

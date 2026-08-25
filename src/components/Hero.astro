@@ -26,7 +26,6 @@ const copy = t(locale);
 				{copy.hero.titleAfter}
 			</h1>
 			<p class="mt-6 max-w-xl text-lg text-white/75">{copy.hero.body}</p>
-			<p class="mt-4 max-w-xl text-base text-white/70">{copy.hero.support}</p>
 			<div class="mt-8 flex flex-wrap gap-3">
 				<a
 					href={hrefFor(locale, 'contact')}
@@ -35,10 +34,10 @@ const copy = t(locale);
 					{copy.common.ctaPrimary}
 				</a>
 				<a
-					href={hrefFor(locale, 'services')}
+					href={hrefFor(locale, 'work')}
 					class="btn-quiet rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white hover:border-white/40"
 				>
-					{copy.nav.services}
+					{copy.common.ctaSecondary}
 				</a>
 			</div>
 		</div>

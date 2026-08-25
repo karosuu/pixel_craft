@@ -50,7 +50,6 @@ export const dictionaries = {
 			titleAccent: 'load fast,',
 			titleAfter: 'and hold up in QA.',
 			body: 'We build new sites, redesign tired ones, and run performance and QA before they go live — not just until they look done.',
-			support: "Tell us what you're building. We'll tell you what it needs.",
 		},
 		audiences: {
 			title: 'Two kinds of teams. The same meticulous craft.',
@@ -311,7 +310,7 @@ export const dictionaries = {
 		},
 		process: {
 			title: 'How we work',
-			intro: "We break it on purpose, so your customers don't.",
+			intro: 'A short path from first call to a site you can stand behind.',
 			steps: {
 				discover: {
 					title: 'Discover',
@@ -327,7 +326,7 @@ export const dictionaries = {
 				},
 				qa: {
 					title: 'QA',
-					body: 'Phones, browsers, forms, and the paths people actually take — before anyone else hits them.',
+					body: 'We break it on purpose: phones, browsers, forms, and the paths people actually take.',
 				},
 				launch: {
 					title: 'Launch',
@@ -337,12 +336,14 @@ export const dictionaries = {
 		},
 		work: {
 			title: 'Projects',
+			previewTitle: 'Selected Work',
 			intro: 'Client work will appear here as we publish new case studies.',
 			placeholderNote: 'Sample',
 			visitSite: 'Visit site',
 			comingSoonTitle: 'Coming soon',
 			comingSoonBody:
 				'We are preparing the first case studies. Check back shortly — or start a project and be next on this page.',
+			comingSoonPreview: 'First case studies are in progress.',
 			cases: [],
 		},
 		about: {
@@ -358,41 +359,11 @@ export const dictionaries = {
 		},
 		proof: {
 			title: 'Built beyond the screenshot.',
-			body: 'A site can look finished and still fail on a phone, in another browser, or at the form. We design and build with performance and QA in mind, not as an afterthought.',
-			items: [
-				'Performance',
-				'Responsive behavior',
-				'Browser compatibility',
-				'Forms and interactions',
-				'Accessibility basics',
-				'SEO fundamentals',
-				'QA',
-			],
-			benefitsTitle: 'What you get',
-			benefits: [
-				{ title: 'Fast', body: 'Pages that load instead of making people wait.' },
-				{ title: 'Responsive', body: 'It works on the phone in their hand.' },
-				{ title: 'Clear', body: 'The offer is obvious. The next step is obvious.' },
-				{ title: 'Tested', body: 'We try to break it before customers do.' },
-				{ title: 'Maintainable', body: 'A handoff you can keep, or keep iterating with us.' },
-			],
-		},
-		launchChecks: {
-			title: 'What we check before launch',
-			intro: 'Until case studies are up, this is the bar we hold a site to before it goes live.',
-			items: [
-				'Key pages on a phone',
-				'Forms actually send',
-				'Main browsers and breakpoints',
-				'Broken links and 404s',
-				'Titles, descriptions, and headings',
-				'Images, fonts, and obvious weight',
-				'A punch list before go-live',
-			],
+			body: 'Good design is only the beginning. We care about what happens after the mockup — performance, responsiveness, browser compatibility, accessibility, SEO fundamentals, and the details users notice.',
 		},
 		cta: {
-			title: "Tell us what you're building. We'll tell you what it needs.",
-			body: 'Build, design, performance, QA — or a mix. Start with a short brief.',
+			title: 'Get your site through review before launch.',
+			body: "Tell us what you're building and we'll tell you what it needs.",
 			button: 'Start a project',
 		},
 		contact: {
@@ -493,7 +464,6 @@ export const dictionaries = {
 			titleAccent: 'cargan rápido',
 			titleAfter: 'y pasan QA.',
 			body: 'Creamos sitios nuevos, rediseñamos los que ya se vieron viejos y corremos rendimiento y QA antes de que salgan — no solo hasta que se vean listos.',
-			support: 'Cuéntanos qué estás construyendo. Te diremos qué necesita.',
 		},
 		audiences: {
 			title: 'Dos tipos de equipo. El mismo oficio meticuloso.',
@@ -755,7 +725,7 @@ export const dictionaries = {
 		},
 		process: {
 			title: 'Cómo trabajamos',
-			intro: 'Lo rompemos a propósito, para que tus clientes no lo hagan.',
+			intro: 'Un camino corto desde la primera llamada hasta un sitio que puedes defender.',
 			steps: {
 				discover: {
 					title: 'Descubrir',
@@ -771,7 +741,7 @@ export const dictionaries = {
 				},
 				qa: {
 					title: 'QA',
-					body: 'Celulares, navegadores, formularios y los caminos reales de uso — antes de que llegue alguien más.',
+					body: 'Lo rompemos a propósito: celulares, navegadores, formularios y los caminos reales de uso.',
 				},
 				launch: {
 					title: 'Lanzar',
@@ -781,12 +751,14 @@ export const dictionaries = {
 		},
 		work: {
 			title: 'Proyectos',
+			previewTitle: 'Trabajo seleccionado',
 			intro: 'El trabajo con clientes aparecerá aquí cuando publiquemos los casos.',
 			placeholderNote: 'Ejemplo',
 			visitSite: 'Ver sitio',
 			comingSoonTitle: 'Próximamente',
 			comingSoonBody:
 				'Estamos preparando los primeros casos. Vuelve pronto — o inicia un proyecto y sé el siguiente en esta página.',
+			comingSoonPreview: 'Los primeros casos están en preparación.',
 			cases: [],
 		},
 		about: {
@@ -803,41 +775,11 @@ export const dictionaries = {
 		},
 		proof: {
 			title: 'Más allá del screenshot.',
-			body: 'Un sitio puede verse terminado y aun así fallar en el celular, en otro navegador o en el formulario. Diseñamos y construimos con rendimiento y QA, no como un extra al final.',
-			items: [
-				'Rendimiento',
-				'Comportamiento responsive',
-				'Compatibilidad de navegadores',
-				'Formularios e interacciones',
-				'Accesibilidad básica',
-				'Fundamentos de SEO',
-				'QA',
-			],
-			benefitsTitle: 'Qué te llevas',
-			benefits: [
-				{ title: 'Rápido', body: 'Páginas que cargan, no que hacen esperar.' },
-				{ title: 'Responsive', body: 'Funciona en el celular que tienen en la mano.' },
-				{ title: 'Claro', body: 'La oferta se entiende. El siguiente paso también.' },
-				{ title: 'Probado', body: 'Intentamos romperlo antes de que lo hagan los clientes.' },
-				{ title: 'Mantenible', body: 'Una entrega que puedes conservar o seguir iterando con nosotros.' },
-			],
-		},
-		launchChecks: {
-			title: 'Qué revisamos antes del lanzamiento',
-			intro: 'Mientras los casos no estén publicados, este es el piso que pedimos a un sitio antes de salir.',
-			items: [
-				'Páginas clave en el celular',
-				'Que los formularios sí envíen',
-				'Navegadores y tamaños principales',
-				'Enlaces rotos y 404',
-				'Títulos, descripciones y headings',
-				'Imágenes, fuentes y peso obvio',
-				'Lista de ajustes antes del go-live',
-			],
+			body: 'El buen diseño es solo el comienzo. Nos importa lo que pasa después del mockup: rendimiento, comportamiento responsive, compatibilidad de navegadores, accesibilidad, fundamentos de SEO y los detalles que la gente sí nota.',
 		},
 		cta: {
-			title: 'Cuéntanos qué estás construyendo. Te diremos qué necesita.',
-			body: 'Creación, diseño, rendimiento, QA — o una mezcla. Empieza con un brief corto.',
+			title: 'Haz que tu sitio pase la revisión antes del lanzamiento.',
+			body: 'Cuéntanos qué estás construyendo y te diremos qué necesita.',
 			button: 'Iniciar un proyecto',
 		},
 		contact: {
