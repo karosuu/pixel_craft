@@ -336,14 +336,12 @@ export const dictionaries = {
 		},
 		work: {
 			title: 'Projects',
-			previewTitle: 'Selected Work',
 			intro: 'Client work will appear here as we publish new case studies.',
 			placeholderNote: 'Sample',
 			visitSite: 'Visit site',
 			comingSoonTitle: 'Coming soon',
 			comingSoonBody:
 				'We are preparing the first case studies. Check back shortly — or start a project and be next on this page.',
-			comingSoonPreview: 'First case studies are in progress.',
 			cases: [],
 		},
 		about: {
@@ -356,10 +354,6 @@ export const dictionaries = {
 				'English or Spanish — we work in the language your customers feel most comfortable in.',
 				'Good design gets attention. Great digital experiences make people stay.',
 			],
-		},
-		proof: {
-			title: 'Built beyond the screenshot.',
-			body: 'Good design is only the beginning. We care about what happens after the mockup — performance, responsiveness, browser compatibility, accessibility, SEO fundamentals, and the details users notice.',
 		},
 		cta: {
 			title: 'Get your site through review before launch.',
@@ -751,14 +745,12 @@ export const dictionaries = {
 		},
 		work: {
 			title: 'Proyectos',
-			previewTitle: 'Trabajo seleccionado',
 			intro: 'El trabajo con clientes aparecerá aquí cuando publiquemos los casos.',
 			placeholderNote: 'Ejemplo',
 			visitSite: 'Ver sitio',
 			comingSoonTitle: 'Próximamente',
 			comingSoonBody:
 				'Estamos preparando los primeros casos. Vuelve pronto — o inicia un proyecto y sé el siguiente en esta página.',
-			comingSoonPreview: 'Los primeros casos están en preparación.',
 			cases: [],
 		},
 		about: {
@@ -772,10 +764,6 @@ export const dictionaries = {
 				'¿Español o inglés? Trabajamos en el idioma que mejor conecta con tus clientes.',
 				'Un buen diseño llama la atención. Una gran experiencia digital hace que quieran quedarse.',
 			],
-		},
-		proof: {
-			title: 'Más allá del screenshot.',
-			body: 'El buen diseño es solo el comienzo. Nos importa lo que pasa después del mockup: rendimiento, comportamiento responsive, compatibilidad de navegadores, accesibilidad, fundamentos de SEO y los detalles que la gente sí nota.',
 		},
 		cta: {
 			title: 'Haz que tu sitio pase la revisión antes del lanzamiento.',
