@@ -163,8 +163,8 @@ export const dictionaries = {
 			],
 		},
 		cta: {
-			title: 'Ready for a site that can take scrutiny?',
-			body: 'Tell us if you are a local business or a startup, and what you need: build, design, optimize, or QA.',
+			title: 'Get your site through review before launch.',
+			body: "Tell us what you're building and we'll tell you what it needs.",
 			button: 'Start a project',
 		},
 		contact: {
@@ -361,8 +361,8 @@ export const dictionaries = {
 			],
 		},
 		cta: {
-			title: '¿Listo para un sitio que resista revisión?',
-			body: 'Cuéntanos si eres un negocio local o una startup, y qué necesitas: crear, diseñar, optimizar o QA.',
+			title: 'Haz que tu sitio pase la revisión antes del lanzamiento.',
+			body: 'Cuéntanos qué estás construyendo y te diremos qué necesita.',
 			button: 'Iniciar un proyecto',
 		},
 		contact: {
