@@ -1,5 +1,5 @@
 ---
-import { hrefFor, SHOW_WORK, withBase, type Locale } from '../i18n/config';
+import { hrefFor, withBase, type Locale } from '../i18n/config';
 import { t } from '../i18n/copy';
 
 interface Props {
@@ -8,8 +8,6 @@ interface Props {
 
 const { locale } = Astro.props;
 const copy = t(locale);
-const secondaryHref = hrefFor(locale, SHOW_WORK ? 'work' : 'services');
-const secondaryLabel = SHOW_WORK ? copy.common.ctaSecondary : copy.nav.services;
 ---
 
 <section class="relative overflow-hidden pixel-grid">
@@ -28,6 +26,7 @@ const secondaryLabel = SHOW_WORK ? copy.common.ctaSecondary : copy.nav.services;
 				{copy.hero.titleAfter}
 			</h1>
 			<p class="mt-6 max-w-xl text-lg text-white/75">{copy.hero.body}</p>
+			<p class="mt-4 max-w-xl text-base text-white/70">{copy.hero.support}</p>
 			<div class="mt-8 flex flex-wrap gap-3">
 				<a
 					href={hrefFor(locale, 'contact')}
@@ -36,10 +35,10 @@ const secondaryLabel = SHOW_WORK ? copy.common.ctaSecondary : copy.nav.services;
 					{copy.common.ctaPrimary}
 				</a>
 				<a
-					href={secondaryHref}
+					href={hrefFor(locale, 'services')}
 					class="btn-quiet rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white hover:border-white/40"
 				>
-					{secondaryLabel}
+					{copy.nav.services}
 				</a>
 			</div>
 		</div>

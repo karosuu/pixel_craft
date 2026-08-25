@@ -1,5 +1,5 @@
 ---
-import { CONTACT_EMAIL, serviceIds, serviceSlugs, type Locale, type ServiceId } from '../i18n/config';
+import { CONTACT_EMAIL, serviceSlugs, type Locale } from '../i18n/config';
 import { t, type AudienceId } from '../i18n/copy';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 const { locale } = Astro.props;
 const copy = t(locale);
 const audiences: AudienceId[] = ['local', 'startup'];
-const needs: ServiceId[] = [...serviceIds];
+const needs = ['build', 'design', 'optimize', 'qa', 'unsure'] as const;
 const formAction = `https://formsubmit.co/${encodeURIComponent(CONTACT_EMAIL)}`;
 const errorMessage = copy.contact.error.replace('{email}', CONTACT_EMAIL);
 const nextUrl = new URL(Astro.url);
@@ -48,10 +48,6 @@ const formCopy = {
 			{copy.contact.honeypot}
 			<input type="text" name="_honey" tabindex="-1" autocomplete="off" />
 		</label>
-		<label class="block text-sm font-medium">
-			{copy.contact.name}
-			<input name="name" type="text" required autocomplete="name" class={fieldClass} />
-		</label>
 		<div id="need-wrap">
 			<label class="block text-sm font-medium">
 				{copy.contact.need}
@@ -67,6 +63,18 @@ const formCopy = {
 				</select>
 			</label>
 		</div>
+		<label class="block text-sm font-medium">
+			<span id="message-label">{copy.contact.message}</span>
+			<textarea name="message" required rows="5" class={fieldClass}></textarea>
+		</label>
+		<label class="block text-sm font-medium">
+			{copy.contact.name}
+			<input name="name" type="text" required autocomplete="name" class={fieldClass} />
+		</label>
+		<label class="block text-sm font-medium">
+			{copy.contact.email}
+			<input name="email" type="email" required autocomplete="email" class={fieldClass} />
+		</label>
 		<label class="block text-sm font-medium">
 			{copy.contact.website}
 			<span id="website-hint" class="font-normal text-white/70"> — {copy.contact.websiteHint}</span>
@@ -94,14 +102,6 @@ const formCopy = {
 				</select>
 			</label>
 		</div>
-		<label class="block text-sm font-medium">
-			{copy.contact.email}
-			<input name="email" type="email" required autocomplete="email" class={fieldClass} />
-		</label>
-		<label class="block text-sm font-medium">
-			<span id="message-label">{copy.contact.message}</span>
-			<textarea name="message" required rows="5" class={fieldClass}></textarea>
-		</label>
 		<p id="contact-status" class="text-sm text-white/70" role="status" aria-live="polite" hidden></p>
 		<button
 			type="submit"
@@ -156,7 +156,7 @@ const formCopy = {
 			return;
 		}
 		const need = resolveNeed(new URLSearchParams(window.location.search), parsed);
-		if (!need) return;
+		if (!need || !(need in parsed.slugs)) return;
 
 		const heading = document.getElementById('contact-heading');
 		const intro = document.getElementById('contact-intro');

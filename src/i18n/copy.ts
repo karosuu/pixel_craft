@@ -7,9 +7,9 @@ export type ProcessStepId = 'discover' | 'design' | 'build' | 'qa' | 'launch';
 export const dictionaries = {
 	en: {
 		meta: {
-			homeTitle: 'Pixel-Craft — Websites, design, optimization & QA',
+			homeTitle: 'Pixel-Craft — Design, build, performance & QA',
 			homeDescription:
-				'Pixel-Craft crafts websites that look sharp, load fast, and hold up in QA for local businesses and startups.',
+				'Pixel-Craft designs, builds, optimizes, and QA-tests websites before launch for local businesses and startups.',
 			servicesTitle: 'Services — Pixel-Craft',
 			servicesDescription:
 				'Website build, design improvement, performance and SEO, and web QA. Pick the service that matches the job.',
@@ -45,24 +45,25 @@ export const dictionaries = {
 			breadcrumb: 'Breadcrumb',
 		},
 		hero: {
-			eyebrow: 'Web studio',
+			eyebrow: 'Design + build + performance + QA',
 			titleBefore: 'Sites that look sharp,',
 			titleAccent: 'load fast,',
 			titleAfter: 'and hold up in QA.',
-			body: 'We build new sites, redesign tired ones, and run performance and QA so local businesses and startups can launch without surprises.',
+			body: 'We build new sites, redesign tired ones, and run performance and QA before they go live — not just until they look done.',
+			support: "Tell us what you're building. We'll tell you what it needs.",
 		},
 		audiences: {
 			title: 'Two kinds of teams. The same meticulous craft.',
 			localTitle: 'Local businesses',
 			localBody:
-				'A site that works on every phone, helps people find you, and makes it easy to call, book, or buy.',
+				'People find you on a phone. If the site is slow, confusing, or hard to contact, they call someone else.',
 			startupTitle: 'Startups',
 			startupBody:
-				'A launch-ready site: a clear product story, performance you can stand behind, and QA before you ship.',
+				'Launch is not a mockup. You need a clear product story, performance you can stand behind, and QA before you ship.',
 		},
 		services: {
 			title: 'What we do',
-			intro: 'Four services, used together or on their own.',
+			intro: 'Four products, used together or on their own.',
 			catalogTitle: 'Digital services to improve your web presence',
 			catalogIntro:
 				'We design, improve, optimize, and validate websites so they work better, look better, and convert more.',
@@ -310,7 +311,7 @@ export const dictionaries = {
 		},
 		process: {
 			title: 'How we work',
-			intro: 'A short path from first call to a site you can stand behind.',
+			intro: "We break it on purpose, so your customers don't.",
 			steps: {
 				discover: {
 					title: 'Discover',
@@ -326,7 +327,7 @@ export const dictionaries = {
 				},
 				qa: {
 					title: 'QA',
-					body: 'We break it on purpose: phones, browsers, forms, and the paths people actually take.',
+					body: 'Phones, browsers, forms, and the paths people actually take — before anyone else hits them.',
 				},
 				launch: {
 					title: 'Launch',
@@ -355,9 +356,43 @@ export const dictionaries = {
 				'Good design gets attention. Great digital experiences make people stay.',
 			],
 		},
+		proof: {
+			title: 'Built beyond the screenshot.',
+			body: 'A site can look finished and still fail on a phone, in another browser, or at the form. We design and build with performance and QA in mind, not as an afterthought.',
+			items: [
+				'Performance',
+				'Responsive behavior',
+				'Browser compatibility',
+				'Forms and interactions',
+				'Accessibility basics',
+				'SEO fundamentals',
+				'QA',
+			],
+			benefitsTitle: 'What you get',
+			benefits: [
+				{ title: 'Fast', body: 'Pages that load instead of making people wait.' },
+				{ title: 'Responsive', body: 'It works on the phone in their hand.' },
+				{ title: 'Clear', body: 'The offer is obvious. The next step is obvious.' },
+				{ title: 'Tested', body: 'We try to break it before customers do.' },
+				{ title: 'Maintainable', body: 'A handoff you can keep, or keep iterating with us.' },
+			],
+		},
+		launchChecks: {
+			title: 'What we check before launch',
+			intro: 'Until case studies are up, this is the bar we hold a site to before it goes live.',
+			items: [
+				'Key pages on a phone',
+				'Forms actually send',
+				'Main browsers and breakpoints',
+				'Broken links and 404s',
+				'Titles, descriptions, and headings',
+				'Images, fonts, and obvious weight',
+				'A punch list before go-live',
+			],
+		},
 		cta: {
-			title: 'Get your site through review before launch.',
-			body: "Tell us what you're building and we'll tell you what it needs.",
+			title: "Tell us what you're building. We'll tell you what it needs.",
+			body: 'Build, design, performance, QA — or a mix. Start with a short brief.',
 			button: 'Start a project',
 		},
 		contact: {
@@ -368,8 +403,8 @@ export const dictionaries = {
 			website: 'Website',
 			websiteHint: 'Optional',
 			audience: 'I am',
-			need: 'I need',
-			message: 'Message',
+			need: 'What are you looking to do?',
+			message: 'Project details',
 			submit: 'Send',
 			sending: 'Sending…',
 			success: 'Message sent. We will reply soon.',
@@ -380,10 +415,11 @@ export const dictionaries = {
 				startup: 'A startup',
 			},
 			needOptions: {
-				build: 'Website build',
-				design: 'Design improvement',
-				optimize: 'Performance & SEO',
-				qa: 'Web QA',
+				build: 'Build a new website',
+				design: 'Redesign my website',
+				optimize: 'Improve performance / SEO',
+				qa: 'QA / test my website',
+				unsure: 'Not sure yet',
 			},
 			subject: 'Pixel-Craft project inquiry',
 			honeypot: 'Do not fill',
@@ -414,9 +450,9 @@ export const dictionaries = {
 	},
 	es: {
 		meta: {
-			homeTitle: 'Pixel-Craft — Sitios web, diseño, optimización y QA',
+			homeTitle: 'Pixel-Craft — Diseño, desarrollo, rendimiento y QA',
 			homeDescription:
-				'Pixel-Craft diseña sitios que se ven profesionales, cargan rápido y pasan QA para negocios locales y startups.',
+				'Pixel-Craft diseña, construye, optimiza y prueba sitios web antes del lanzamiento para negocios locales y startups.',
 			servicesTitle: 'Servicios — Pixel-Craft',
 			servicesDescription:
 				'Creación de sitios, mejora de diseño, optimización y SEO, y QA web. Elige el servicio que encaja con tu proyecto.',
@@ -452,24 +488,25 @@ export const dictionaries = {
 			breadcrumb: 'Ruta de navegación',
 		},
 		hero: {
-			eyebrow: 'Estudio web',
+			eyebrow: 'Diseño + desarrollo + rendimiento + QA',
 			titleBefore: 'Sitios que se ven profesionales,',
 			titleAccent: 'cargan rápido',
 			titleAfter: 'y pasan QA.',
-			body: 'Creamos sitios nuevos, rediseñamos los que ya se vieron viejos y corremos rendimiento y QA para que negocios locales y startups lancen sin sorpresas.',
+			body: 'Creamos sitios nuevos, rediseñamos los que ya se vieron viejos y corremos rendimiento y QA antes de que salgan — no solo hasta que se vean listos.',
+			support: 'Cuéntanos qué estás construyendo. Te diremos qué necesita.',
 		},
 		audiences: {
 			title: 'Dos tipos de equipo. El mismo oficio meticuloso.',
 			localTitle: 'Negocios locales',
 			localBody:
-				'Un sitio que funciona en cualquier celular, te ayuda a aparecer en búsquedas y facilita llamar, reservar o comprar.',
+				'La gente te busca en el celular. Si el sitio es lento, confuso o difícil de contactar, llaman a otro.',
 			startupTitle: 'Startups',
 			startupBody:
-				'Un sitio listo para lanzar: historia clara del producto, rendimiento defendible y QA antes de salir.',
+				'El launch no es un mockup. Necesitas una historia clara del producto, rendimiento defendible y QA antes de salir.',
 		},
 		services: {
 			title: 'Qué hacemos',
-			intro: 'Cuatro servicios, juntos o por separado.',
+			intro: 'Cuatro productos, juntos o por separado.',
 			catalogTitle: 'Servicios digitales para mejorar tu presencia web',
 			catalogIntro:
 				'Diseñamos, mejoramos, optimizamos y validamos sitios web para que funcionen mejor, se vean mejor y conviertan más.',
@@ -718,7 +755,7 @@ export const dictionaries = {
 		},
 		process: {
 			title: 'Cómo trabajamos',
-			intro: 'Un camino corto desde la primera llamada hasta un sitio que puedes defender.',
+			intro: 'Lo rompemos a propósito, para que tus clientes no lo hagan.',
 			steps: {
 				discover: {
 					title: 'Descubrir',
@@ -734,7 +771,7 @@ export const dictionaries = {
 				},
 				qa: {
 					title: 'QA',
-					body: 'Lo rompemos a propósito: celulares, navegadores, formularios y los caminos reales de uso.',
+					body: 'Celulares, navegadores, formularios y los caminos reales de uso — antes de que llegue alguien más.',
 				},
 				launch: {
 					title: 'Lanzar',
@@ -764,9 +801,43 @@ export const dictionaries = {
 				'Un buen diseño llama la atención. Una gran experiencia digital hace que quieran quedarse.',
 			],
 		},
+		proof: {
+			title: 'Más allá del screenshot.',
+			body: 'Un sitio puede verse terminado y aun así fallar en el celular, en otro navegador o en el formulario. Diseñamos y construimos con rendimiento y QA, no como un extra al final.',
+			items: [
+				'Rendimiento',
+				'Comportamiento responsive',
+				'Compatibilidad de navegadores',
+				'Formularios e interacciones',
+				'Accesibilidad básica',
+				'Fundamentos de SEO',
+				'QA',
+			],
+			benefitsTitle: 'Qué te llevas',
+			benefits: [
+				{ title: 'Rápido', body: 'Páginas que cargan, no que hacen esperar.' },
+				{ title: 'Responsive', body: 'Funciona en el celular que tienen en la mano.' },
+				{ title: 'Claro', body: 'La oferta se entiende. El siguiente paso también.' },
+				{ title: 'Probado', body: 'Intentamos romperlo antes de que lo hagan los clientes.' },
+				{ title: 'Mantenible', body: 'Una entrega que puedes conservar o seguir iterando con nosotros.' },
+			],
+		},
+		launchChecks: {
+			title: 'Qué revisamos antes del lanzamiento',
+			intro: 'Mientras los casos no estén publicados, este es el piso que pedimos a un sitio antes de salir.',
+			items: [
+				'Páginas clave en el celular',
+				'Que los formularios sí envíen',
+				'Navegadores y tamaños principales',
+				'Enlaces rotos y 404',
+				'Títulos, descripciones y headings',
+				'Imágenes, fuentes y peso obvio',
+				'Lista de ajustes antes del go-live',
+			],
+		},
 		cta: {
-			title: 'Haz que tu sitio pase la revisión antes del lanzamiento.',
-			body: 'Cuéntanos qué estás construyendo y te diremos qué necesita.',
+			title: 'Cuéntanos qué estás construyendo. Te diremos qué necesita.',
+			body: 'Creación, diseño, rendimiento, QA — o una mezcla. Empieza con un brief corto.',
 			button: 'Iniciar un proyecto',
 		},
 		contact: {
@@ -777,8 +848,8 @@ export const dictionaries = {
 			website: 'Sitio web',
 			websiteHint: 'Opcional',
 			audience: 'Soy',
-			need: 'Necesito',
-			message: 'Mensaje',
+			need: '¿Qué quieres hacer?',
+			message: 'Detalles del proyecto',
 			submit: 'Enviar',
 			sending: 'Enviando…',
 			success: 'Mensaje enviado. Te responderemos pronto.',
@@ -789,10 +860,11 @@ export const dictionaries = {
 				startup: 'Una startup',
 			},
 			needOptions: {
-				build: 'Creación de sitios',
-				design: 'Mejora de diseño',
-				optimize: 'Optimización y SEO',
-				qa: 'QA web',
+				build: 'Crear un sitio nuevo',
+				design: 'Rediseñar mi sitio',
+				optimize: 'Mejorar rendimiento / SEO',
+				qa: 'QA / probar mi sitio',
+				unsure: 'Aún no lo sé',
 			},
 			subject: 'Consulta de proyecto Pixel-Craft',
 			honeypot: 'No completar',
