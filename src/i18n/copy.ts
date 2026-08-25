@@ -17,7 +17,7 @@ export const dictionaries = {
 			workDescription: 'Pixel-Craft projects. Case studies coming soon.',
 			aboutTitle: 'About — Pixel-Craft',
 			aboutDescription:
-				'Pixel-Craft is a web studio for local businesses and startups.',
+				'Pixel-Craft builds websites that look great, feel effortless, and work hard for your business.',
 			contactTitle: 'Contact — Pixel-Craft',
 			contactDescription: 'Start a Pixel-Craft project: build, design, optimization, or web QA.',
 		},
@@ -153,11 +153,13 @@ export const dictionaries = {
 		},
 		about: {
 			title: 'About Pixel-Craft',
-			lede: 'We are a web studio for teams that need the site to work as well as it looks.',
+			lede: 'We build websites that look great, feel effortless, and work hard for your business.',
 			body: [
-				'Pixel-Craft helps local businesses look trustworthy online and helps startups ship a site that can take real traffic. The name stays Pixel-Craft in every language; the craft is the same in every market.',
-				'We build new sites, improve design that has aged, make pages faster and easier to find, and run QA so launch day is boring in the best way.',
-				'We work in English or Spanish, whichever you use with your customers.',
+				'Pixel-Craft is a web studio for businesses and teams that want more than just a beautiful website. We create digital experiences that build trust, make it easier for people to find you, and turn visits into meaningful connections.',
+				'From launching a brand-new site to refreshing a design that feels outdated, we focus on the details that make a real difference: thoughtful design, faster performance, better user experiences, and a smooth path from first click to conversion.',
+				'We believe great websites should feel simple for the people using them and powerful for the businesses behind them.',
+				'English or Spanish — we work in the language your customers feel most comfortable in.',
+				'Good design gets attention. Great digital experiences make people stay.',
 			],
 		},
 		cta: {
@@ -212,7 +214,7 @@ export const dictionaries = {
 			workDescription: 'Proyectos de Pixel-Craft. Casos próximamente.',
 			aboutTitle: 'Nosotros — Pixel-Craft',
 			aboutDescription:
-				'Pixel-Craft es un estudio web para negocios locales y startups.',
+				'Pixel-Craft crea sitios web que se ven increíbles, se sienten fáciles de usar y trabajan a favor de tu negocio.',
 			contactTitle: 'Contacto — Pixel-Craft',
 			contactDescription: 'Inicia un proyecto con Pixel-Craft: creación, diseño, optimización o QA web.',
 		},
@@ -348,11 +350,14 @@ export const dictionaries = {
 		},
 		about: {
 			title: 'Sobre Pixel-Craft',
-			lede: 'Somos un estudio web para equipos que necesitan que el sitio funcione tan bien como se ve.',
+			lede: 'Creamos sitios web que se ven increíbles, se sienten fáciles de usar y trabajan a favor de tu negocio.',
 			body: [
-				'Pixel-Craft ayuda a negocios locales a verse confiables en internet y a startups a lanzar un sitio que aguante tráfico real. El nombre es Pixel-Craft en cualquier idioma; el oficio es el mismo en cada mercado.',
-				'Creamos sitios nuevos, mejoramos diseños que ya se vieron viejos, hacemos que las páginas carguen y se encuentren mejor, y corremos QA para que el día del lanzamiento sea aburrido — en el mejor sentido.',
-				'Trabajamos en inglés o en español, el idioma con el que hablas con tus clientes.',
+				'Pixel-Craft es un estudio web para empresas y equipos que buscan mucho más que una página bonita.',
+				'Creamos experiencias digitales que generan confianza, facilitan que tus clientes te encuentren y convierten cada visita en una oportunidad para conectar.',
+				'Desde crear un sitio desde cero hasta transformar un diseño que ya necesita renovarse, cuidamos cada detalle que realmente importa: diseño estratégico, velocidad, experiencia de usuario y un recorrido claro desde el primer clic hasta la conversión.',
+				'Creemos que un buen sitio web debe sentirse sencillo para quien lo visita y, al mismo tiempo, convertirse en una herramienta poderosa para el negocio que está detrás.',
+				'¿Español o inglés? Trabajamos en el idioma que mejor conecta con tus clientes.',
+				'Un buen diseño llama la atención. Una gran experiencia digital hace que quieran quedarse.',
 			],
 		},
 		cta: {
