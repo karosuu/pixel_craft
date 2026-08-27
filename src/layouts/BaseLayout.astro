@@ -32,7 +32,7 @@ const origin = site ? site.origin : '';
 const canonical = `${origin}${canonicalPath === '/' ? '/' : canonicalPath}`;
 const alts = hreflangUrls(site, page, service);
 const siteOrigin = site?.origin ?? 'https://pixel-craft.dev';
-const ogImage = new URL(withBase('/logo.png'), siteOrigin).href;
+const ogImage = new URL(withBase('/og.png'), siteOrigin).href;
 const icon192 = new URL(withBase('/favicon-192.png'), siteOrigin).href;
 const serviceCopy = service ? copy.services.items[service] : undefined;
 const jsonLd = {
@@ -110,10 +110,14 @@ const jsonLd = {
 		<meta property="og:locale" content={locale === 'es' ? 'es_MX' : 'en_US'} />
 		<meta property="og:image" content={ogImage} />
 		<meta property="og:image:alt" content={BRAND} />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
+		<meta name="twitter:image:alt" content={BRAND} />
 		<link rel="icon" href={withBase('/favicon.ico')} sizes="48x48" />
 		<link rel="icon" type="image/png" sizes="32x32" href={withBase('/favicon-32.png')} />
 		<link rel="icon" type="image/png" sizes="48x48" href={withBase('/favicon-48.png')} />
