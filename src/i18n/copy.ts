@@ -23,7 +23,7 @@ export const dictionaries = {
 		},
 		nav: {
 			home: 'Home',
-			services: 'Services',
+			services: 'Solutions',
 			work: 'Projects',
 			about: 'About',
 			contact: 'Contact',
@@ -431,7 +431,7 @@ export const dictionaries = {
 		},
 		nav: {
 			home: 'Inicio',
-			services: 'Servicios',
+			services: 'Soluciones',
 			work: 'Proyectos',
 			about: 'Nosotros',
 			contact: 'Contacto',
