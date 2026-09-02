@@ -14,7 +14,7 @@ export const dictionaries = {
 			servicesDescription:
 				'Website build, design improvement, performance and SEO, and web QA. Pick the service that matches the job.',
 			workTitle: 'Projects — Pixel-Craft',
-			workDescription: 'Pixel-Craft projects. Case studies coming soon.',
+			workDescription: 'Selected Pixel-Craft projects, including live client sites.',
 			aboutTitle: 'About — Pixel-Craft',
 			aboutDescription:
 				'Pixel-Craft builds websites that look great, feel effortless, and work hard for your business.',
@@ -336,13 +336,22 @@ export const dictionaries = {
 		},
 		work: {
 			title: 'Projects',
-			intro: 'Client work will appear here as we publish new case studies.',
+			intro: 'Client work we can share. More case studies as we publish them.',
 			placeholderNote: 'Sample',
 			visitSite: 'Visit site',
 			comingSoonTitle: 'Coming soon',
 			comingSoonBody:
 				'We are preparing the first case studies. Check back shortly — or start a project and be next on this page.',
-			cases: [],
+			cases: [
+				{
+					tag: 'local' as const,
+					title: 'Zenith Luxury Realty',
+					summary:
+						'A bilingual real estate site for a team in Escazú, San José: featured listings, reviews, and a clear path to rent or sell.',
+					result: 'Website build',
+					url: 'https://zenithlr.com/',
+				},
+			],
 		},
 		about: {
 			title: 'About Pixel-Craft',
@@ -422,7 +431,7 @@ export const dictionaries = {
 			servicesDescription:
 				'Creación de sitios, mejora de diseño, optimización y SEO, y QA web. Elige el servicio que encaja con tu proyecto.',
 			workTitle: 'Proyectos — Pixel-Craft',
-			workDescription: 'Proyectos de Pixel-Craft. Casos próximamente.',
+			workDescription: 'Proyectos de Pixel-Craft, incluyendo sitios de clientes en línea.',
 			aboutTitle: 'Nosotros — Pixel-Craft',
 			aboutDescription:
 				'Pixel-Craft crea sitios web que se ven increíbles, se sienten fáciles de usar y trabajan a favor de tu negocio.',
@@ -745,13 +754,22 @@ export const dictionaries = {
 		},
 		work: {
 			title: 'Proyectos',
-			intro: 'El trabajo con clientes aparecerá aquí cuando publiquemos los casos.',
+			intro: 'Trabajo con clientes que ya podemos mostrar. Publicaremos más casos aquí.',
 			placeholderNote: 'Ejemplo',
 			visitSite: 'Ver sitio',
 			comingSoonTitle: 'Próximamente',
 			comingSoonBody:
 				'Estamos preparando los primeros casos. Vuelve pronto — o inicia un proyecto y sé el siguiente en esta página.',
-			cases: [],
+			cases: [
+				{
+					tag: 'local' as const,
+					title: 'Zenith Luxury Realty',
+					summary:
+						'Sitio bilingüe de bienes raíces para un equipo en Escazú, San José: propiedades destacadas, reseñas y un camino claro para rentar o vender.',
+					result: 'Desarrollo de sitios',
+					url: 'https://zenithlr.com/',
+				},
+			],
 		},
 		about: {
 			title: 'Sobre Pixel-Craft',
