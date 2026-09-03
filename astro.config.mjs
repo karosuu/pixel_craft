@@ -83,6 +83,7 @@ export default defineConfig({
 		'/en/about': '/about',
 		'/en/contact': '/contact',
 		...enServiceRedirects,
+		'/webmail': 'https://webmail.pixel-craft.dev/',
 	},
 	vite: {
 		plugins: [tailwindcss()],
