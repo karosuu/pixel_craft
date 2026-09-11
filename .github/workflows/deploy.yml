@@ -40,13 +40,20 @@ jobs:
           npm ci
           URL="${VITE_SUPABASE_URL:-$PUBLIC_SUPABASE_URL}"
           KEY="${VITE_SUPABASE_ANON_KEY:-$PUBLIC_SUPABASE_ANON_KEY}"
-          URL="${URL%$'\r'}"
-          KEY="${KEY%$'\r'}"
-          URL="${URL%\"}"
-          URL="${URL#\"}"
-          KEY="${KEY%\"}"
-          KEY="${KEY#\"}"
-          if [[ ! "$URL" =~ ^https:// ]] || [[ -z "$KEY" ]]; then
+          URL="$(printf '%s' "$URL" | tr -d '\r\n' | sed 's/^["[:space:]]*//;s/["[:space:]]*$//')"
+          KEY="$(printf '%s' "$KEY" | tr -d '\r\n' | sed 's/^["[:space:]]*//;s/["[:space:]]*$//')"
+          if [[ "$URL" == eyJ* && "$KEY" == https://* ]]; then
+            TMP="$URL"
+            URL="$KEY"
+            KEY="$TMP"
+          fi
+          if [[ "$URL" =~ ^[a-z0-9]{20}$ ]]; then
+            URL="https://${URL}.supabase.co"
+          elif [[ "$URL" =~ ^[a-z0-9.-]+\.supabase\.co/?$ ]]; then
+            URL="https://${URL%/}"
+          fi
+          echo "supabase url length=${#URL} key length=${#KEY}"
+          if [[ "$URL" != https://* ]] || [[ ${#KEY} -lt 20 ]]; then
             echo "Missing or invalid Supabase secrets (need VITE_SUPABASE_* or PUBLIC_SUPABASE_*)" >&2
             exit 1
           fi
