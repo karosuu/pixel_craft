@@ -398,6 +398,15 @@ export const dictionaries = {
 			subject: 'Pixel-Craft project inquiry',
 			honeypot: 'Do not fill',
 			selectPlaceholder: 'Choose one',
+			errors: {
+				need: 'Select what you want to do.',
+				message: 'Tell us about the project.',
+				name: 'Enter your name.',
+				email: 'Enter a valid email address.',
+				website: 'Enter a valid URL, like https://example.com.',
+				websiteRequired: 'Enter your current website.',
+				audience: 'Select whether you are a local business or a startup.',
+			},
 			contextual: {
 				title: 'Tell us about your site',
 				intro: 'With this we can tell you what this service needs.',
@@ -817,6 +826,15 @@ export const dictionaries = {
 			subject: 'Consulta de proyecto Pixel-Craft',
 			honeypot: 'No completar',
 			selectPlaceholder: 'Elige una opción',
+			errors: {
+				need: 'Elige qué quieres hacer.',
+				message: 'Escribe los detalles del proyecto.',
+				name: 'Escribe tu nombre.',
+				email: 'Escribe un correo válido.',
+				website: 'Escribe una URL válida, por ejemplo https://ejemplo.com.',
+				websiteRequired: 'Indica el sitio web actual.',
+				audience: 'Elige si eres un negocio local o una startup.',
+			},
 			contextual: {
 				title: 'Cuéntanos sobre tu sitio',
 				intro: 'Con estos datos podemos decirte qué necesita este servicio.',

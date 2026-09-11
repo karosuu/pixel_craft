@@ -35,11 +35,15 @@ English is unprefixed. Spanish uses `/es/` and translated slugs.
 
 Copy lives in `src/i18n/copy.ts`. Paths and the inbox address live in `src/i18n/config.ts`.
 
+## Admin CRM
+
+Private panel (not on `main` yet): work on branch `feat/admin-crm` and see [`admin/README.md`](admin/README.md). Local: `cd admin && npm install && npm run dev`. Live URL: `https://pixel-craft.dev/admin`.
+
 ## Contact form
 
-The contact form POSTs to [FormSubmit](https://formsubmit.co) and delivers messages to `CONTACT_EMAIL` in `src/i18n/config.ts` (currently `info@pixel-craft.dev`).
+With `PUBLIC_SUPABASE_URL` and `PUBLIC_SUPABASE_ANON_KEY` set (see [`.env.example`](.env.example)), the contact form POSTs to the Supabase Edge Function `capture-lead`, which creates a CRM client + `presupuesto` project and emails `info@pixel-craft.dev` via Resend.
 
-The first submission sends a confirmation email to that inbox. Open it and confirm the address before live inquiries will arrive.
+If those env vars are missing, the form falls back to [FormSubmit](https://formsubmit.co) → `CONTACT_EMAIL` in `src/i18n/config.ts`.
 
 ## Deploy
 
@@ -48,7 +52,9 @@ The first submission sends a confirmation email to that inbox. Open it and confi
 - **Custom domain (this project):** leave `base: '/'`.
 - **GitHub project Pages** (`username.github.io/repo/`): set `base: '/repo/'` and `site` to `https://username.github.io`.
 
-The workflow in `.github/workflows/deploy.yml` builds `dist/` and publishes it to GitHub Pages. Enable Pages in the repo settings (Source: GitHub Actions) and set the custom domain to `pixel-craft.dev`.
+The workflow in `.github/workflows/deploy.yml` builds the marketing site, builds `admin/` with base `/admin/`, copies it to `dist/admin/`, and publishes that to GitHub Pages. Enable Pages in the repo settings (Source: GitHub Actions) and set the custom domain to `pixel-craft.dev`.
+
+The CRM URL is `https://pixel-craft.dev/admin`. See [`admin/README.md`](admin/README.md). The old TDM subdomain workflow is manual-only.
 
 If you host on Vercel or Netlify instead, you can ignore that workflow.
 

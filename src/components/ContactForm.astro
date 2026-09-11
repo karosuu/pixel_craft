@@ -14,6 +14,8 @@ const formAction = `https://formsubmit.co/${encodeURIComponent(CONTACT_EMAIL)}`;
 const errorMessage = copy.contact.error.replace('{email}', CONTACT_EMAIL);
 const nextUrl = new URL(Astro.url);
 nextUrl.searchParams.set('sent', '1');
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL ?? '';
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? '';
 const fieldClass =
 	'mt-2 w-full rounded-lg border border-white/15 bg-ink-soft px-3 py-2 text-white outline-none focus:border-cyan';
 const formCopy = {
@@ -33,17 +35,21 @@ const formCopy = {
 		action={formAction}
 		method="POST"
 		accept-charset="UTF-8"
+		novalidate
 		data-email={CONTACT_EMAIL}
 		data-sending={copy.contact.sending}
 		data-success={copy.contact.success}
 		data-error={errorMessage}
 		data-copy={JSON.stringify(formCopy)}
+		data-errors={JSON.stringify(copy.contact.errors)}
+		data-supabase-url={supabaseUrl}
+		data-supabase-anon={supabaseAnonKey}
 	>
 		<input type="hidden" name="_subject" value={copy.contact.subject} />
 		<input type="hidden" name="_template" value="table" />
 		<input type="hidden" name="_captcha" value="false" />
 		<input type="hidden" name="_next" value={nextUrl.href} />
-		<input type="hidden" name="language" value={locale === 'es' ? 'Español' : 'English'} />
+		<input type="hidden" name="language" value={locale === 'es' ? 'es' : 'en'} />
 		<label class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
 			{copy.contact.honeypot}
 			<input type="text" name="_honey" tabindex="-1" autocomplete="off" />
@@ -51,29 +57,33 @@ const formCopy = {
 		<div id="need-wrap">
 			<label class="block text-sm font-medium">
 				{copy.contact.need}
-				<select name="need" required class={fieldClass}>
+				<select name="need" required class={fieldClass} aria-describedby="need-error">
 					<option value="" disabled selected>
 						{copy.contact.selectPlaceholder}
 					</option>
 					{
 						needs.map((id) => (
-							<option value={copy.contact.needOptions[id]}>{copy.contact.needOptions[id]}</option>
+							<option value={id}>{copy.contact.needOptions[id]}</option>
 						))
 					}
 				</select>
 			</label>
+			<p id="need-error" class="mt-1 text-sm text-red-400" data-error-for="need" hidden></p>
 		</div>
 		<label class="block text-sm font-medium">
 			<span id="message-label">{copy.contact.message}</span>
-			<textarea name="message" required rows="5" class={fieldClass}></textarea>
+			<textarea name="message" required rows="5" class={fieldClass} aria-describedby="message-error"></textarea>
+			<p id="message-error" class="mt-1 text-sm text-red-400" data-error-for="message" hidden></p>
 		</label>
 		<label class="block text-sm font-medium">
 			{copy.contact.name}
-			<input name="name" type="text" required autocomplete="name" class={fieldClass} />
+			<input name="name" type="text" required autocomplete="name" class={fieldClass} aria-describedby="name-error" />
+			<p id="name-error" class="mt-1 text-sm text-red-400" data-error-for="name" hidden></p>
 		</label>
 		<label class="block text-sm font-medium">
 			{copy.contact.email}
-			<input name="email" type="email" required autocomplete="email" class={fieldClass} />
+			<input name="email" type="email" required autocomplete="email" class={fieldClass} aria-describedby="email-error" />
+			<p id="email-error" class="mt-1 text-sm text-red-400" data-error-for="email" hidden></p>
 		</label>
 		<label class="block text-sm font-medium">
 			{copy.contact.website}
@@ -85,22 +95,25 @@ const formCopy = {
 				inputmode="url"
 				placeholder="https://"
 				class={fieldClass}
+				aria-describedby="website-error"
 			/>
+			<p id="website-error" class="mt-1 text-sm text-red-400" data-error-for="website" hidden></p>
 		</label>
 		<div id="audience-wrap">
 			<label class="block text-sm font-medium">
 				{copy.contact.audience}
-				<select name="audience" required class={fieldClass}>
+				<select name="audience" required class={fieldClass} aria-describedby="audience-error">
 					<option value="" disabled selected>
 						{copy.contact.selectPlaceholder}
 					</option>
 					{
 						audiences.map((id) => (
-							<option value={copy.contact.audienceOptions[id]}>{copy.contact.audienceOptions[id]}</option>
+							<option value={id}>{copy.contact.audienceOptions[id]}</option>
 						))
 					}
 				</select>
 			</label>
+			<p id="audience-error" class="mt-1 text-sm text-red-400" data-error-for="audience" hidden></p>
 		</div>
 		<p id="contact-status" class="text-sm text-white/70" role="status" aria-live="polite" hidden></p>
 		<button
@@ -136,6 +149,114 @@ const formCopy = {
 		needOptions: Record<string, string>;
 		slugs: Record<string, string>;
 	};
+
+	type FieldErrors = {
+		need: string;
+		message: string;
+		name: string;
+		email: string;
+		website: string;
+		websiteRequired: string;
+		audience: string;
+	};
+
+	function parseErrors(raw: string | undefined): FieldErrors | null {
+		if (!raw) return null;
+		try {
+			return JSON.parse(raw) as FieldErrors;
+		} catch {
+			return null;
+		}
+	}
+
+	function isValidEmail(value: string) {
+		return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+	}
+
+	function isValidUrl(value: string) {
+		try {
+			const url = new URL(value);
+			return url.protocol === 'http:' || url.protocol === 'https:';
+		} catch {
+			return false;
+		}
+	}
+
+	function fieldControl(root: HTMLFormElement, name: string) {
+		const field = root.elements.namedItem(name);
+		return field instanceof HTMLInputElement ||
+			field instanceof HTMLSelectElement ||
+			field instanceof HTMLTextAreaElement
+			? field
+			: null;
+	}
+
+	function setFieldError(root: HTMLFormElement, name: string, message: string) {
+		const field = fieldControl(root, name);
+		const error = root.querySelector(`[data-error-for="${name}"]`);
+		if (error instanceof HTMLElement) {
+			error.hidden = message.length === 0;
+			error.textContent = message;
+		}
+		if (!field) return;
+		field.setAttribute('aria-invalid', message ? 'true' : 'false');
+		field.classList.toggle('!border-red-400', message.length > 0);
+	}
+
+	function clearFieldErrors(root: HTMLFormElement) {
+		for (const name of ['need', 'message', 'name', 'email', 'website', 'audience']) {
+			setFieldError(root, name, '');
+		}
+	}
+
+	function validateForm(root: HTMLFormElement, errors: FieldErrors) {
+		clearFieldErrors(root);
+		let firstInvalid: HTMLElement | null = null;
+
+		const need = fieldControl(root, 'need');
+		if (need && !need.value.trim()) {
+			setFieldError(root, 'need', errors.need);
+			firstInvalid ??= need;
+		}
+
+		const message = fieldControl(root, 'message');
+		if (message && !message.value.trim()) {
+			setFieldError(root, 'message', errors.message);
+			firstInvalid ??= message;
+		}
+
+		const name = fieldControl(root, 'name');
+		if (name && !name.value.trim()) {
+			setFieldError(root, 'name', errors.name);
+			firstInvalid ??= name;
+		}
+
+		const email = fieldControl(root, 'email');
+		if (email && !isValidEmail(email.value.trim())) {
+			setFieldError(root, 'email', errors.email);
+			firstInvalid ??= email;
+		}
+
+		const website = fieldControl(root, 'website');
+		if (website) {
+			const value = website.value.trim();
+			if (website.required && !value) {
+				setFieldError(root, 'website', errors.websiteRequired);
+				firstInvalid ??= website;
+			} else if (value && !isValidUrl(value)) {
+				setFieldError(root, 'website', errors.website);
+				firstInvalid ??= website;
+			}
+		}
+
+		const audience = fieldControl(root, 'audience');
+		if (audience instanceof HTMLSelectElement && !audience.value.trim()) {
+			setFieldError(root, 'audience', errors.audience);
+			firstInvalid ??= audience;
+		}
+
+		return firstInvalid;
+	}
 
 	function resolveNeed(params: URLSearchParams, parsed: FormCopy) {
 		const need = params.get('need');
@@ -183,7 +304,7 @@ const formCopy = {
 			const hidden = document.createElement('input');
 			hidden.type = 'hidden';
 			hidden.name = 'need';
-			hidden.value = label;
+			hidden.value = need;
 			box.append(value, hidden);
 			needWrap.replaceChildren(box);
 		}
@@ -203,6 +324,26 @@ const formCopy = {
 		const errorMessage = form.dataset.error ?? '';
 		const sendingLabel = form.dataset.sending ?? '';
 		const inbox = form.dataset.email ?? '';
+		const supabaseUrl = form.dataset.supabaseUrl ?? '';
+		const supabaseAnon = form.dataset.supabaseAnon ?? '';
+		const fieldErrors = parseErrors(form.dataset.errors);
+
+		form.addEventListener('input', (event) => {
+			const target = event.target;
+			if (
+				target instanceof HTMLInputElement ||
+				target instanceof HTMLSelectElement ||
+				target instanceof HTMLTextAreaElement
+			) {
+				setFieldError(form, target.name, '');
+			}
+		});
+		form.addEventListener('change', (event) => {
+			const target = event.target;
+			if (target instanceof HTMLSelectElement) {
+				setFieldError(form, target.name, '');
+			}
+		});
 
 		const params = new URLSearchParams(window.location.search);
 		if (params.get('sent') === '1') {
@@ -214,6 +355,16 @@ const formCopy = {
 
 		form.addEventListener('submit', async (event) => {
 			event.preventDefault();
+
+			if (fieldErrors) {
+				const invalid = validateForm(form, fieldErrors);
+				if (invalid) {
+					setStatus('info', '');
+					invalid.focus();
+					invalid.scrollIntoView({ block: 'center', behavior: 'smooth' });
+					return;
+				}
+			}
 
 			const honey = form.querySelector('input[name="_honey"]');
 			if (honey instanceof HTMLInputElement && honey.value.trim() !== '') {
@@ -229,25 +380,51 @@ const formCopy = {
 			form.setAttribute('aria-busy', 'true');
 			setStatus('info', sendingLabel);
 
-			const payload = Object.fromEntries(new FormData(form).entries());
+			const formData = new FormData(form);
+			const payload = Object.fromEntries(formData.entries());
 
 			try {
-				const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(inbox)}`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-						Accept: 'application/json',
-					},
-					body: JSON.stringify(payload),
-				});
-				const result = (await response.json()) as { success?: boolean | string };
-				const ok = result.success === true || result.success === 'true';
-
-				if (!response.ok || !ok) {
-					throw new Error('FormSubmit rejected the request');
+				if (supabaseUrl && supabaseAnon) {
+					const response = await fetch(`${supabaseUrl.replace(/\/$/, '')}/functions/v1/capture-lead`, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							Accept: 'application/json',
+							apikey: supabaseAnon,
+						},
+						body: JSON.stringify({
+							name: String(payload.name ?? ''),
+							email: String(payload.email ?? ''),
+							website: String(payload.website ?? ''),
+							message: String(payload.message ?? ''),
+							need: String(payload.need ?? ''),
+							audience: String(payload.audience ?? ''),
+							language: String(payload.language ?? ''),
+							_honey: String(payload._honey ?? ''),
+						}),
+					});
+					const result = (await response.json()) as { ok?: boolean; error?: string };
+					if (!response.ok || !result.ok) {
+						throw new Error(result.error ?? 'capture-lead failed');
+					}
+				} else {
+					const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(inbox)}`, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							Accept: 'application/json',
+						},
+						body: JSON.stringify(payload),
+					});
+					const result = (await response.json()) as { success?: boolean | string };
+					const ok = result.success === true || result.success === 'true';
+					if (!response.ok || !ok) {
+						throw new Error('FormSubmit rejected the request');
+					}
 				}
 
 				form.reset();
+				clearFieldErrors(form);
 				setStatus('success', successMessage);
 			} catch {
 				setStatus('error', errorMessage);

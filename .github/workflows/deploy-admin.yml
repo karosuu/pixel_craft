@@ -1,0 +1,47 @@
+# Legacy TDM subdomain (admin.pixel-craft.dev).
+# The CRM now ships with GitHub Pages at https://pixel-craft.dev/admin.
+# Keep this workflow for an emergency subdomain upload only.
+name: Deploy Admin CRM (TDM, legacy)
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: admin-tdm
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: admin/package-lock.json
+
+      - name: Install and build for subdomain root
+        working-directory: admin
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        run: |
+          npm ci
+          npm run build:subdomain
+
+      - name: Upload to TDM
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.TDM_FTP_HOST }}
+          username: ${{ secrets.TDM_FTP_USER }}
+          password: ${{ secrets.TDM_FTP_PASSWORD }}
+          local-dir: ./admin/dist/
+          server-dir: ${{ vars.TDM_FTP_SERVER_DIR || '/admin.pixel-craft.dev/' }}
+          protocol: ftps
+          security: loose
+          timeout: 60000

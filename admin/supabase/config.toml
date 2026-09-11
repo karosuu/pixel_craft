@@ -1,0 +1,5 @@
+[functions.send-email]
+verify_jwt = true
+
+[functions.capture-lead]
+verify_jwt = false

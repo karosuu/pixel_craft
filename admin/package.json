@@ -1,0 +1,38 @@
+{
+  "name": "pixel-craft-admin",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build",
+		"build:subdomain": "tsc -b && vite build --base /",
+		"preview": "vite preview"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.4",
+    "@tiptap/extension-link": "^3.31.3",
+    "@tiptap/extension-placeholder": "^3.31.3",
+    "@tiptap/extension-table": "^3.31.3",
+    "@tiptap/extension-table-cell": "^3.31.3",
+    "@tiptap/extension-table-header": "^3.31.3",
+    "@tiptap/extension-table-row": "^3.31.3",
+    "@tiptap/extension-text-align": "^3.31.3",
+    "@tiptap/extension-underline": "^3.31.3",
+    "@tiptap/pm": "^3.31.3",
+    "@tiptap/react": "^3.31.3",
+    "@tiptap/starter-kit": "^3.31.3",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.8.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.12",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.2",
+    "tailwindcss": "^4.1.12",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.5"
+  }
+}
