@@ -95,7 +95,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 			isAdmin,
 			error,
 			signIn: async (email, password) => {
-				if (!supabase) return 'Falta configurar Supabase.';
+				if (!supabase) return 'Falta configurar Supabase en el build (VITE_SUPABASE_URL).';
 				setError(null);
 				setLoading(true);
 				const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });

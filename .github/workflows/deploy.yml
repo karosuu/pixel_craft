@@ -32,10 +32,25 @@ jobs:
       - name: Build admin CRM
         working-directory: admin
         env:
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL || secrets.PUBLIC_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY || secrets.PUBLIC_SUPABASE_ANON_KEY }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
+          PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
         run: |
           npm ci
+          URL="${VITE_SUPABASE_URL:-$PUBLIC_SUPABASE_URL}"
+          KEY="${VITE_SUPABASE_ANON_KEY:-$PUBLIC_SUPABASE_ANON_KEY}"
+          URL="${URL%$'\r'}"
+          KEY="${KEY%$'\r'}"
+          URL="${URL%\"}"
+          URL="${URL#\"}"
+          KEY="${KEY%\"}"
+          KEY="${KEY#\"}"
+          if [[ ! "$URL" =~ ^https:// ]] || [[ -z "$KEY" ]]; then
+            echo "Missing or invalid Supabase secrets (need VITE_SUPABASE_* or PUBLIC_SUPABASE_*)" >&2
+            exit 1
+          fi
+          printf 'VITE_SUPABASE_URL=%s\nVITE_SUPABASE_ANON_KEY=%s\n' "$URL" "$KEY" > .env.production
           npm run build
       - name: Copy admin into site
         run: node scripts/copy-admin.mjs
