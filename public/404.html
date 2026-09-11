@@ -9,7 +9,9 @@
 		<script>
 			(function () {
 				var path = location.pathname;
-				if (path === '/admin' || path.indexOf('/admin/') === 0) {
+				if (/\.(js|css|png|jpe?g|webp|ico|txt|map|woff2?|html)$/i.test(path)) return;
+				if (path === '/admin' || path === '/admin/') return;
+				if (path.indexOf('/admin/') === 0) {
 					try {
 						sessionStorage.setItem(
 							'pc-admin-redirect',

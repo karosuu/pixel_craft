@@ -7,13 +7,21 @@
 			} catch (e) {}
 			try {
 				var redirect = sessionStorage.getItem('pc-admin-redirect');
-				if (redirect) {
+				if (redirect && redirect.indexOf('/admin') === 0) {
 					sessionStorage.removeItem('pc-admin-redirect');
 					if (redirect !== location.pathname + location.search + location.hash) {
 						history.replaceState(null, '', redirect);
 					}
 				}
 			} catch (e) {}
+			window.addEventListener('error', function (event) {
+				var root = document.getElementById('root');
+				if (!root || root.getAttribute('data-ready') === '1' || root.querySelector('h1, form, p')) return;
+				root.innerHTML =
+					'<main style="padding:4rem 1.5rem;color:#fff;font-family:Outfit,sans-serif"><h1>No se pudo cargar el admin</h1><p>' +
+					String((event && event.message) || 'Error al iniciar') +
+					'</p></main>';
+			});
 		</script>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,7 +35,11 @@
 		/>
 	</head>
 	<body>
-		<div id="root"></div>
+		<div id="root">
+			<p style="padding: 4rem 1.5rem; color: rgb(255 255 255 / 0.7); font-family: Outfit, sans-serif">
+				Cargando admin…
+			</p>
+		</div>
 		<script type="module" src="/src/main.tsx"></script>
 	</body>
 </html>
