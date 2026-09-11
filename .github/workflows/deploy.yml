@@ -24,7 +24,21 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run build
+      - name: Build site
+        env:
+          PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
+          PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
+        run: npm run build
+      - name: Build admin CRM
+        working-directory: admin
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL || secrets.PUBLIC_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY || secrets.PUBLIC_SUPABASE_ANON_KEY }}
+        run: |
+          npm ci
+          npm run build
+      - name: Copy admin into site
+        run: node scripts/copy-admin.mjs
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

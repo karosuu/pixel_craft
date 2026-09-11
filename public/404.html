@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Pixel-Craft</title>
+		<meta name="robots" content="noindex, nofollow" />
+		<link rel="icon" href="/favicon.ico" sizes="48x48" />
+		<script>
+			(function () {
+				var path = location.pathname;
+				if (path === '/admin' || path.indexOf('/admin/') === 0) {
+					try {
+						sessionStorage.setItem(
+							'pc-admin-redirect',
+							path + location.search + location.hash,
+						);
+					} catch (e) {}
+					location.replace('/admin/');
+				}
+			})();
+		</script>
+		<style>
+			html {
+				color-scheme: dark;
+			}
+			body {
+				margin: 0;
+				min-height: 100vh;
+				display: grid;
+				place-items: center;
+				font-family: Outfit, ui-sans-serif, system-ui, sans-serif;
+				background: #05050a;
+				color: #fff;
+			}
+			main {
+				padding: 1.5rem;
+				text-align: center;
+			}
+			h1 {
+				margin: 0;
+				font-size: 1.5rem;
+			}
+			p {
+				margin: 0.75rem 0 1.5rem;
+				color: rgb(255 255 255 / 0.7);
+			}
+			a {
+				color: #00f2ff;
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<h1>Page not found</h1>
+			<p>That URL is not on pixel-craft.dev.</p>
+			<p><a href="/">Back to Pixel-Craft</a></p>
+		</main>
+	</body>
+</html>
