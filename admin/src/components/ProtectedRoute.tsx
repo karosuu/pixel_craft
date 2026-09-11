@@ -1,5 +1,5 @@
-import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { LoginPage } from '../pages/LoginPage';
 import type { ReactNode } from 'react';
 
 export function ProtectedRoute({ children }: { children: ReactNode }) {
@@ -22,7 +22,7 @@ export function ProtectedRoute({ children }: { children: ReactNode }) {
 	}
 
 	if (!isAdmin) {
-		return <Navigate to="/login" replace />;
+		return <LoginPage />;
 	}
 
 	return children;
