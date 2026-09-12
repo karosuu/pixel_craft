@@ -2,8 +2,9 @@ import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { ActivityTimeline } from '../components/ActivityTimeline';
 import { ConfirmDialog } from '../components/ConfirmDialog';
-import { deleteProject } from '../lib/crm';
+import { deleteProject, promoteProjectNotes } from '../lib/crm';
 import {
+	formatDbError,
 	formatMoney,
 	paymentStatusLabels,
 	projectBalance,
@@ -75,6 +76,7 @@ export function ProjectFormPage() {
 	const [saving, setSaving] = useState(false);
 	const [confirmOpen, setConfirmOpen] = useState(false);
 	const [deleting, setDeleting] = useState(false);
+	const [timelineKey, setTimelineKey] = useState(0);
 	const paymentTouched = useRef(false);
 
 	useEffect(() => {
@@ -110,7 +112,7 @@ export function ProjectFormPage() {
 					title: project.title,
 					type: project.type,
 					status: project.status,
-					notes: project.notes ?? '',
+					notes: '',
 					due_date: project.due_date ?? '',
 					follow_up_at: project.follow_up_at ?? '',
 					quoted_amount: project.quoted_amount != null ? String(project.quoted_amount) : '',
@@ -118,6 +120,14 @@ export function ProjectFormPage() {
 					currency: project.currency ?? 'USD',
 					payment_status: project.payment_status ?? 'pendiente',
 				});
+				if (project.notes?.trim()) {
+					void promoteProjectNotes(project)
+						.then(() => setTimelineKey((value) => value + 1))
+						.catch((err: unknown) => {
+							setForm((current) => ({ ...current, notes: project.notes ?? '' }));
+							setError(err instanceof Error ? err.message : 'No se pudo pasar la nota al historial.');
+						});
+				}
 			});
 	}, [editing, id]);
 
@@ -151,12 +161,13 @@ export function ProjectFormPage() {
 
 		setSaving(true);
 		setError(null);
+		const noteBody = form.notes.trim();
 		const payload = {
 			client_id: form.client_id,
 			title: form.title.trim(),
 			type: form.type,
 			status: form.status,
-			notes: form.notes.trim() || null,
+			notes: noteBody || null,
 			due_date: form.due_date || null,
 			follow_up_at: form.follow_up_at || null,
 			quoted_amount: quoted,
@@ -166,11 +177,13 @@ export function ProjectFormPage() {
 			updated_at: new Date().toISOString(),
 		};
 
+		let projectId = editing && id ? id : null;
+
 		if (editing && id) {
 			const result = await supabase.from('projects').update(payload).eq('id', id);
 			if (result.error) {
 				setSaving(false);
-				setError(result.error.message);
+				setError(formatDbError(result.error.message));
 				return;
 			}
 			if (initialStatus && initialStatus !== form.status) {
@@ -182,10 +195,26 @@ export function ProjectFormPage() {
 				});
 			}
 		} else {
-			const result = await supabase.from('projects').insert(payload).select('id').single();
+			const result = await supabase.from('projects').insert(payload).select('id, client_id, notes, created_at, updated_at').single();
 			if (result.error) {
 				setSaving(false);
-				setError(result.error.message);
+				setError(formatDbError(result.error.message));
+				return;
+			}
+			projectId = (result.data as { id: string }).id;
+		}
+
+		if (noteBody && projectId) {
+			try {
+				await promoteProjectNotes({
+					id: projectId,
+					client_id: form.client_id,
+					notes: noteBody,
+					updated_at: payload.updated_at,
+				});
+			} catch (err) {
+				setSaving(false);
+				setError(err instanceof Error ? err.message : 'El proyecto se guardó, pero la nota no pasó al historial.');
 				return;
 			}
 		}
@@ -364,14 +393,18 @@ export function ProjectFormPage() {
 						</p>
 					)}
 					<label className="block text-sm font-medium">
-						Notas
+						Nueva nota
 						<textarea
 							className="field"
 							rows={4}
+							name="project_new_note"
+							autoComplete="off"
 							value={form.notes}
 							onChange={(event) => setForm({ ...form, notes: event.target.value })}
+							placeholder="Se registra en Actividad al guardar…"
 						/>
 					</label>
+					<p className="text-xs text-muted">Al guardar, la nota pasa al historial. Para cambiar una anterior, usa Editar en Actividad.</p>
 					{error && <p className="text-sm text-red-400">{error}</p>}
 					<div className="flex flex-wrap items-center gap-3">
 						<button type="submit" disabled={saving || deleting} className="glow-btn rounded-full px-5 py-3 text-sm font-semibold">
@@ -393,6 +426,7 @@ export function ProjectFormPage() {
 
 			{editing && id && form.client_id && (
 				<ActivityTimeline
+					key={timelineKey}
 					clientId={form.client_id}
 					projectId={id}
 					projects={[{ id, title: projectTitle || form.title }]}

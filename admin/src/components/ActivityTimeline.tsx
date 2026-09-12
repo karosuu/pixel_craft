@@ -1,9 +1,11 @@
 import { useEffect, useState, type FormEvent } from 'react';
+import { addActivity, updateActivity } from '../lib/crm';
 import { activityTypeLabels, formatDate } from '../lib/labels';
 import { supabase } from '../lib/supabase';
 import type { Activity, ActivityType } from '../lib/types';
 
 const QUICK_TYPES: ActivityType[] = ['note', 'call', 'whatsapp'];
+const EDITABLE_TYPES = new Set<ActivityType>(QUICK_TYPES);
 
 type ProjectOption = { id: string; title: string };
 
@@ -22,6 +24,9 @@ export function ActivityTimeline({
 	const [selectedProjectId, setSelectedProjectId] = useState(projectId ?? '');
 	const [error, setError] = useState<string | null>(null);
 	const [saving, setSaving] = useState(false);
+	const [editingId, setEditingId] = useState<string | null>(null);
+	const [editBody, setEditBody] = useState('');
+	const [editSaving, setEditSaving] = useState(false);
 
 	async function reload() {
 		if (!supabase) return;
@@ -42,22 +47,55 @@ export function ActivityTimeline({
 
 	async function onSubmit(event: FormEvent) {
 		event.preventDefault();
-		if (!supabase || !body.trim()) return;
+		if (!body.trim()) return;
 		setSaving(true);
 		setError(null);
-		const { error: saveError } = await supabase.from('activities').insert({
-			client_id: clientId,
-			project_id: selectedProjectId || projectId || null,
-			type,
-			body: body.trim(),
-		});
-		setSaving(false);
-		if (saveError) {
-			setError(saveError.message);
+		try {
+			await addActivity({
+				client_id: clientId,
+				project_id: selectedProjectId || projectId || null,
+				type,
+				body: body.trim(),
+			});
+			setBody('');
+			await reload();
+		} catch (err) {
+			setError(err instanceof Error ? err.message : 'No se pudo registrar la actividad.');
+		} finally {
+			setSaving(false);
+		}
+	}
+
+	function startEdit(item: Activity) {
+		setEditingId(item.id);
+		setEditBody(item.body);
+		setError(null);
+	}
+
+	function cancelEdit() {
+		if (editSaving) return;
+		setEditingId(null);
+		setEditBody('');
+	}
+
+	async function saveEdit(item: Activity) {
+		const next = editBody.trim();
+		if (!next) {
+			setError('La nota no puede quedar vacía.');
 			return;
 		}
-		setBody('');
-		await reload();
+		setEditSaving(true);
+		setError(null);
+		try {
+			await updateActivity(item.id, next);
+			setItems((current) => current.map((row) => (row.id === item.id ? { ...row, body: next } : row)));
+			setEditingId(null);
+			setEditBody('');
+		} catch (err) {
+			setError(err instanceof Error ? err.message : 'No se pudo guardar la nota.');
+		} finally {
+			setEditSaving(false);
+		}
 	}
 
 	return (
@@ -120,17 +158,66 @@ export function ActivityTimeline({
 
 			<ul className="mt-4 space-y-3">
 				{items.length === 0 && <li className="text-sm text-muted">Sin actividad todavía.</li>}
-				{items.map((item) => (
-					<li key={item.id} className="rounded-2xl border border-line bg-panel p-4">
-						<div className="flex flex-wrap items-center justify-between gap-2">
-							<span className="text-xs font-semibold uppercase tracking-wider text-cyan">
-								{activityTypeLabels[item.type]}
-							</span>
-							<span className="text-xs text-muted">{formatDate(item.created_at)}</span>
-						</div>
-						<p className="mt-2 whitespace-pre-wrap text-sm">{item.body}</p>
-					</li>
-				))}
+				{items.map((item) => {
+					const canEdit = EDITABLE_TYPES.has(item.type);
+					const editing = editingId === item.id;
+					const editLabel = item.type === 'note' ? 'Editar nota' : 'Editar';
+					return (
+						<li key={item.id} className="rounded-2xl border border-line bg-panel p-4">
+							<div className="flex flex-wrap items-center justify-between gap-2">
+								<span className="text-xs font-semibold uppercase tracking-wider text-cyan">
+									{activityTypeLabels[item.type]}
+								</span>
+								<div className="flex flex-wrap items-center gap-3">
+									<span className="text-xs text-muted">{formatDate(item.created_at)}</span>
+									{canEdit && !editing && (
+										<button
+											type="button"
+											className="text-[11px] leading-none text-cyan hover:underline"
+											onClick={() => startEdit(item)}
+										>
+											{editLabel}
+										</button>
+									)}
+								</div>
+							</div>
+							{editing ? (
+								<div className="mt-3 space-y-3">
+									<textarea
+										className="field mt-0"
+										rows={4}
+										autoFocus
+										value={editBody}
+										onChange={(event) => setEditBody(event.target.value)}
+										onKeyDown={(event) => {
+											if (event.key === 'Escape') cancelEdit();
+										}}
+									/>
+									<div className="flex flex-wrap gap-2">
+										<button
+											type="button"
+											disabled={editSaving}
+											className="glow-btn rounded-full px-4 py-2 text-sm font-semibold"
+											onClick={() => void saveEdit(item)}
+										>
+											{editSaving ? 'Guardando…' : 'Guardar'}
+										</button>
+										<button
+											type="button"
+											disabled={editSaving}
+											className="ghost-btn rounded-full px-4 py-2 text-sm font-medium"
+											onClick={cancelEdit}
+										>
+											Cancelar
+										</button>
+									</div>
+								</div>
+							) : (
+								<p className="mt-2 whitespace-pre-wrap text-sm">{item.body}</p>
+							)}
+						</li>
+					);
+				})}
 			</ul>
 		</section>
 	);

@@ -82,6 +82,19 @@ export function projectBalance(quoted: number | null | undefined, deposit: numbe
 	return quoted - (deposit ?? 0);
 }
 
+export function formatDbError(message: string) {
+	if (message.includes('projects_status_check')) {
+		return 'Ese estado de proyecto aún no está permitido en la base de datos. En Supabase → SQL Editor ejecuta admin/supabase/project-status-cancelacion-pendiente.sql y vuelve a guardar.';
+	}
+	if (message.includes('projects_payment_status_check')) {
+		return 'Ese estado de pago no está permitido en la base de datos. Ejecuta admin/supabase/crm-ops.sql en el SQL Editor.';
+	}
+	if (message.includes('projects_type_check')) {
+		return 'Ese tipo de proyecto no está permitido en la base de datos.';
+	}
+	return message;
+}
+
 export function suggestPaymentStatus(quoted: number | null, deposit: number): PaymentStatus {
 	if (quoted == null || quoted <= 0 || deposit <= 0) return 'pendiente';
 	if (deposit >= quoted) return 'pagado';

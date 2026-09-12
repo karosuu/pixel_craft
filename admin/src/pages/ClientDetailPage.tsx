@@ -4,7 +4,7 @@ import { ActivityTimeline } from '../components/ActivityTimeline';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { EmailComposer } from '../components/EmailComposer';
 import { PaymentBadge, StatusBadge } from '../components/StatusBadge';
-import { deleteClient, deleteProject } from '../lib/crm';
+import { deleteClient, deleteProject, promoteProjectNotes } from '../lib/crm';
 import { sanitizeEmailHtml } from '../lib/emailHtml';
 import {
 	emailStatusLabels,
@@ -45,8 +45,18 @@ export function ClientDetailPage() {
 			setError(firstError.message);
 			return;
 		}
+		const nextProjects = (projectRes.data ?? []) as Project[];
+		for (const project of nextProjects) {
+			if (!project.notes?.trim()) continue;
+			try {
+				await promoteProjectNotes(project);
+				project.notes = null;
+			} catch (err) {
+				setError(err instanceof Error ? err.message : 'No se pudo pasar una nota al historial.');
+			}
+		}
 		setClient(clientRes.data as Client);
-		setProjects((projectRes.data ?? []) as Project[]);
+		setProjects(nextProjects);
 		setEmails((emailRes.data ?? []) as EmailRow[]);
 		setTimelineKey((value) => value + 1);
 	}
