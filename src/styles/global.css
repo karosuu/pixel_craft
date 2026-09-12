@@ -137,13 +137,13 @@ html.light .lift-card:hover {
 }
 
 /*
-  Light mode cards: semi-transparent black panels (local tokens so text-* utilities flip).
+  Light mode cards: solid black panels (local tokens so text-* utilities flip).
 */
 html.light .lift-card,
 html.light .border-beam-fill,
 html.light .bg-panel {
-	--color-page-soft: rgb(10 11 18 / 0.72);
-	--color-panel: rgb(18 19 28 / 0.72);
+	--color-page-soft: #05050a;
+	--color-panel: #05050a;
 	--color-fg: #ffffff;
 	--color-muted: rgb(255 255 255 / 0.75);
 	--color-line: rgb(255 255 255 / 0.14);
@@ -153,30 +153,29 @@ html.light .bg-panel {
 
 html.light .lift-card,
 html.light .bg-panel {
-	background-color: rgb(12 13 22 / 0.7);
+	background-color: #05050a;
 	border-color: rgb(255 255 255 / 0.12);
-	backdrop-filter: blur(14px);
-	-webkit-backdrop-filter: blur(14px);
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
 	box-shadow:
-		0 12px 32px rgb(5 5 10 / 0.14),
+		0 12px 32px rgb(5 5 10 / 0.18),
 		0 0 0 1px rgb(255 255 255 / 0.06);
 }
 
-/* Process QA step: always pop with solid cyan + glow. */
+/* Process QA step: subtle cyan edge on dark; stronger on light. */
 .process-step-qa {
-	border-color: #00f2ff !important;
+	border-color: rgb(0 242 255 / 0.45) !important;
 	box-shadow:
-		0 0 0 1px rgb(0 242 255 / 0.35),
-		0 0 28px rgb(0 242 255 / 0.35),
-		0 12px 32px rgb(0 0 0 / 0.25);
+		0 0 0 1px rgb(0 242 255 / 0.2),
+		0 0 20px rgb(0 242 255 / 0.45);
 }
 
 .process-step-qa:hover {
-	border-color: #00f2ff !important;
+	border-color: rgb(0 242 255 / 0.55) !important;
 	box-shadow:
-		0 0 0 1px rgb(0 242 255 / 0.45),
-		0 0 36px rgb(0 242 255 / 0.45),
-		0 18px 44px rgb(0 0 0 / 0.35);
+		0 0 0 1px rgb(0 242 255 / 0.28),
+		0 0 26px rgb(0 242 255 / 0.5),
+		0 16px 40px rgb(0 0 0 / 0.35);
 }
 
 html.light .lift-card.process-step-qa {
@@ -281,9 +280,9 @@ html.light .border-beam {
 }
 
 html.light .border-beam-fill {
-	background-color: rgb(12 13 22 / 0.92);
-	backdrop-filter: blur(14px);
-	-webkit-backdrop-filter: blur(14px);
+	background-color: #05050a;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
 }
 
 @keyframes beam-spin {
