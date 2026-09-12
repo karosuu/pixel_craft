@@ -64,24 +64,33 @@ const servicesHref = hrefFor(locale, 'services');
 </section>
 
 <section class="reveal mx-auto max-w-6xl px-4 py-10 sm:px-6">
-	<h2 class="text-2xl font-semibold tracking-tight">{copy.services.includedHeading}</h2>
-	<ul class="mt-6 max-w-2xl list-disc space-y-2 pl-5 text-muted">
-		{item.included.map((entry) => <li>{entry}</li>)}
-	</ul>
-</section>
-
-<section class="reveal mx-auto max-w-6xl px-4 py-10 sm:px-6">
-	<h2 class="text-2xl font-semibold tracking-tight">{copy.services.youGetHeading}</h2>
-	<p class="mt-3 text-muted">{copy.services.youGetIntro}</p>
-	<ul class="mt-6 max-w-2xl list-disc space-y-2 pl-5 text-muted">
-		{item.youGet.map((entry) => <li>{entry}</li>)}
-	</ul>
+	<div class="grid gap-6 md:grid-cols-2">
+		<article class="lift-card rounded-2xl border border-line bg-panel p-6 sm:p-8">
+			<h2 class="text-2xl font-semibold tracking-tight">{copy.services.includedHeading}</h2>
+			<ul class="mt-6 list-disc space-y-2 pl-5 text-muted">
+				{item.included.map((entry) => <li>{entry}</li>)}
+			</ul>
+		</article>
+		<article class="lift-card rounded-2xl border border-line bg-panel p-6 sm:p-8">
+			<h2 class="text-2xl font-semibold tracking-tight">{copy.services.youGetHeading}</h2>
+			<p class="mt-3 text-muted">{copy.services.youGetIntro}</p>
+			<ul class="mt-6 list-disc space-y-2 pl-5 text-muted">
+				{item.youGet.map((entry) => <li>{entry}</li>)}
+			</ul>
+		</article>
+	</div>
 </section>
 
 <section class="reveal mx-auto max-w-6xl px-4 py-10 sm:px-6">
 	<h2 class="text-2xl font-semibold tracking-tight">{copy.services.forYouHeading}</h2>
-	<ul class="mt-6 max-w-2xl list-disc space-y-2 pl-5 text-muted">
-		{item.forYou.map((entry) => <li>{entry}</li>)}
+	<ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+		{
+			item.forYou.map((entry) => (
+				<li class="lift-card rounded-2xl border border-line bg-panel p-5 text-muted">
+					{entry}
+				</li>
+			))
+		}
 	</ul>
 </section>
 
