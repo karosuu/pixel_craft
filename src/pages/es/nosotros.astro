@@ -12,15 +12,15 @@ const body = paragraphs.slice(0, -1);
 
 <BaseLayout locale={locale} page="about" title={copy.meta.aboutTitle} description={copy.meta.aboutDescription}>
 	<section class="reveal mx-auto max-w-6xl px-4 py-16 text-left sm:px-6">
-		<div class="max-w-2xl">
-			<h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{copy.about.title}</h1>
+		<div class="max-w-2xl text-justify">
+			<h1 class="text-left text-3xl font-bold tracking-tight sm:text-4xl">{copy.about.title}</h1>
 			<p class="mt-6 text-lg leading-relaxed text-fg sm:text-xl">{copy.about.lede}</p>
 			<div class="mt-8 space-y-5 text-base leading-relaxed text-muted sm:text-lg">
 				{body.map((paragraph) => <p>{paragraph}</p>)}
 			</div>
 			{
 				closing && (
-					<p class="mt-10 border-t border-line pt-8 text-lg font-medium leading-relaxed text-fg">
+					<p class="mt-10 border-t border-line pt-8 text-left text-lg font-medium leading-relaxed text-fg">
 						{closing}
 					</p>
 				)
