@@ -25,7 +25,7 @@ const gridClass =
 	<div class="flex flex-wrap items-end justify-between gap-4">
 		<div>
 			<Heading class="text-2xl font-semibold tracking-tight sm:text-3xl">{copy.work.title}</Heading>
-			<p class="mt-3 max-w-2xl text-white/75">{copy.work.intro}</p>
+			<p class="mt-3 max-w-2xl text-muted">{copy.work.intro}</p>
 		</div>
 		{
 			showLink && (
@@ -38,21 +38,21 @@ const gridClass =
 	<div class={gridClass}>
 		{
 			cases.length === 0 ? (
-				<div class="max-w-xl rounded-2xl border border-dashed border-white/20 bg-panel/60 p-5">
+				<div class="max-w-xl rounded-2xl border border-dashed border-line bg-panel/60 p-5">
 					<p class="text-xs font-semibold uppercase tracking-widest text-cyan">
 						{copy.work.comingSoonTitle}
 					</p>
-					<p class="mt-2 text-sm text-white/75">{copy.work.comingSoonBody}</p>
+					<p class="mt-2 text-sm text-muted">{copy.work.comingSoonBody}</p>
 				</div>
 			) : (
 				cases.map((item) => {
 					const inner = (
 						<>
-							<p class="text-xs font-semibold uppercase tracking-widest text-white/70">
+							<p class="text-xs font-semibold uppercase tracking-widest text-muted">
 								{item.tag === 'local' ? copy.audiences.localTitle : copy.audiences.startupTitle}
 							</p>
 							<h3 class="mt-3 text-lg font-semibold">{item.title}</h3>
-							<p class="mt-3 text-sm text-white/75">{item.summary}</p>
+							<p class="mt-3 text-sm text-muted">{item.summary}</p>
 							<p class="mt-4 text-sm font-medium text-magenta">{item.result}</p>
 							{item.url && (
 								<span class="mt-4 inline-flex text-sm font-medium text-cyan">{copy.work.visitSite}</span>
@@ -61,7 +61,7 @@ const gridClass =
 					);
 					return item.url ? (
 						<a
-							class="lift-card block rounded-2xl border border-white/10 bg-panel p-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan"
+							class="lift-card block rounded-2xl border border-line bg-panel p-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan"
 							href={item.url}
 							target="_blank"
 							rel="noopener noreferrer"
@@ -69,7 +69,7 @@ const gridClass =
 							{inner}
 						</a>
 					) : (
-						<article class="lift-card rounded-2xl border border-white/10 bg-panel p-6">{inner}</article>
+						<article class="lift-card rounded-2xl border border-line bg-panel p-6">{inner}</article>
 					);
 				})
 			)

@@ -10,32 +10,32 @@ const { locale } = Astro.props;
 const copy = t(locale);
 ---
 
-<section class="relative overflow-hidden pixel-grid">
+<section class="hero relative overflow-hidden pixel-grid">
 	<div class="pointer-events-none absolute -left-24 top-10 h-64 w-64 rounded-full bg-cyan/10 blur-3xl"></div>
 	<div class="pointer-events-none absolute right-0 top-24 h-72 w-72 rounded-full bg-magenta/10 blur-3xl"></div>
 	<div
 		class="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:py-28"
 	>
 		<div>
-			<p class="text-xs font-semibold uppercase tracking-[0.2em] text-cyan">{copy.hero.eyebrow}</p>
-			<h1 class="mt-4 text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+			<p class="hero-eyebrow text-xs font-semibold uppercase tracking-[0.2em] text-cyan">{copy.hero.eyebrow}</p>
+			<h1 class="hero-title mt-4 text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
 				{copy.hero.titleBefore}
 				{' '}
 				<span class="gradient-text">{copy.hero.titleAccent}</span>
 				{' '}
 				{copy.hero.titleAfter}
 			</h1>
-			<p class="mt-6 max-w-xl text-lg text-white/75">{copy.hero.body}</p>
+			<p class="hero-body mt-6 max-w-xl text-lg text-muted">{copy.hero.body}</p>
 			<div class="mt-8 flex flex-wrap gap-3">
 				<a
 					href={hrefFor(locale, 'contact')}
-					class="glow-btn rounded-full bg-gradient-to-r from-cyan via-magenta to-orange px-5 py-3 text-sm font-semibold text-ink"
+					class="glow-btn rounded-full px-5 py-3 text-sm font-semibold text-ink"
 				>
 					{copy.common.ctaPrimary}
 				</a>
 				<a
 					href={hrefFor(locale, 'work')}
-					class="btn-quiet rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white hover:border-white/40"
+					class="hero-secondary btn-quiet rounded-full border border-line px-5 py-3 text-sm font-semibold text-fg hover:border-fg/40"
 				>
 					{copy.common.ctaSecondary}
 				</a>
