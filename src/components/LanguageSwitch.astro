@@ -14,25 +14,25 @@ const copy = t(locale);
 const href = switchLocalePath(locale, page, service);
 ---
 
-<div class="inline-flex items-center rounded-full border border-white/15 p-0.5 text-xs font-semibold">
+<div class="inline-flex items-center rounded-full border border-line p-0.5 text-xs font-semibold">
 	{
 		locale === 'en' ? (
-			<span class="rounded-full bg-white/10 px-2.5 py-1 text-white" aria-current="true">
+			<span class="rounded-full bg-page-soft px-2.5 py-1 text-fg" aria-current="true">
 				{copy.language.en}
 			</span>
 		) : (
-			<a class="px-2.5 py-1 text-white/70 hover:text-white" href={href} lang="en" hreflang="en">
+			<a class="px-2.5 py-1 text-muted hover:text-fg" href={href} lang="en" hreflang="en">
 				{copy.language.en}
 			</a>
 		)
 	}
 	{
 		locale === 'es' ? (
-			<span class="rounded-full bg-white/10 px-2.5 py-1 text-white" aria-current="true">
+			<span class="rounded-full bg-page-soft px-2.5 py-1 text-fg" aria-current="true">
 				{copy.language.es}
 			</span>
 		) : (
-			<a class="px-2.5 py-1 text-white/70 hover:text-white" href={href} lang="es" hreflang="es">
+			<a class="px-2.5 py-1 text-muted hover:text-fg" href={href} lang="es" hreflang="es">
 				{copy.language.es}
 			</a>
 		)

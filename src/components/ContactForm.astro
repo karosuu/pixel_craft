@@ -17,7 +17,7 @@ nextUrl.searchParams.set('sent', '1');
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL ?? '';
 const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? '';
 const fieldClass =
-	'mt-2 w-full rounded-lg border border-white/15 bg-ink-soft px-3 py-2 text-white outline-none focus:border-cyan';
+	'mt-2 w-full rounded-lg border border-line bg-page-soft px-3 py-2 text-fg outline-none focus:border-cyan';
 const formCopy = {
 	contextual: copy.contact.contextual,
 	needOptions: copy.contact.needOptions,
@@ -27,7 +27,7 @@ const formCopy = {
 
 <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
 	<h1 id="contact-heading" class="text-3xl font-bold tracking-tight sm:text-4xl">{copy.contact.title}</h1>
-	<p id="contact-intro" class="mt-4 text-white/75">{copy.contact.intro}</p>
+	<p id="contact-intro" class="mt-4 text-muted">{copy.contact.intro}</p>
 
 	<form
 		id="contact-form"
@@ -87,7 +87,7 @@ const formCopy = {
 		</label>
 		<label class="block text-sm font-medium">
 			{copy.contact.website}
-			<span id="website-hint" class="font-normal text-white/70"> — {copy.contact.websiteHint}</span>
+			<span id="website-hint" class="font-normal text-muted"> — {copy.contact.websiteHint}</span>
 			<input
 				id="website-input"
 				name="website"
@@ -115,14 +115,14 @@ const formCopy = {
 			</label>
 			<p id="audience-error" class="mt-1 text-sm text-red-400" data-error-for="audience" hidden></p>
 		</div>
-		<p id="contact-status" class="text-sm text-white/70" role="status" aria-live="polite" hidden></p>
+		<p id="contact-status" class="text-sm text-muted" role="status" aria-live="polite" hidden></p>
 		<button
 			type="submit"
-			class="glow-btn rounded-full bg-gradient-to-r from-cyan via-magenta to-orange px-6 py-3 text-sm font-semibold text-ink disabled:cursor-not-allowed disabled:opacity-60"
+			class="glow-btn rounded-full px-6 py-3 text-sm font-semibold text-ink disabled:cursor-not-allowed disabled:opacity-60"
 		>
 			{copy.contact.submit}
 		</button>
-		<p class="text-sm text-white/70">{copy.contact.mailtoNote}</p>
+		<p class="text-sm text-muted">{copy.contact.mailtoNote}</p>
 	</form>
 </section>
 
@@ -135,7 +135,7 @@ const formCopy = {
 		status.hidden = message.length === 0;
 		status.textContent = message;
 		status.className =
-			kind === 'success' ? 'text-sm text-cyan' : kind === 'error' ? 'text-sm text-red-400' : 'text-sm text-white/70';
+			kind === 'success' ? 'text-sm text-cyan' : kind === 'error' ? 'text-sm text-red-400' : 'text-sm text-muted';
 	}
 
 	type FormCopy = {
@@ -299,7 +299,7 @@ const formCopy = {
 			box.className = 'block text-sm font-medium';
 			box.append(parsed.contextual.serviceLabel);
 			const value = document.createElement('p');
-			value.className = 'mt-2 rounded-lg border border-white/15 bg-ink-soft px-3 py-2 text-white';
+			value.className = 'mt-2 rounded-lg border border-line bg-page-soft px-3 py-2 text-fg';
 			value.textContent = label;
 			const hidden = document.createElement('input');
 			hidden.type = 'hidden';

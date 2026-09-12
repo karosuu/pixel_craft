@@ -1,0 +1,87 @@
+---
+import type { Locale } from '../i18n/config';
+import { t } from '../i18n/copy';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = t(locale);
+---
+
+<button
+	type="button"
+	class="theme-toggle inline-flex items-center justify-center rounded-lg border border-line p-2 text-muted transition hover:bg-page-soft hover:text-fg"
+	aria-label={copy.common.themeToLight}
+	data-label-light={copy.common.themeToLight}
+	data-label-dark={copy.common.themeToDark}
+	title={copy.common.themeToLight}
+>
+	<svg
+		data-icon="sun"
+		viewBox="0 0 24 24"
+		class="h-4 w-4"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2"
+		aria-hidden="true"
+	>
+		<circle cx="12" cy="12" r="4"></circle>
+		<path
+			d="M12 3v1.5M12 19.5V21M4.2 4.2l1.1 1.1M18.7 18.7l1.1 1.1M3 12h1.5M19.5 12H21M4.2 19.8l1.1-1.1M18.7 5.3l1.1-1.1"
+		></path>
+	</svg>
+	<svg
+		data-icon="moon"
+		viewBox="0 0 24 24"
+		class="hidden h-4 w-4"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2"
+		aria-hidden="true"
+	>
+		<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 7 7 0 1 0 20 14.5Z"></path>
+	</svg>
+</button>
+
+<script>
+	const STORAGE_KEY = 'pc-theme';
+
+	function currentTheme(): 'light' | 'dark' {
+		return document.documentElement.classList.contains('light') ? 'light' : 'dark';
+	}
+
+	function applyTheme(theme: 'light' | 'dark') {
+		document.documentElement.classList.toggle('light', theme === 'light');
+		document.documentElement.style.colorScheme = theme;
+		try {
+			localStorage.setItem(STORAGE_KEY, theme);
+		} catch {
+			/* ignore */
+		}
+		syncToggle(theme);
+	}
+
+	function syncToggle(theme: 'light' | 'dark') {
+		document.querySelectorAll<HTMLButtonElement>('.theme-toggle').forEach((btn) => {
+			const toLight = btn.dataset.labelLight ?? 'Light';
+			const toDark = btn.dataset.labelDark ?? 'Dark';
+			const label = theme === 'light' ? toDark : toLight;
+			btn.setAttribute('aria-label', label);
+			btn.title = label;
+			const sun = btn.querySelector('[data-icon="sun"]');
+			const moon = btn.querySelector('[data-icon="moon"]');
+			sun?.classList.toggle('hidden', theme === 'light');
+			moon?.classList.toggle('hidden', theme !== 'light');
+		});
+	}
+
+	document.querySelectorAll<HTMLButtonElement>('.theme-toggle').forEach((btn) => {
+		btn.addEventListener('click', () => {
+			applyTheme(currentTheme() === 'light' ? 'dark' : 'light');
+		});
+	});
+
+	syncToggle(currentTheme());
+</script>

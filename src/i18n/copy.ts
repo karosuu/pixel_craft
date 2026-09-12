@@ -43,6 +43,8 @@ export const dictionaries = {
 			closeMenu: 'Close menu',
 			primaryNav: 'Primary',
 			breadcrumb: 'Breadcrumb',
+			themeToLight: 'Light mode',
+			themeToDark: 'Dark mode',
 		},
 		hero: {
 			eyebrow: 'Design + build + performance + QA',
@@ -469,6 +471,8 @@ export const dictionaries = {
 			closeMenu: 'Cerrar menú',
 			primaryNav: 'Principal',
 			breadcrumb: 'Ruta de navegación',
+			themeToLight: 'Modo claro',
+			themeToDark: 'Modo oscuro',
 		},
 		hero: {
 			eyebrow: 'Diseño + desarrollo + rendimiento + QA',
