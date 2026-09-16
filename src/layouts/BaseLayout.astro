@@ -6,6 +6,7 @@ import {
 	BRAND,
 	CONTACT_EMAIL,
 	GOOGLE_SITE_VERIFICATION,
+	INSTAGRAM_URL,
 	hrefFor,
 	hrefForService,
 	withBase,
@@ -45,6 +46,7 @@ const jsonLd = {
 			url: siteOrigin,
 			logo: icon192,
 			email: CONTACT_EMAIL,
+			sameAs: [INSTAGRAM_URL],
 		},
 		{
 			'@type': 'WebSite',

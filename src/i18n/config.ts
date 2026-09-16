@@ -1,5 +1,7 @@
 export const BRAND = 'Pixel-Craft';
 export const CONTACT_EMAIL = 'info@pixel-craft.dev';
+export const INSTAGRAM_URL = 'https://www.instagram.com/pixel.craftdev/';
+export const INSTAGRAM_HANDLE = '@pixel.craftdev';
 
 /** HTML-tag token from Google Search Console. Visible in page source. */
 export const GOOGLE_SITE_VERIFICATION = '';

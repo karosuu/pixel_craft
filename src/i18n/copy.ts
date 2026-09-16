@@ -431,6 +431,7 @@ export const dictionaries = {
 			tagline: 'Websites, design, optimization, and QA.',
 			rights: 'All rights reserved.',
 			nav: 'Footer',
+			instagram: 'Pixel-Craft on Instagram',
 		},
 	},
 	es: {
@@ -861,6 +862,7 @@ export const dictionaries = {
 			tagline: 'Sitios web, diseño, optimización y QA.',
 			rights: 'Todos los derechos reservados.',
 			nav: 'Pie de página',
+			instagram: 'Pixel-Craft en Instagram',
 		},
 	},
 };
