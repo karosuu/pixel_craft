@@ -1,5 +1,5 @@
 ---
-import { BRAND, hrefFor, navPageIds, type Locale } from '../i18n/config';
+import { BRAND, INSTAGRAM_HANDLE, INSTAGRAM_URL, hrefFor, navPageIds, type Locale } from '../i18n/config';
 import { t } from '../i18n/copy';
 
 interface Props {
@@ -17,6 +17,31 @@ const links = navPageIds;
 		<div>
 			<p class="text-lg font-semibold italic">{BRAND}</p>
 			<p class="mt-2 max-w-xs text-sm text-muted">{copy.footer.tagline}</p>
+			<a
+				href={INSTAGRAM_URL}
+				class="mt-4 inline-flex items-center gap-2 text-sm text-muted hover:text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan"
+				target="_blank"
+				rel="noopener noreferrer"
+				aria-label={copy.footer.instagram}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="18"
+					height="18"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.8"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<rect x="2" y="2" width="20" height="20" rx="5"></rect>
+					<circle cx="12" cy="12" r="4"></circle>
+					<circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle>
+				</svg>
+				<span>{INSTAGRAM_HANDLE}</span>
+			</a>
 		</div>
 		<nav class="flex flex-col gap-2 text-sm" aria-label={copy.footer.nav}>
 			{
