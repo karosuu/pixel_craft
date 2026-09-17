@@ -41,9 +41,9 @@ Private panel (not on `main` yet): work on branch `feat/admin-crm` and see [`adm
 
 ## Contact form
 
-With `PUBLIC_SUPABASE_URL` and `PUBLIC_SUPABASE_ANON_KEY` set (see [`.env.example`](.env.example)), the contact form POSTs to the Supabase Edge Function `capture-lead`, which creates a CRM client + `presupuesto` project and emails `info@pixel-craft.dev` via Resend.
+With `PUBLIC_SUPABASE_URL` and `PUBLIC_SUPABASE_ANON_KEY` set (see [`.env.example`](.env.example)), the contact form POSTs to the Supabase Edge Function `capture-lead`, which creates a CRM client + `presupuesto` project and emails `info@pixel-craft.dev` via Resend. GitHub Pages deploy reuses `VITE_SUPABASE_*` if the `PUBLIC_*` secrets are empty.
 
-If those env vars are missing, the form falls back to [FormSubmit](https://formsubmit.co) → `CONTACT_EMAIL` in `src/i18n/config.ts`.
+If those env vars are missing, the form falls back to [FormSubmit](https://formsubmit.co) → `CONTACT_EMAIL` in `src/i18n/config.ts`. The same fallback runs if `capture-lead` fails, so the inbox still gets the brief.
 
 ## Deploy
 
