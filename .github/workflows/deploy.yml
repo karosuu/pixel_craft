@@ -24,22 +24,15 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Build site
-        env:
-          PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
-          PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
-        run: npm run build
-      - name: Build admin CRM
-        working-directory: admin
+      - name: Resolve Supabase env
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
           PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
         run: |
-          npm ci
-          URL="${VITE_SUPABASE_URL:-$PUBLIC_SUPABASE_URL}"
-          KEY="${VITE_SUPABASE_ANON_KEY:-$PUBLIC_SUPABASE_ANON_KEY}"
+          URL="${PUBLIC_SUPABASE_URL:-$VITE_SUPABASE_URL}"
+          KEY="${PUBLIC_SUPABASE_ANON_KEY:-$VITE_SUPABASE_ANON_KEY}"
           URL="$(printf '%s' "$URL" | tr -d '\r\n' | sed 's/^["[:space:]]*//;s/["[:space:]]*$//')"
           KEY="$(printf '%s' "$KEY" | tr -d '\r\n' | sed 's/^["[:space:]]*//;s/["[:space:]]*$//')"
           if [[ "$URL" == eyJ* && "$KEY" == https://* ]]; then
@@ -57,7 +50,19 @@ jobs:
             echo "Missing or invalid Supabase secrets (need VITE_SUPABASE_* or PUBLIC_SUPABASE_*)" >&2
             exit 1
           fi
-          printf 'VITE_SUPABASE_URL=%s\nVITE_SUPABASE_ANON_KEY=%s\n' "$URL" "$KEY" > .env.production
+          {
+            echo "PUBLIC_SUPABASE_URL=$URL"
+            echo "PUBLIC_SUPABASE_ANON_KEY=$KEY"
+            echo "VITE_SUPABASE_URL=$URL"
+            echo "VITE_SUPABASE_ANON_KEY=$KEY"
+          } >> "$GITHUB_ENV"
+      - name: Build site
+        run: npm run build
+      - name: Build admin CRM
+        working-directory: admin
+        run: |
+          npm ci
+          printf 'VITE_SUPABASE_URL=%s\nVITE_SUPABASE_ANON_KEY=%s\n' "$VITE_SUPABASE_URL" "$VITE_SUPABASE_ANON_KEY" > .env.production
           npm run build
       - name: Copy admin into site
         run: node scripts/copy-admin.mjs

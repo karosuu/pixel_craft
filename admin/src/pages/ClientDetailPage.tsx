@@ -4,6 +4,7 @@ import { ActivityTimeline } from '../components/ActivityTimeline';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { EmailComposer } from '../components/EmailComposer';
 import { PaymentBadge, StatusBadge } from '../components/StatusBadge';
+import { useLeadNotifications } from '../context/LeadNotificationContext';
 import { deleteClient, deleteProject, promoteProjectNotes } from '../lib/crm';
 import { sanitizeEmailHtml } from '../lib/emailHtml';
 import {
@@ -25,6 +26,7 @@ type PendingDelete =
 export function ClientDetailPage() {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const { markClientLeadsSeen } = useLeadNotifications();
 	const [client, setClient] = useState<Client | null>(null);
 	const [projects, setProjects] = useState<Project[]>([]);
 	const [emails, setEmails] = useState<EmailRow[]>([]);
@@ -64,6 +66,10 @@ export function ClientDetailPage() {
 	useEffect(() => {
 		void reload();
 	}, [id]);
+
+	useEffect(() => {
+		if (id) markClientLeadsSeen(id);
+	}, [id, markClientLeadsSeen]);
 
 	async function confirmDelete() {
 		if (!pendingDelete || !client) return;

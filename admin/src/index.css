@@ -236,3 +236,40 @@ html.light .danger-btn {
 .email-html p + p {
 	margin-top: 0.5rem;
 }
+
+@keyframes lead-bell-ring {
+	0%,
+	100% {
+		transform: rotate(0deg);
+	}
+	20% {
+		transform: rotate(12deg);
+	}
+	40% {
+		transform: rotate(-10deg);
+	}
+	60% {
+		transform: rotate(6deg);
+	}
+	80% {
+		transform: rotate(-4deg);
+	}
+}
+
+.lead-bell-ring {
+	animation: lead-bell-ring 0.7s ease;
+}
+
+@keyframes lead-badge-pulse {
+	0%,
+	100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.12);
+	}
+}
+
+.lead-badge {
+	animation: lead-badge-pulse 1.6s ease-in-out infinite;
+}

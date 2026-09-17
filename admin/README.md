@@ -22,15 +22,16 @@ Abre `http://localhost:5173`. Hasta que existan las keys de Supabase verás la p
 1. Crea un proyecto en [Supabase](https://supabase.com).
 2. SQL Editor → pega y ejecuta [`supabase/schema.sql`](supabase/schema.sql).
 3. Si el proyecto ya existía antes de fechas/dinero/actividades, ejecuta también [`supabase/crm-ops.sql`](supabase/crm-ops.sql).
-4. Authentication → Users → Add user (correo y contraseña del administrador).
-5. En SQL Editor:
+4. Para que el icono de formularios se actualice al instante (sin esperar el poll), ejecuta [`supabase/realtime-projects.sql`](supabase/realtime-projects.sql).
+5. Authentication → Users → Add user (correo y contraseña del administrador).
+6. En SQL Editor:
 
 ```sql
 insert into public.admins (user_id, email)
 select id, email from auth.users where email = 'TU_CORREO';
 ```
 
-6. Project Settings → API: copia **Project URL** y **anon public** a `admin/.env`:
+7. Project Settings → API: copia **Project URL** y **anon public** a `admin/.env`:
 
 ```
 VITE_SUPABASE_URL=https://xxxx.supabase.co
@@ -82,9 +83,9 @@ PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
 PUBLIC_SUPABASE_ANON_KEY=eyJ...
 ```
 
-Copia desde [`.env.example`](../.env.example). Si faltan, el contacto sigue usando FormSubmit.
+Copia desde [`.env.example`](../.env.example). En GitHub Actions, si `PUBLIC_SUPABASE_*` no están, el deploy reutiliza `VITE_SUPABASE_*` (las mismas del admin). Si en el build siguen vacías, el contacto usa FormSubmit y el lead no entra al CRM.
 
-En GitHub → Settings → Secrets and variables → Actions, agrega los mismos nombres para el deploy de Pages.
+En GitHub → Settings → Secrets and variables → Actions, agrega `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`. `PUBLIC_SUPABASE_*` es opcional si esas dos ya existen.
 
 ## 5. Publicar en GitHub Pages
 
@@ -94,10 +95,10 @@ Secrets del repo (Settings → Secrets and variables → Actions):
 
 | Secret | Uso |
 | --- | --- |
-| `PUBLIC_SUPABASE_URL` | Formulario de contacto (Astro) |
-| `PUBLIC_SUPABASE_ANON_KEY` | Formulario de contacto (Astro) |
-| `VITE_SUPABASE_URL` | Build del admin (mismo Project URL) |
-| `VITE_SUPABASE_ANON_KEY` | Build del admin (mismo anon public) |
+| `VITE_SUPABASE_URL` | Build del admin y, si faltan las `PUBLIC_*`, también el formulario de contacto |
+| `VITE_SUPABASE_ANON_KEY` | Misma anon key del proyecto |
+| `PUBLIC_SUPABASE_URL` | Opcional; si está vacía, el deploy usa `VITE_SUPABASE_URL` |
+| `PUBLIC_SUPABASE_ANON_KEY` | Opcional; si está vacía, el deploy usa `VITE_SUPABASE_ANON_KEY` |
 
 `public/404.html` reenvía `/admin/*` al SPA (GitHub Pages no usa `.htaccess`). El `robots.txt` del sitio bloquea `/admin`.
 

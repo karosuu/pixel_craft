@@ -383,44 +383,57 @@ const formCopy = {
 			const formData = new FormData(form);
 			const payload = Object.fromEntries(formData.entries());
 
+			async function submitToCrm() {
+				const response = await fetch(`${supabaseUrl.replace(/\/$/, '')}/functions/v1/capture-lead`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Accept: 'application/json',
+						apikey: supabaseAnon,
+					},
+					body: JSON.stringify({
+						name: String(payload.name ?? ''),
+						email: String(payload.email ?? ''),
+						website: String(payload.website ?? ''),
+						message: String(payload.message ?? ''),
+						need: String(payload.need ?? ''),
+						audience: String(payload.audience ?? ''),
+						language: String(payload.language ?? ''),
+						_honey: String(payload._honey ?? ''),
+					}),
+				});
+				const result = (await response.json()) as { ok?: boolean; error?: string };
+				if (!response.ok || !result.ok) {
+					throw new Error(result.error ?? 'capture-lead failed');
+				}
+			}
+
+			async function submitToInbox() {
+				const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(inbox)}`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Accept: 'application/json',
+					},
+					body: JSON.stringify(payload),
+				});
+				const result = (await response.json()) as { success?: boolean | string };
+				const ok = result.success === true || result.success === 'true';
+				if (!response.ok || !ok) {
+					throw new Error('FormSubmit rejected the request');
+				}
+			}
+
 			try {
 				if (supabaseUrl && supabaseAnon) {
-					const response = await fetch(`${supabaseUrl.replace(/\/$/, '')}/functions/v1/capture-lead`, {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-							Accept: 'application/json',
-							apikey: supabaseAnon,
-						},
-						body: JSON.stringify({
-							name: String(payload.name ?? ''),
-							email: String(payload.email ?? ''),
-							website: String(payload.website ?? ''),
-							message: String(payload.message ?? ''),
-							need: String(payload.need ?? ''),
-							audience: String(payload.audience ?? ''),
-							language: String(payload.language ?? ''),
-							_honey: String(payload._honey ?? ''),
-						}),
-					});
-					const result = (await response.json()) as { ok?: boolean; error?: string };
-					if (!response.ok || !result.ok) {
-						throw new Error(result.error ?? 'capture-lead failed');
+					try {
+						await submitToCrm();
+					} catch (crmError) {
+						console.warn('capture-lead failed; falling back to FormSubmit', crmError);
+						await submitToInbox();
 					}
 				} else {
-					const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(inbox)}`, {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-							Accept: 'application/json',
-						},
-						body: JSON.stringify(payload),
-					});
-					const result = (await response.json()) as { success?: boolean | string };
-					const ok = result.success === true || result.success === 'true';
-					if (!response.ok || !ok) {
-						throw new Error('FormSubmit rejected the request');
-					}
+					await submitToInbox();
 				}
 
 				form.reset();
